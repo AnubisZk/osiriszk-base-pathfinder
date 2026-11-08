@@ -295,7 +295,7 @@ function paneDesign(p){
 function currentPlan(){const e=sim.mission.result?.success?sim.mission.result.energyWh:sim.budget.energyWh;return solarPlan(sim,e,missionSpec());}
 function drawMap(cv){
   const g=cv.getContext('2d'),N=cv.width=cv.height=360,R=150,img=g.createImageData(N,N);
-  const base=MARS?[150,90,60,5,3,2]:[105,112,62,2,1.6,1];
+  const base=MARS?[172,140,102,4,3.2,2.3]:[105,112,62,2,1.6,1]; // Mars: calibrated tan (Mastcam-Z photo)
   for(let j=0;j<N;j++)for(let i=0;i<N;i++){const x=(i/N-.5)*2*R,z=(j/N-.5)*2*R,hh=terrain.heightAt(x,z),n=terrain.normalAt(x,z,1.5),sh=.55+.45*Math.max(0,n[0]*.5+n[1]*.7-n[2]*.5);
     const k=(i+j*N)*4;img.data[k]=(base[0]+hh*base[3])*sh;img.data[k+1]=(base[1]+hh*base[4])*sh;img.data[k+2]=(base[2]+hh*base[5])*sh;img.data[k+3]=255;}
   g.putImageData(img,0,0);const P=(x,z)=>[(x/(2*R)+.5)*N,(z/(2*R)+.5)*N];

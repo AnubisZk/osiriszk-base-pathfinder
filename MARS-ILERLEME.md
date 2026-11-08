@@ -279,6 +279,25 @@ Aşama 2'de eklenecekler: `src/planet/rotor/` (pal elemanı ve momentum teorisi,
 - Takımın Dünya görseli fotoğraf değil, büyük olasılıkla dijital çizim ve kaynağı belli değil. Yarışma sitesi için lisanslı bir NASA fotoğrafıyla değiştirilmesi öneriliyor (ör. Apollo 17 "Blue Marble"). Çoğu zaman EPIC fotoğrafı gösterileceği için yalnız yedek olarak duruyor.
 - **Testler:** 112 (EPIC ayrıştırma, seçim, adres ve disk boyutu).
 
+### 8 Kasım 2026 gece · Blue Marble, Jezero fotoğrafı ve renk kalibrasyonu
+
+- **Dünya kartının yedeği:** Apollo 17'nin "Blue Marble" fotoğrafı (NASA, 7 Aralık 1972, AS17-148-22727). Kaynağı belli olmayan önceki görsel siteden kaldırıldı. EPIC'e ulaşılınca yine EPIC fotoğrafı gösteriliyor.
+- **Mars kartı:** Viking küresi, Perseverance Mastcam-Z'nin Jezero'daki bir karesinin üzerinde duruyor (NASA/JPL-Caltech/ASU). Burası simülatörün bölgesi.
+- **Renk kalibrasyonu:** Simülatörün öğle görüntüsü fotoğrafla karşılaştırıldı.
+
+  | | Gökyüzü | Zemin |
+  |---|---|---|
+  | Mastcam-Z fotoğrafı | #f7d49a | #b99a71 |
+  | Simülatör, önce | #dacdc2 (grimsi) | #9f653b (fazla kızıl) |
+  | Simülatör, sonra | #efce98 | #b89b72 |
+
+  - Zemin rengi üç adımda fotoğrafa oturtuldu.
+  - Gökyüzü kubbesi artık ton eşlemesinden geçmiyor, fotoğraftaki renkle çiziliyor.
+  - Kayalar gri-kahve yapıldı; toz bulutu ve görev haritası da aynı tonlara çekildi.
+  - Ham Mastcam-Z kareleri radyometrik olarak kalibre edilmemiştir; eşleme kameranın kaydettiği renge göre yapıldı.
+- **Mars renkleri neden değişti:** Önceki "kızıl Mars" görüntüsü gerçeğe uymuyordu. Jezero öğle saatinde açık kahve-bej zemin ve karamel rengi gökyüzüdür.
+- **Değişmeyen:** fizik ve testler aynı.
+
 ## Açık kararlar (takımdan)
 
 1. **Lisans:** Apache-2.0 öneriliyor; Space Apps varsayılanı bu.

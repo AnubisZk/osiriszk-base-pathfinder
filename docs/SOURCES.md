@@ -60,8 +60,11 @@ Helicopter Aerodynamics*), propeller and rotorcraft thrust-coefficient conventio
 
 ## Images
 
+All NASA images below are public domain (NASA media guidelines); credit lines are shown on the page.
+
 | File | Used for | Credit |
 |---|---|---|
-| `app/public/img/mars-viking.webp` | landing page, Mars card | sent by the team; identified as the Viking Orbiter colour mosaic (NASA/JPL/USGS) — confirm the source page |
-| `app/public/img/earth-team.webp` | landing page, Earth card when EPIC is unreachable | sent by the team; source to be credited (it looks like a digital rendering, not a photograph) |
+| `app/public/img/earth-blue-marble.webp` | landing page, Earth card when EPIC is unreachable | NASA, Apollo 17 crew, 7 Dec 1972, "Blue Marble" (AS17-148-22727) |
 | EPIC photo (not stored) | landing page, Earth card | NASA EPIC / DSCOVR, date and time shown on the card |
+| `app/public/img/mars-viking.webp` | landing page, Mars globe | sent by the team; identified as the Viking Orbiter colour mosaic (NASA/JPL/USGS) — confirm the source page |
+| `app/public/img/jezero-mastcamz.webp` | landing page, Mars card background; reference for the Mars scene colours | NASA/JPL-Caltech/ASU, Perseverance Mastcam-Z at Jezero (raw frame sent by the team; sol to be added). Raw frames are not radiometrically calibrated, so the colour match is to what the camera recorded |

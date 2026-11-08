@@ -19,8 +19,12 @@ export const QUALITY={
 export const QUALITY_ORDER=['low','medium','high','ultra'];
 
 export const PALETTES={
-  mars:{id:'mars',sunColor:'#fff1dd',skyLight:'#d9b38c',groundLight:'#6b3c22',fog:'#c9a37f',beamRef:590,rock:'#8a5d42',
-    detailTint:[1,.93,.86],speck:[[80,60],[50,30],[30,20]],dust:'#c08a62'},
+  // Mars colours calibrated against a Perseverance Mastcam-Z frame at Jezero (NASA/JPL-Caltech/ASU):
+  // sky ≈ #f7d49a, soil ≈ #b99a71, rocks ≈ #907754 in the photo (raw frame, not radiometrically
+  // calibrated). groundCal scales the terrain colours so a midday render lands on those values.
+  mars:{id:'mars',sunColor:'#fff1dd',skyLight:'#d9b38c',groundLight:'#6b3c22',fog:'#c9a37f',beamRef:590,rock:'#8a7258',
+    detailTint:[1,.95,.9],speck:[[80,60],[60,30],[40,20]],dust:'#b89a74',
+    groundCal:[1.389,2.074,2.73],skyDay:'#f7d49a',skyDust:'#c8a27a',skyToneMapped:false,rockTint:[1,.95,.86]},
   earth:{id:'earth',sunColor:'#fff6ea',skyLight:'#b9d4f2',groundLight:'#4b4a2c',fog:'#c9d9ea',beamRef:1000,rock:'#8d8a84',
     detailTint:[.97,1,.9],speck:[[60,50],[70,40],[30,20]],dust:'#9c8b6e'},
 };
@@ -62,6 +66,8 @@ export class MarsScene {
     this.dome=new THREE.Mesh(dome,new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.BackSide,fog:false,depthWrite:false}));this.dome.renderOrder=-1;this.scene.add(this.dome);
     this.sunSprite=new THREE.Sprite(new THREE.SpriteMaterial({map:sunTexture(),fog:false,depthWrite:false,transparent:true}));this.sunSprite.scale.setScalar(140);this.scene.add(this.sunSprite);
     this.sunDir=new THREE.Vector3(0,1,0);
+    // the Mars dome is authored in display colours (calibrated to a photo); Earth's goes through tone mapping
+    this.dome.material.toneMapped=P.skyToneMapped??true;
     this.buildTerrain();this.setQuality(quality);this.markers=new THREE.Group();this.scene.add(this.markers);
   }
   /** Replace the terrain (e.g. a finer grid for a higher quality level). */
@@ -100,8 +106,8 @@ export class MarsScene {
         col[k*3]=(.44-.12*green)*flat+.42*(1-flat)+.02*m;col[k*3+1]=(.42-.02*green)*flat+.36*(1-flat)+.02*m;col[k*3+2]=(.24-.06*green)*flat+.29*(1-flat)+.01*m;
         continue;
       }
-      const r=.50+.16*dust-.10*rock+.03*m+.003*h,g=.30+.09*dust-.07*rock+.02*m+.0015*h,b=.19+.04*dust-.04*rock+.01*m;
-      col[k*3]=r;col[k*3+1]=g;col[k*3+2]=b;
+      const r=.50+.16*dust-.10*rock+.03*m+.003*h,g=.30+.09*dust-.07*rock+.02*m+.0015*h,b=.19+.04*dust-.04*rock+.01*m,cal=this.palette.groundCal??[1,1,1];
+      col[k*3]=Math.min(1,r*cal[0]);col[k*3+1]=Math.min(1,g*cal[1]);col[k*3+2]=Math.min(1,b*cal[2]);
     }
     geo.setAttribute('color',new THREE.BufferAttribute(col,3));
     geo.computeBoundingSphere();geo.computeBoundingBox();
@@ -122,7 +128,7 @@ export class MarsScene {
       const list=rocks.filter(r=>r.shape===s),mesh=new THREE.InstancedMesh(g,mat,list.length);
       const col=new THREE.Color();
       list.forEach((r,i)=>{e.set(0,r.rot,0);q.setFromEuler(e);m4.compose(new THREE.Vector3(r.x,r.y+r.d*.12,r.z),q,new THREE.Vector3(r.d,r.d*(.7+.3*((i*7)%10)/10),r.d));mesh.setMatrixAt(i,m4);
-        const k=((i*2654435761)>>>0)/4294967296;if(earth)col.setRGB(.62+.3*k,.6+.28*k,.57+.25*k);else col.setRGB(.55+.35*k,.42+.2*k,.36+.12*k);mesh.setColorAt(i,col);});
+        const k=((i*2654435761)>>>0)/4294967296,t=this.palette.rockTint;if(earth)col.setRGB(.62+.3*k,.6+.28*k,.57+.25*k);else{const v=.6+.4*k;col.setRGB(v*t[0],v*t[1],v*t[2]);}mesh.setColorAt(i,col);});
       mesh.castShadow=this.quality.shadows;mesh.receiveShadow=true;this.scene.add(mesh);return mesh;
     });
   }
@@ -144,11 +150,11 @@ export class MarsScene {
     this.sun.intensity=2.6*beam/this.palette.beamRef;this.sun.position.set(Math.sin(az)*Math.cos(el)*200,Math.sin(el)*200,-Math.cos(az)*Math.cos(el)*200);
     const day=Math.max(0,Math.min(1,el/(10*Math.PI/180)+.15)),dusty=Math.min(1,tau/2);
     if(this.palette.id==='earth')return this.setEarthSky(el,az,tau,day,beam);
-    const sky=new THREE.Color().setRGB(.78*day+.06,.6*day+.05,.45*day+.09).lerp(new THREE.Color('#b0896a'),dusty*.4*day);
+    const sky=new THREE.Color().setRGB(.06,.05,.09).lerp(new THREE.Color(this.palette.skyDay),day).lerp(new THREE.Color(this.palette.skyDust),dusty*.4*day);
     this.sunDir.set(Math.sin(az)*Math.cos(el),Math.sin(el),-Math.cos(az)*Math.cos(el)).normalize();
     // Sky dome (illustrative colours): butterscotch dusty sky, darker toward the zenith, a cool halo
     // around the Sun from forward scattering by dust (the blue Mars sunset when the Sun is low)
-    const P=this.dome.geometry.attributes.position,C=this.dome.geometry.attributes.color,v=new THREE.Vector3(),zen=sky.clone().multiplyScalar(.62),hor=sky.clone().lerp(new THREE.Color('#e8c39c'),.25*day),halo=new THREE.Color('#9fb6d8'),c=new THREE.Color();
+    const P=this.dome.geometry.attributes.position,C=this.dome.geometry.attributes.color,v=new THREE.Vector3(),zen=sky.clone().multiplyScalar(.72),hor=sky.clone().lerp(new THREE.Color('#fbdcab'),.25*day),halo=new THREE.Color('#9fb6d8'),c=new THREE.Color();
     for(let k=0;k<P.count;k++){v.fromBufferAttribute(P,k).normalize();const up=Math.max(0,v.y),cs=v.dot(this.sunDir),near=Math.max(0,cs)**12*(.25+.75*(1-Math.min(1,el*3)))*day;
       c.copy(hor).lerp(zen,Math.pow(up,.6)).lerp(halo,Math.min(.85,near*.9));if(v.y<0)c.copy(hor).multiplyScalar(.85);C.setXYZ(k,c.r,c.g,c.b);}
     C.needsUpdate=true;this.scene.background=null;
