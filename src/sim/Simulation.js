@@ -21,7 +21,7 @@ export class Simulation {
   constructor(spec={},{terrain=null,record=true}={}){
     const s=this.spec={...DEFAULT_MISSION,...spec,wind:{...DEFAULT_MISSION.wind,...spec.wind}};
     this.environment=new PlanetEnvironment(s.profile,s.overrides??{});
-    this.wind=new PlanetWind({environment:this.environment,level:s.wind.level,direction:s.wind.direction,seed:s.seed});
+    this.wind=new PlanetWind({environment:this.environment,level:s.wind.level,direction:s.wind.direction,seed:s.seed,speed:s.wind.speed});
     this.physics=new PlanetPhysics(this.environment,{siteElevation:s.siteElevation,wind:this.wind});
     this.planet=this.environment.planet;
     this.terrain=terrain===false?null:(terrain??new ProceduralTerrain({seed:s.seed,planet:this.planet}));

@@ -245,6 +245,30 @@ Aşama 2'de eklenecekler: `src/planet/rotor/` (pal elemanı ve momentum teorisi,
 - **Küçük düzeltmeler:** yörünge kamerası artık aracın içinden değil arkasından başlıyor ve zeminin altına inmiyor. Deney seçimi panel yenilenince sıfırlanmıyor. Telefonda üst çubuk sığıyor.
 - **Testler:** 105 (yeni dosya `tests/earth-world.test.js`, 6 test). Çekirdek izi AYNI.
 
+### 8 Kasım 2026 gece · En yüksek çözünürlük, model kontrolü ve gerçek NASA koşulları
+
+- **RTX 5060 Ti ölçümü (takımdan, Mars, orta kalite, 1920 × 911):** kare 16,67 ms, yani 60 FPS'ye ekran yenilemesi kilitliyor. Asıl iş GPU'da 5,4 ms: 60 Hz bütçesinin üçte biri, 120 Hz bütçesinin (8,3 ms) üçte ikisi. 1,09 milyon üçgen, 42 çizim çağrısı. Bu payla daha yüksek seviyeler eklendi.
+- **Kalite seviyeleri:**
+  - Yüksek: arazi 1024² (1,2 m hücre, HiRISE DTM nokta aralığına yakın), gölge 2048.
+  - Ultra: arazi 2048² (0,6 m hücre), piksel oranı en az 1,5 (aşırı örnekleme), gölge 4096, anizotropi 16.
+  - Fizik ve çizim aynı ızgarayı kullanıyor. Seviye değişince aynı analitik arazi daha ince örnekleniyor.
+  - Mars arazisi üretimi 2048²'de 8 sn'den 0,5 sn'ye indi: kraterler yalnız etki alanlarına basılıyor. Sonuç bit düzeyinde aynı (özetler değişmedi).
+  - Arazi ağı doğrudan yükseklik ızgarasından kuruluyor. Çok büyük ağlarda CPU kopyaları GPU'ya yüklendikten sonra bırakılıyor.
+- **Toplu ölçüm:** Uçuş panelinde ya da Shift+B ile tüm seviyeler 6'şar saniye ölçülüyor. Tek JSON iniyor: ortalama ve p95 GPU ve CPU ms, üçgen sayısı ve 60 Hz ile 120 Hz için önerilen en yüksek seviye.
+- **Model kontrolü** (`npm run model-check`, `reports/model-check.md`):
+  - **Gerçek Jezero yoğunluğu:** Yayımlanmış MEDA basınç aralığı (Sánchez-Lavega vd. 2023: 625 Pa, Ls 101° ile 761 Pa, Ls 55°) ve MEDA hava sıcaklığı aralığıyla (−83 … −23 °C) öğle yoğunluğu 0,0133 ile 0,0162 kg/m³ çıkıyor. Bu, Ingenuity'nin tasarlandığı ve uçtuğu aralığın (0,012–0,0185) içinde.
+  - **Brief değeri:** 0,020 kg/m³ yüksek basınç mevsiminin şafak havasına (0,0209) denk geliyor, yani yoğun uç.
+  - **Ingenuity benzeri araç:** Üç koşulda da standart görevi uçuyor. 2537 rpm'de itki payı 2,2'den 1,45 × ağırlığa düşüyor. NASA en ince havada rotor devrini 2700–2800 rpm'ye çıkarmıştı.
+  - **Arazi çözünürlüğü:** 512², 1024² ve 2048² ızgaralarda enerji ve süre aynı (Mars 7,68 Wh, 80,6 sn; Dünya 2,2 Wh, 68,1 sn). Sonuçlar çözünürlüğe bağlı değil.
+- **Araç modelleri:** Paller, aerodinamiğin kullandığı veter ve burulma tablolarından üretiliyor. Ingenuity'de NASA'nın kürek biçimi (en geniş veter 0,34 R'de), FPV'de pervane sarmal açısı görünüyor. Göbek kapağı eklendi.
+- **Gerçek NASA koşulları (Ortam paneli):**
+  - **Mars:** NASA/JPL Mars 2020 hava durumu akışının son solu: Perseverance MEDA, Jezero. Günün en yüksek/en düşük hava sıcaklığı ve basıncı ölçüm; görev saatindeki sıcaklık varsayımsal günlük eğriyle hesaplanıyor. Görev tarihi o sola, aynı yerel saate taşınıyor. Çevrimdışı iki kaynaklı hazır ayar var: MEDA düşük ve yüksek basınç mevsimi.
+  - **Dünya:** NASA POWER saatlik veri: Ankara'da 2 m sıcaklık, yüzey basıncı, 10 m rüzgâr. ISA, 938 m'de ölçülen değerleri tam verecek şekilde ayarlanıyor; ölçülen rüzgâr "ölçülen" seviye oluyor.
+  - Veri tarayıcıda alınıyor: önce sitenin `/nasa/` vekili (Netlify ve geliştirme sunucusu), sonra doğrudan. Saklanmıyor, uydurulmuyor. Ham JSON indirilebiliyor. Rapor kaynağı, zamanı ve değerleri yazıyor. Servis yoksa model değerleri kalıyor.
+  - **Bu ortamdan erişim yok:** Buradaki ağ izin listesi mars.nasa.gov ve power.larc.nasa.gov'a izin vermiyor. Canlı veri yolu gerçek servisle denenemedi; ayrıştırıcılar belgelenmiş biçimdeki örneklerle test edildi. Takım evde düğmeye basıp ham JSON'u gönderirse doğrulanacak.
+- **Düzeltme:** Rüzgâr yönü etiketi "geldiği yön" diyordu ama alan havanın aktığı yönü tutuyordu (çekirdek kuralı). Arayüz artık meteorolojik "geldiği yön"ü gösterip dönüştürüyor; fizik değişmedi.
+- **Testler:** 111 (yeni dosya `tests/realdata.test.js`, 6 test). Çekirdek izi AYNI.
+
 ## Açık kararlar (takımdan)
 
 1. **Lisans:** Apache-2.0 öneriliyor; Space Apps varsayılanı bu.

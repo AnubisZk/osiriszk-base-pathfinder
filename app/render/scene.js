@@ -6,11 +6,17 @@ import * as THREE from 'three';
  * that follows the vehicle. Draws only; never touches physics. Quality presets trade detail for
  * frame time; palettes give the Mars and Earth looks (colours are illustrative).
  */
+// terrainCells: the terrain grid over 1200 m, shared by physics and drawing (512 → 2.3 m cells,
+// 1024 → 1.2 m ≈ HiRISE DTM post spacing, 2048 → 0.6 m). Changing it regenerates the same
+// analytic terrain at a finer sampling.
+const DPR=globalThis.devicePixelRatio||1;
 export const QUALITY={
-  low:{pixelRatio:.75,shadows:false,rocks:1500,shadowSize:1024,antialias:false},
-  medium:{pixelRatio:1,shadows:true,rocks:3500,shadowSize:1024,antialias:true},
-  high:{pixelRatio:Math.min(2,globalThis.devicePixelRatio||1),shadows:true,rocks:6000,shadowSize:2048,antialias:true},
+  low:{pixelRatio:.75,shadows:false,rocks:1500,shadowSize:1024,antialias:false,terrainCells:512,anisotropy:2},
+  medium:{pixelRatio:1,shadows:true,rocks:3500,shadowSize:1024,antialias:true,terrainCells:512,anisotropy:4},
+  high:{pixelRatio:Math.min(2,DPR),shadows:true,rocks:6000,shadowSize:2048,antialias:true,terrainCells:1024,anisotropy:8},
+  ultra:{pixelRatio:Math.min(2,Math.max(1.5,DPR)),shadows:true,rocks:6000,shadowSize:4096,antialias:true,terrainCells:2048,anisotropy:16},
 };
+export const QUALITY_ORDER=['low','medium','high','ultra'];
 
 export const PALETTES={
   mars:{id:'mars',sunColor:'#fff1dd',skyLight:'#d9b38c',groundLight:'#6b3c22',fog:'#c9a37f',beamRef:590,rock:'#8a5d42',
@@ -58,15 +64,32 @@ export class MarsScene {
     this.sunDir=new THREE.Vector3(0,1,0);
     this.buildTerrain();this.setQuality(quality);this.markers=new THREE.Group();this.scene.add(this.markers);
   }
+  /** Replace the terrain (e.g. a finer grid for a higher quality level). */
+  setTerrain(terrain){
+    this.terrain=terrain;this.scene.remove(this.ground);this.ground.geometry.dispose();
+    const m=this.ground.material;m.map?.dispose();m.normalMap?.dispose();m.dispose();
+    this.buildTerrain();this.applyAnisotropy();this.buildRocks(this.quality.rocks);
+  }
+  applyAnisotropy(){
+    const max=this.renderer.capabilities?.getMaxAnisotropy?.()??4,a=Math.min(max,this.quality?.anisotropy??4),m=this.ground.material;
+    for(const t of [m.map,m.normalMap])if(t){t.anisotropy=a;t.needsUpdate=true;}
+  }
   buildTerrain(){
-    const T=this.terrain,W=T.nx+1,geo=new THREE.PlaneGeometry(T.size[0],T.size[1],T.nx,T.nz);geo.rotateX(-Math.PI/2);
-    const pos=geo.attributes.position,col=new Float32Array(pos.count*3);
-    for(let k=0;k<pos.count;k++){
-      const x=pos.getX(k),z=pos.getZ(k),i=Math.round((x/T.size[0]+.5)*T.nx),j=Math.round((z/T.size[1]+.5)*T.nz),h=T.heights[i+j*W];
-      pos.setY(k,h);
+    // Grid mesh built straight from the physics height grid (typed arrays: 2049² vertices in ~1 s);
+    // normals from central differences of the same heights.
+    const T=this.terrain,nx=T.nx,nz=T.nz,W=nx+1,N=W*(nz+1),H=T.heights,dx=T.size[0]/nx,dz=T.size[1]/nz;
+    const P=new Float32Array(N*3),Nm=new Float32Array(N*3),UV=new Float32Array(N*2),col=new Float32Array(N*3);
+    for(let j=0;j<=nz;j++)for(let i=0;i<=nx;i++){
+      const k=i+j*W,h=H[k];P[k*3]=(i/nx-.5)*T.size[0];P[k*3+1]=h;P[k*3+2]=(j/nz-.5)*T.size[1];UV[k*2]=i/nx;UV[k*2+1]=1-j/nz;
+      const hx=(H[Math.min(nx,i+1)+j*W]-H[Math.max(0,i-1)+j*W])/(dx*((i>0&&i<nx)?2:1)),hz=(H[i+Math.min(nz,j+1)*W]-H[i+Math.max(0,j-1)*W])/(dz*((j>0&&j<nz)?2:1));
+      const l=Math.hypot(hx,1,hz);Nm[k*3]=-hx/l;Nm[k*3+1]=1/l;Nm[k*3+2]=-hz/l;
     }
-    geo.computeVertexNormals();
-    const nrm=geo.attributes.normal;
+    const idx=new Uint32Array(nx*nz*6);let q=0;
+    for(let j=0;j<nz;j++)for(let i=0;i<nx;i++){const a=i+j*W,b=a+W,c=a+1,d=b+1;idx[q++]=a;idx[q++]=b;idx[q++]=c;idx[q++]=c;idx[q++]=b;idx[q++]=d;}
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(P,3));geo.setAttribute('normal',new THREE.BufferAttribute(Nm,3));geo.setAttribute('uv',new THREE.BufferAttribute(UV,2));
+    geo.setIndex(new THREE.BufferAttribute(idx,1));
+    const pos=geo.attributes.position,nrm=geo.attributes.normal;
     for(let k=0;k<pos.count;k++){
       const slope=1-nrm.getY(k),h=pos.getY(k),x=pos.getX(k),z=pos.getZ(k);
       const n=.5+.5*Math.sin(x*.05+Math.cos(z*.021)*2)*Math.cos(z*.043+Math.sin(x*.017)*2),m=.5+.5*Math.sin(x*.31)*Math.sin(z*.27);
@@ -81,6 +104,9 @@ export class MarsScene {
       col[k*3]=r;col[k*3+1]=g;col[k*3+2]=b;
     }
     geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+    geo.computeBoundingSphere();geo.computeBoundingBox();
+    // very large grids: free the CPU copies once uploaded (heights stay in the terrain object)
+    if(N>1.5e6){const free=function(){this.array=new this.array.constructor(0);};for(const a of Object.values(geo.attributes))a.onUpload(free);geo.index.onUpload(free);}
     const tex=detailTexture(this.palette);tex.repeat.set(T.size[0]/6,T.size[1]/6);
     const detail=detailNormal();detail.repeat.set(T.size[0]/9,T.size[1]/9);
     this.ground=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({vertexColors:true,map:tex,normalMap:detail,normalScale:new THREE.Vector2(.9,.9),roughness:.95,metalness:0}));
@@ -106,7 +132,7 @@ export class MarsScene {
     this.sun.castShadow=this.quality.shadows;this.sun.shadow.mapSize.set(this.quality.shadowSize,this.quality.shadowSize);
     this.sun.shadow.map?.dispose();this.sun.shadow.map=null;
     this.sun.shadow.bias=-.0004;this.sun.shadow.normalBias=.03;const cam=this.sun.shadow.camera;cam.left=cam.bottom=-30;cam.right=cam.top=30;cam.near=1;cam.far=400;cam.updateProjectionMatrix();
-    this.buildRocks(this.quality.rocks);
+    this.buildRocks(this.quality.rocks);this.applyAnisotropy();
   }
   /**
    * Sky, fog and sunlight from the Sun's elevation/azimuth and dust optical depth τ.

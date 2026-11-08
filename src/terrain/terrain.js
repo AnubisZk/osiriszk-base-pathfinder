@@ -77,12 +77,22 @@ export class ProceduralTerrain extends GridTerrain {
       const D=10/Math.sqrt(1-rand()*(1-(10/160)**2));
       craters.push({x:(rand()-.5)*size[0],z:(rand()-.5)*size[1],D,depth:.2*D*(.6+.4*rand()),rim:.04*D,age:rand()});
     }
-    const craterAt=(x,z)=>{let h=0;for(const c of craters){const dx=x-c.x,dz=z-c.z,r=Math.hypot(dx,dz)/(c.D/2);if(r>2.2)continue;
-      const fresh=1-.6*c.age;
-      if(r<1)h+=fresh*(c.depth*(r*r-1)+c.rim*r**4);else h+=fresh*c.rim*Math.exp(-(((r-1)/.35)**2))*(r<1.6?1:Math.exp(-(r-1.6)*2));}return h;};
+    // Each crater is stamped only over the cells within its reach (r ≤ 2.2 radii), in crater order,
+    // so every cell gets the same sum as summing over all craters (bit-identical, O(cells) not
+    // O(cells × craters): 2048² cells in well under a second).
+    const crater=new Float64Array(W*(nz+1)),cx=i=>(i/nx-.5)*size[0],cz=j=>(j/nz-.5)*size[1];
+    for(const c of craters){
+      const reach=1.1*c.D+1e-9,fresh=1-.6*c.age;
+      const i0=Math.max(0,Math.floor(((c.x-reach)/size[0]+.5)*nx)),i1=Math.min(nx,Math.ceil(((c.x+reach)/size[0]+.5)*nx));
+      const j0=Math.max(0,Math.floor(((c.z-reach)/size[1]+.5)*nz)),j1=Math.min(nz,Math.ceil(((c.z+reach)/size[1]+.5)*nz));
+      for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){
+        const dx=cx(i)-c.x,dz=cz(j)-c.z,r=Math.hypot(dx,dz)/(c.D/2);if(r>2.2)continue;
+        if(r<1)crater[i+j*W]+=fresh*(c.depth*(r*r-1)+c.rim*r**4);else crater[i+j*W]+=fresh*c.rim*Math.exp(-(((r-1)/.35)**2))*(r<1.6?1:Math.exp(-(r-1.6)*2));
+      }
+    }
     for(let j=0;j<=nz;j++)for(let i=0;i<=nx;i++){
-      const x=(i/nx-.5)*size[0],z=(j/nz-.5)*size[1];
-      heights[i+j*W]=relief*noise(x,z)+craterAt(x,z);
+      const x=cx(i),z=cz(j);
+      heights[i+j*W]=relief*noise(x,z)+crater[i+j*W];
     }
     super(nx,nz,size,heights,{source:'procedural',procedural:true,seed,planet,
       label:planet==='earth'?{en:'Procedural Earth terrain — illustrative, NOT survey or map data',tr:'Prosedürel Dünya arazisi — temsilî, harita/ölçüm verisi DEĞİL'}

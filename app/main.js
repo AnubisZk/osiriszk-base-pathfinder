@@ -6,14 +6,16 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {initializeRapier} from '../src/physics/FlightPhysics.js';
 import {Simulation} from '../src/sim/Simulation.js';
 import {ProceduralTerrain,HeightmapTerrain} from '../src/terrain/terrain.js';
-import {PROFILES,PROFILE_ORDER} from '../src/planet/index.js';
+import {PROFILES,PROFILE_ORDER,PlanetEnvironment} from '../src/planet/index.js';
 import {VEHICLES,VEHICLE_ORDER} from '../src/vehicles/presets.js';
 import {FRAME_TYPES,FRAME_LABELS,FEA_NOTE} from '../src/frames/frames.js';
 import {VARIABLES,toCSV} from '../src/experiment/Experiment.js';
 import {solarPlan} from '../src/mission/Mission.js';
+import {NASA_SERVICES,MEDA_PUBLISHED,parseMarsWeather,latestCompleteSol,marsConditions,powerURL,parsePowerHourly,pickPowerHour,earthConditions,fetchFirstJSON} from '../src/realdata/nasa.js';
+import {localSolarTime} from '../src/mars/time.js';
 import {t,L,setLang,getLang,setWorld} from './i18n.js';
 import {WORLDS,resolveWorld,worldHref,worldSpec} from './worlds.js';
-import {MarsScene,followCamera} from './render/scene.js';
+import {MarsScene,followCamera,QUALITY,QUALITY_ORDER} from './render/scene.js';
 import {DustPlume} from './render/dust.js';
 import {createVehicleModel} from './render/vehicleModel.js';
 import {lineChart,barChart} from './ui/charts.js';
@@ -25,15 +27,21 @@ await initializeRapier();
 setLang(getLang());
 const $=s=>document.querySelector(s);
 const params=new URLSearchParams(location.search);
+// Quality level: ?quality=, else the last choice in this browser, else medium. It also sets the
+// terrain grid (512² → 2.3 m, 1024² → 1.2 m, 2048² → 0.6 m cells; physics and drawing alike).
+let quality0=params.get('quality');
+if(!QUALITY[quality0]){try{quality0=localStorage.getItem('osiris-quality');}catch{}if(!QUALITY[quality0])quality0='medium';}
+$('#quality').value=quality0;
+const proceduralTerrain=cells=>new ProceduralTerrain({seed:2026,cells:[cells,cells],planet:WORLD.planet});
 // Terrain: a real DTM imported with tools/import-dtm.mjs (?terrain=<name>) or the labelled procedural one
 async function loadTerrain(name){
-  const procedural=()=>new ProceduralTerrain({seed:2026,cells:[512,512],planet:WORLD.planet}); // 2.3 m cells (physics and drawing)
+  const procedural=()=>proceduralTerrain(QUALITY[quality0].terrainCells);
   if(!name)return procedural();
   try{const meta=await (await fetch(`terrain/${name}.json`)).json(),buf=await (await fetch(`terrain/${name}.bin`)).arrayBuffer();
     return new HeightmapTerrain(meta.nx,meta.nz,meta.size,new Float32Array(buf),meta);}
   catch(e){console.warn('DTM not found, using procedural terrain',e);return procedural();}
 }
-const terrain=await loadTerrain(params.get('terrain'));
+let terrain=await loadTerrain(params.get('terrain'));
 let spec=worldSpec(WORLD);
 let sim=null,model=null,running=false,lastExperiment=null,worker=null,cameraMode='chase';
 
@@ -45,7 +53,7 @@ if(params.get('renderer')==='webgpu'&&navigator.gpu){
 }
 renderer??=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
 renderer.shadowMap.type=THREE.PCFShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
-const world=new MarsScene(renderer,terrain,$('#quality').value,WORLD.id);
+const world=new MarsScene(renderer,terrain,quality0,WORLD.id);
 const camera=new THREE.PerspectiveCamera(60,1,.05,4000);const dust=new DustPlume(world.scene),dustColor=new THREE.Color(world.palette.dust);camera.position.set(6,5,8);
 const orbit=new OrbitControls(camera,canvas);orbit.enabled=false;orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*.495;orbit.maxDistance=400;
 function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -56,8 +64,22 @@ const prevPos=new THREE.Vector3(),curPos=new THREE.Vector3(),prevQ=new THREE.Qua
 function capture(){const b=sim.vehicle.body,p=b.translation();curPos.set(p.x,p.y,p.z);curQ.copy(b.rotation());}
 function onStep(){prevPos.copy(curPos);prevQ.copy(curQ);capture();sim.telemetry.sample(sim);}
 function missionSpec(){const m={...spec,waypoints:spec.waypoints.map(w=>({...w}))};m.rotorLossFactor=spec.calibrated?null:1;delete m.calibrated;return m;}
+/** Regenerate the procedural terrain when the quality level asks for another grid (not in flight). */
+function matchTerrainToQuality(){
+  const cells=world.quality.terrainCells;
+  if(running||!terrain.meta.procedural||terrain.nx===cells)return false;
+  const t0=performance.now();terrain=proceduralTerrain(cells);world.setTerrain(terrain);
+  console.info(`terrain ${cells}² regenerated in ${(performance.now()-t0).toFixed(0)} ms`);return true;
+}
+function setQualityLevel(name){
+  if(!QUALITY[name])return;world.setQuality(name);$('#quality').value=name;try{localStorage.setItem('osiris-quality',name);}catch{}
+  if(terrain.meta.procedural&&terrain.nx!==QUALITY[name].terrainCells){
+    if(running)toast(t('terrainAfterFlight'));else{matchTerrainToQuality();rebuild();}
+  }
+}
 function rebuild(){
   if(running)return;
+  matchTerrainToQuality();
   sim?.dispose();if(model){world.scene.remove(model.group);model.dispose();}
   try{sim=new Simulation(missionSpec(),{terrain});}
   catch(e){banner(String(e.message));return;}
@@ -124,14 +146,98 @@ function buildTabs(){
 function refreshPanels(){
   const pane=h('div',{class:'pane on'}),append=pane.append.bind(pane);pane.append=(...k)=>append(...k.flat().filter(x=>x!=null&&x!==false));
   ({env:paneEnv,design:paneDesign,mission:paneMission,flight:paneFlight,telemetry:paneTelemetry,experiments:paneExperiments,report:paneReport})[activeTab](pane);
-  $('#panes').replaceChildren(pane);banner(L(terrain.meta.label));
+  $('#panes').replaceChildren(pane);banner(L(terrain.meta.label)+(spec.realData?` · ${t('realBanner')}: ${spec.realData.short}`:''));
 }
 const set=(k,v)=>{spec[k]=v;rebuild();};
 
+// ---------- real conditions from NASA (fetched in the browser; never invented) ----------
+let nasa={status:'idle',error:null,data:null,text:null,url:null};
+async function fetchNasa(){
+  nasa={status:'loading',error:null,data:null,text:null,url:null};refreshPanels();
+  try{
+    if(MARS){
+      const S=NASA_SERVICES.mars2020,r=await fetchFirstJSON([S.proxy,S.url]),sols=parseMarsWeather(r.json),sol=latestCompleteSol(sols);
+      if(!sol)throw new Error(t('realNoSol'));
+      nasa={status:'ok',data:{kind:'mars',sol,count:sols.length},text:r.text,url:r.url,error:null};
+    }else{
+      const S=NASA_SERVICES.power,site=WORLD.defaults.site,end=Date.now()-864e5,args={lat:site.lat,lonEast:site.lonEast,endMs:end,days:10};
+      const r=await fetchFirstJSON([powerURL({...args,base:S.proxy}),powerURL({...args,base:S.url})]),P=parsePowerHourly(r.json),hour=pickPowerHour(P.hours,spec.date);
+      if(!hour)throw new Error(t('realNoSol'));
+      nasa={status:'ok',data:{kind:'earth',hour,meta:P},text:r.text,url:r.url,error:null};
+    }
+  }catch(e){nasa={status:'error',error:e.message,data:null,text:null,url:null};}
+  refreshPanels();
+}
+/** Mission date with the same local solar time on a given Earth date (Mars sols from the feed). */
+function marsDateWithLst(dateStr,lst){
+  const d0=Date.parse(dateStr+'T00:00:00Z');if(!Number.isFinite(d0))return spec.date;
+  const diff=ms=>Math.abs(((localSolarTime(ms,spec.site.lonEast)-lst)%24+36)%24-12); // wrapped to [0, 12]
+  let best=d0,err=1/0;for(let m=0;m<=Math.round(24.7*60);m+=5){const ms=d0+m*6e4,e=diff(ms);if(e<err){err=e;best=ms;}}
+  return best;
+}
+function applyNasa(){
+  const d=nasa.data;if(!d)return;
+  if(d.kind==='mars'){
+    if(PROFILES[spec.profile].model!=='layers')spec.profile='mars-brief';
+    const lst=sim.sun.localSolarTime;spec.date=marsDateWithLst(d.sol.date,lst);
+    const c=marsConditions(d.sol,localSolarTime(spec.date,spec.site.lonEast),new PlanetEnvironment(spec.profile));
+    spec.overrides=c.overrides;
+    spec.realData={source:'mars2020',label:NASA_SERVICES.mars2020.label,url:nasa.url,fetchedAt:new Date().toISOString(),sol:d.sol,lst,density:c.density,
+      short:`MEDA sol ${d.sol.sol} (${d.sol.date})`};
+  }else{
+    const hr=d.hour;spec.date=hr.time;
+    const c=earthConditions(hr,spec.siteElevation,new PlanetEnvironment(spec.profile));
+    spec.overrides=c.overrides;spec.wind={...spec.wind,...c.wind};
+    spec.realData={source:'power',label:NASA_SERVICES.power.label,url:nasa.url,fetchedAt:new Date().toISOString(),hour:hr,density:c.density,
+      short:`POWER ${new Date(hr.time).toISOString().slice(0,13).replace('T',' ')}:00 UTC`};
+  }
+  rebuild();toast(`${t('realApplied')}: ${spec.realData.short}`);
+}
+/** Published MEDA seasonal extremes at Jezero (offline, sourced) at the mission's local solar time. */
+function applyMedaPublished(which){
+  const M=MEDA_PUBLISHED,P=which==='low'?M.pressureMin:M.pressureMax;
+  if(PROFILES[spec.profile].model!=='layers')spec.profile='mars-brief';
+  const sol={sol:P.sol,pressurePa:P.value,minTempC:M.airTemperature.minC,maxTempC:M.airTemperature.maxC,ls:P.ls};
+  const c=marsConditions(sol,sim.sun.localSolarTime,new PlanetEnvironment(spec.profile));spec.overrides=c.overrides;
+  spec.realData={source:'meda-published',label:'MEDA published range (Sánchez-Lavega et al. 2023; NASA/JPL)',which,pressure:P,temperature:M.airTemperature,density:c.density,lst:sim.sun.localSolarTime,
+    short:`MEDA ${P.value} Pa (Ls ${P.ls}°)`};
+  rebuild();toast(`${t('realApplied')}: ${spec.realData.short}`);
+}
+function clearRealData(){spec.overrides={};spec.realData=null;if(spec.wind.level==='measured')spec.wind={level:'calm',direction:spec.wind.direction??225};rebuild();}
+function realSection(){
+  const d=nasa.data,busy=nasa.status==='loading',rd=spec.realData;
+  const info=[];
+  if(nasa.status==='error')info.push(h('p',{class:'bad'},`${t('realErr')}: ${nasa.error}`),h('p',{class:'note'},t('realErrHelp')));
+  if(d?.kind==='mars'){const s=d.sol;info.push(h('div',{class:'kv'},
+    h('span',{},'Sol'),h('b',{},`${s.sol} · ${s.date??'?'}${s.ls!=null?` · Ls ${s.ls}°`:''}${s.season?` · ${s.season}`:''}`),
+    h('span',{},t('realAir')),h('b',{},`${s.minTempC} … ${s.maxTempC} °C`),
+    h('span',{},t('realPressure')),h('b',{},`${s.pressurePa} Pa${s.unitNote?` (${s.unitNote})`:''}`),
+    s.opacity?h('span',{},t('realSky')):null,s.opacity?h('b',{},`${s.opacity}${s.uv?` · UV ${s.uv}`:''}`):null));}
+  if(d?.kind==='earth'){const r=d.hour;info.push(h('div',{class:'kv'},
+    h('span',{},t('realWhen')),h('b',{},`${new Date(r.time).toISOString().slice(0,13).replace('T',' ')}:00 UTC`),
+    h('span',{},t('realAir')),h('b',{},`${fmt(r.t2m,1)} °C`),h('span',{},t('realPressure')),h('b',{},`${fmt(r.ps,2)} kPa`),
+    h('span',{},t('realWind')),h('b',{},`${fmt(r.ws10m,1)} m/s ${t('realFrom')} ${fmt(r.wd10m,0)}°`),
+    d.meta.elevation!=null?h('span',{},t('realCell')):null,d.meta.elevation!=null?h('b',{},`${fmt(d.meta.elevation,0)} m`):null));}
+  return [
+    h('h3',{},t('realTitle')),
+    h('p',{class:'note'},MARS?t('realMarsNote'):t('realEarthNote')),
+    h('div',{class:'btns'},
+      h('button',{class:'act',disabled:busy||running,onclick:fetchNasa},busy?t('realLoading'):(MARS?t('realFetchMars'):t('realFetchEarth'))),
+      d?h('button',{class:'act',disabled:running,onclick:applyNasa},t('realApply')):null,
+      nasa.text?h('button',{class:'sec',onclick:()=>download(MARS?'nasa-mars2020-weather.json':'nasa-power-ankara.json',nasa.text,'application/json')},t('realRaw')):null),
+    ...info,
+    MARS?h('div',{class:'btns'},
+      h('button',{class:'sec',disabled:running,onclick:()=>applyMedaPublished('low')},`${t('realMedaLow')} · ${MEDA_PUBLISHED.pressureMin.value} Pa`),
+      h('button',{class:'sec',disabled:running,onclick:()=>applyMedaPublished('high')},`${t('realMedaHigh')} · ${MEDA_PUBLISHED.pressureMax.value} Pa`)):null,
+    rd?h('p',{class:'ok'},`${t('realActive')}: ${rd.short} → ρ ${fmt(rd.density,4)} kg/m³`):null,
+    rd?h('div',{class:'btns'},h('button',{class:'sec',disabled:running,onclick:clearRealData},t('realClear'))):null,
+  ];
+}
 function paneEnv(p){
   const env=sim.environment,ov=spec.overrides??{};
   const setOv=(k,v)=>{const o={...spec.overrides};if(v==null)delete o[k];else o[k]=v;if(k==='surfaceDensity')delete o.surfacePressure;spec.overrides=o;rebuild();};
-  const winds=WORLD.winds??env.profile.winds??[{id:'calm',label:{en:'Calm',tr:'Sakin'}}];
+  const winds=[...(WORLD.winds??env.profile.winds??[{id:'calm',label:{en:'Calm',tr:'Sakin'}}])];
+  if(sim.wind.levels?.measured)winds.push({id:'measured',label:sim.wind.levels.measured.labels});
   const date=new Date(spec.date).toISOString().slice(0,16),off=WORLD.site.utcOffset;
   const profiles=PROFILE_ORDER.filter(id=>PROFILES[id].planet===WORLD.planet);
   p.append(
@@ -141,7 +247,8 @@ function paneEnv(p){
     row(`${t('temperature')} (K)`,num(ov.surfaceTemperature,v=>setOv('surfaceTemperature',v),{step:1,min:100,placeholder:fmt(env.surface.temperature,1)})),
     row(`${t('gravity')} (m/s²)`,num(ov.gravity,v=>setOv('gravity',v),{step:.01,min:.5,placeholder:env.gravity})),
     row(t('wind'),select(winds.map(w=>[w.id,L(w.label)]),spec.wind.level,v=>{spec.wind={...spec.wind,level:v};rebuild();})),
-    row(t('windDir'),num(spec.wind.direction,v=>{spec.wind={...spec.wind,direction:v??225};rebuild();},{step:15})),
+    // shown as the meteorological "from" direction; the wind model stores where the air flows to
+    row(t('windDir'),num((spec.wind.direction+180)%360,v=>{spec.wind={...spec.wind,direction:((v??45)+180)%360};rebuild();},{step:15,min:0,max:359})),
     row(`${t('dust')}: ${fmt(spec.opticalDepth,2)}`,h('input',{type:'range',min:0,max:WORLD.opticalDepthMax,step:.05,value:spec.opticalDepth,
       oninput:e=>{spec.opticalDepth=+e.target.value;world.setSky(sim.sun,spec.opticalDepth);e.target.parentElement.firstChild.textContent=`${t('dust')}: ${fmt(spec.opticalDepth,2)}`;},
       onchange:()=>rebuild()})),
@@ -152,6 +259,7 @@ function paneEnv(p){
       h('span',{},`${t('sun')} ${t('elevation')} / ${t('azimuth')}`),h('b',{},`${fmt(sim.sun.elevation,1)}° / ${fmt(sim.sun.azimuth,0)}°`),
       h('span',{},t('lst')),h('b',{},MARS?`${fmt(sim.sun.localSolarTime,2)} h · Ls ${fmt(sim.sun.Ls,1)}°`:`${fmt(sim.sun.localSolarTime,2)} h · ${t('eot')} ${fmt(sim.sun.equationOfTime,1)} min`),
       MARS?h('span',{},t('delay')):null,MARS?h('b',{},`${fmt(sim.link.oneWayLightTime/60,1)} min · ${fmt(sim.link.distanceAU,3)} AU`):null),
+    ...realSection(),
     h('h3',{},t('params')),
     h('table',{},h('tr',{},h('th',{},''),h('th',{},''),h('th',{},t('status'))),
       ...env.parameters(getLang()).map(r=>h('tr',{},h('td',{},r.key),h('td',{},`${typeof r.value==='number'?+r.value.toPrecision(4):r.value} ${r.unit}`),
@@ -242,6 +350,11 @@ function paneFlight(p){
     h('p',{class:'note'},t('keys')),
     h('p',{class:padInfo?'ok':'note',id:'padStatus'},padInfo?`🎮 ${padInfo.name} — ${t('padOn')}${padInfo.standard?'':' (non-standard mapping)'}`:`🎮 ${t('padNone')}`),
     h('p',{class:'note'},t('padHelp')),MARS?h('p',{class:'note'},t('padFpvMars')):null,
+    h('h3',{},t('perf')),
+    row(t('quality'),select(QUALITY_ORDER.map(q=>[q,`${t('q_'+q)} · ${QUALITY[q].terrainCells}²`]),world.qualityName,v=>{setQualityLevel(v);refreshPanels();})),
+    h('p',{class:'note'},`${t('terrainRes')}: ${terrain.nx}² · ${fmt(terrain.size[0]/terrain.nx,2)} m${terrain.meta.procedural?'':' (DTM)'}`),
+    h('div',{class:'btns'},h('button',{class:'sec',disabled:!!perf.bench,onclick:()=>startBench()},t('bench')),h('button',{class:'sec',disabled:!!perf.bench||running,onclick:benchAll},t('benchAll'))),
+    h('p',{class:'note'},t('benchNote')),
     spec.control==='earth-fpv'?h('p',{class:'warn'},`${t('linkInfo')} (${fmt(sim.link.oneWayLightTime/60,1)} min)`):null,
     spec.control==='autonomous'?h('p',{class:'note'},`${t('autonomous')}: ${t('waypoints')} ${spec.waypoints.length}`):null);
 }
@@ -306,7 +419,7 @@ function buildHeader(){
 $('#home').href=worldHref(null);
 $('#lang').value=getLang();
 $('#lang').onchange=e=>{setLang(e.target.value);buildHeader();buildTabs();refreshPanels();};
-$('#quality').onchange=e=>{world.setQuality(e.target.value);canvas.focus();};
+$('#quality').onchange=e=>{setQualityLevel(e.target.value);canvas.focus();};
 
 // ---------- performance measurement ----------
 const gl=renderer.getContext?.(),timer=gl?.getExtension?.('EXT_disjoint_timer_query_webgl2');let gpuMs=NaN,pending=[];
@@ -314,7 +427,22 @@ const perf={frames:0,acc:0,phys:0,cpu:0,last:performance.now(),fps:0,frameMs:0,p
 function gpuBegin(){if(!timer||pending.length>3)return null;const q=gl.createQuery();gl.beginQuery(timer.TIME_ELAPSED_EXT,q);return q;}
 function gpuEnd(q){if(!q)return;gl.endQuery(timer.TIME_ELAPSED_EXT);pending.push(q);}
 function gpuPoll(){while(pending.length){const q=pending[0];if(!gl.getQueryParameter(q,gl.QUERY_RESULT_AVAILABLE))break;if(!gl.getParameter(timer.GPU_DISJOINT_EXT))gpuMs=gl.getQueryParameter(q,gl.QUERY_RESULT)/1e6;gl.deleteQuery(q);pending.shift();}}
-function startBench(){perf.bench={start:performance.now(),frames:[],phys:[]};}
+function startBench(opts={}){perf.bench={start:performance.now(),frames:[],phys:[],cpu:[],gpu:[],duration:opts.duration??1e4,warmup:opts.warmup??0,done:opts.done??null};}
+/** Measure every quality level in turn (warm-up 2 s, then 6 s each) and download one JSON. */
+function benchAll(){
+  if(perf.bench||running)return;const start=world.qualityName,results=[];let i=0;
+  const next=()=>{
+    if(i>=QUALITY_ORDER.length){setQualityLevel(start);downloadBench({mode:'all-levels',results,recommended:recommend(results)});toast(t('benchDone'));return;}
+    const name=QUALITY_ORDER[i++];setQualityLevel(name);toast(`${t('bench')}: ${name}`);
+    startBench({duration:6000,warmup:2000,done:r=>{results.push(r);next();}});
+  };
+  next();
+}
+function recommend(results){
+  // highest level whose GPU and CPU frame work both fit the 60 Hz and 120 Hz budgets (with 15 % margin)
+  const fits=ms=>results.filter(r=>Math.max(r.gpuMs??r.meanFrameMs,r.cpuMs)<ms*.85).map(r=>r.quality);
+  return {hz60:fits(1000/60).pop()??'low',hz120:fits(1000/120).pop()??'low'};
+}
 
 // ---------- main loop ----------
 const rp=new THREE.Vector3(),rq=new THREE.Quaternion(),tmp=new THREE.Vector3(),fwd=new THREE.Vector3();let last=performance.now(),hudT=0,chartT=0;
@@ -341,7 +469,9 @@ function frame(now){
     dust.update(dt,rp,(x,z)=>terrain.heightAt(x,z),R,strength,dustColor);}
   const q=gpuBegin();renderer.render(world.scene,camera);gpuEnd(q);if(timer)gpuPoll();
   perf.cpu+=performance.now()-t0;perf.frames++;
-  if(perf.bench){perf.bench.frames.push(dt*1000);perf.bench.phys.push(perf.phys);if(now-perf.bench.start>1e4){finishBench();}}
+  if(perf.bench){const b=perf.bench,el=now-b.start;
+    if(el>b.warmup){b.frames.push(dt*1000);b.cpu.push(performance.now()-t0);if(Number.isFinite(gpuMs))b.gpu.push(gpuMs);}
+    if(el>b.warmup+b.duration)finishBench();}
   if(now-perf.last>500){const n=perf.frames,s=(now-perf.last)/1000;perf.fps=n/s;perf.frameMs=1000*s/n;perf.physMs=perf.phys/n;perf.cpuMs=perf.cpu/n;perf.frames=0;perf.phys=0;perf.cpu=0;perf.last=now;
     const info=renderer.info?.render??{};
     $('#perf').textContent=`${rendererName} · ${world.qualityName}\nFPS ${perf.fps.toFixed(0)} · frame ${perf.frameMs.toFixed(1)} ms\nCPU ${perf.cpuMs.toFixed(2)} ms · physics ${perf.physMs.toFixed(2)} ms\nGPU ${Number.isFinite(gpuMs)?gpuMs.toFixed(2)+' ms':'n/a'}\ndraw ${info.calls??'?'} · tris ${((info.triangles??0)/1000).toFixed(0)}k`;}
@@ -349,13 +479,21 @@ function frame(now){
   if(running&&now-chartT>1000){chartT=now;drawTelemetry();if(activeTab==='mission'){const cv=$('#map');if(cv)drawMap(cv);}}
   requestAnimationFrame(frame);
 }
+const stat=(a,p)=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y);return p==null?s.reduce((t,x)=>t+x,0)/s.length:s[Math.min(s.length-1,Math.floor(p*s.length))];};
+const r3=v=>v==null?null:+v.toFixed(3);
 function finishBench(){
-  const b=perf.bench;perf.bench=null;const f=[...b.frames].sort((a,c)=>a-c),mean=f.reduce((s,x)=>s+x,0)/f.length;
+  const b=perf.bench;perf.bench=null;const mean=stat(b.frames);
+  const out={quality:world.qualityName,viewport:[innerWidth,innerHeight,renderer.getPixelRatio()],terrainCells:terrain.nx,frames:b.frames.length,
+    meanFrameMs:r3(mean),p95FrameMs:r3(stat(b.frames,.95)),fps:+(1000/mean).toFixed(1),
+    gpuMs:r3(stat(b.gpu)),gpuP95Ms:r3(stat(b.gpu,.95)),cpuMs:r3(stat(b.cpu)),cpuP95Ms:r3(stat(b.cpu,.95)),
+    drawCalls:renderer.info?.render?.calls,triangles:renderer.info?.render?.triangles};
+  if(b.done)b.done(out);else downloadBench({mode:'single',...out});
+}
+function downloadBench(body){
   const dbg=gl?.getExtension?.('WEBGL_debug_renderer_info');
-  const out={tool:'osiriszk-render-bench',date:new Date().toISOString(),renderer:rendererName,quality:world.qualityName,gpu:dbg?gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL):'n/a',
-    viewport:[innerWidth,innerHeight,renderer.getPixelRatio()],frames:f.length,meanFrameMs:+mean.toFixed(3),p95FrameMs:+f[Math.floor(.95*f.length)].toFixed(3),fps:+(1000/mean).toFixed(1),
-    gpuMs:Number.isFinite(gpuMs)?+gpuMs.toFixed(3):null,drawCalls:renderer.info?.render?.calls,triangles:renderer.info?.render?.triangles,note:'Browsers cap FPS at the display refresh rate; compare frame and GPU times.'};
-  download(`render-bench-${rendererName}-${world.qualityName}.json`,JSON.stringify(out,null,1),'application/json');
+  const out={tool:'osiriszk-render-bench',version:2,date:new Date().toISOString(),world:WORLD.id,renderer:rendererName,gpu:dbg?gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL):'n/a',
+    ...body,note:'Browsers cap FPS at the display refresh rate; GPU and CPU times show the real headroom (budget 16.7 ms at 60 Hz, 8.3 ms at 120 Hz).'};
+  download(`render-bench-${WORLD.id}-${rendererName}-${body.mode==='all-levels'?'all':body.quality}.json`,JSON.stringify(out,null,1),'application/json');
 }
 function hud(){
   const v=sim.vehicle,o=v.out,p=v.position,vel=v.velocity,agl=(o.groundHeight??NaN)-v.footClearance,c=sim.control;
@@ -365,9 +503,10 @@ function hud(){
     `${t('soc')}: ${fmt(100*v.battery.soc,1)} %  ${fmt(v.battery.voltage,1)} V   rpm ${fmt(v.rpm(0),0)}\nρ ${fmt(o.density,4)} kg/m³   t ${fmt(sim.time,1)} s`+
     (link&&link.delay>0?`\n${t('linkWait')}: ${wait!=null?new Date(wait*1000).toISOString().slice(11,19):fmt(link.delay/60,1)+' min'}`:'')+
     (padInfo?`\n🎮 ${padInfo.name} · ${t(CONTROL_LABEL[spec.control])}`:'')+
-    `\n[${t('perf')}] ${params.get('bench')?'':'B: '+t('bench')}`;
+    `\n[${t('perf')}] B: ${t('bench')} · Shift+B: ${t('benchAll')}`;
 }
-addEventListener('keydown',e=>{if(e.code==='KeyB'&&!perf.bench)startBench();});
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;
+  if(e.code==='KeyB'&&!perf.bench){if(e.shiftKey)benchAll();else startBench();}});
 
 buildHeader();buildTabs();rebuild();requestAnimationFrame(frame);
 // read-only handle for automated checks

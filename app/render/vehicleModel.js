@@ -1,11 +1,36 @@
 import * as THREE from 'three';
+import {lookup} from '../../src/aero/rotor.js';
 
 /**
  * Procedural vehicle model from the assembled vehicle (same members that produced the mass
  * properties): frame tubes (instanced cylinders), C60 nodes, honeycomb panels, components,
  * rotors with blades that spin at the simulated rotor speed. Origin = centre of mass.
+ * Blades are lofted from the rotor definition the aerodynamics uses (chord and twist along the
+ * span, or a fixed-pitch propeller's helix angle), with a thin cambered section for shading.
  */
-const UP=new THREE.Vector3(0,1,0);
+const UP=new THREE.Vector3(0,1,0),RAD=Math.PI/180;
+/** Blade surface: spanwise sections from root to tip, chord c(r) and pitch θ(r) about the quarter chord. */
+export function bladeGeometry(r,spin=1,collectiveDeg=4){
+  const R=r.radius,xs=[r.root];for(let k=1;k<=20;k++)xs.push(r.root+(1-r.root)*k/20);
+  const chord=x=>typeof r.chord==='number'?r.chord:lookup(r.chord,x)*R;
+  const pitch=x=>r.pitch!=null?Math.atan(r.pitch/(2*Math.PI*x*R)):(lookup(r.twist,x)+collectiveDeg)*RAD;
+  const U=[0,.03,.1,.25,.45,.7,1],nu=U.length,t=.06,cam=.05; // 6 % thick, 5 % camber (thin low-Re section, visual)
+  const yt=u=>5*t*(.2969*Math.sqrt(u)-.126*u-.3516*u*u+.2843*u**3-.1036*u**4),yc=u=>cam*4*u*(1-u);
+  const pos=[],idx=[];
+  for(const x of xs){
+    const c=Math.max(.002,chord(x)),th=pitch(x),cs=Math.cos(th),sn=Math.sin(th);
+    for(const side of [1,-1])for(const u of U){
+      const z=(u-.25)*c,y=(yc(u)+side*yt(u))*c,zr=z*cs+y*sn,yr=y*cs-z*sn; // nose-up rotation about the quarter chord
+      pos.push(x*R,yr,spin*zr);
+    }
+  }
+  const per=2*nu;
+  for(let i=0;i<xs.length-1;i++)for(const side of [0,1])for(let j=0;j<nu-1;j++){
+    const a=i*per+side*nu+j,b=a+1,c=a+per,d=c+1;
+    if(side===0)idx.push(a,c,b,b,c,d);else idx.push(a,b,c,b,d,c);
+  }
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;
+}
 export function createVehicleModel(built){
   const group=new THREE.Group(),inner=new THREE.Group(),c=built.comOffset;inner.position.set(-c[0],-c[1],-c[2]);group.add(inner);
   const carbon=new THREE.MeshStandardMaterial({color:'#2b2f36',roughness:.45,metalness:.3});
@@ -38,11 +63,12 @@ export function createVehicleModel(built){
   // rotors: blades + a faint disc that becomes visible at speed
   const rotors=f.mounts.map((mnt,i)=>{
     const r=built.rotors[i].rotor,hub=new THREE.Group();hub.position.fromArray(mnt);
-    const bladeMat=new THREE.MeshStandardMaterial({color:'#d9dde3',roughness:.5,metalness:.2});
+    const bladeMat=new THREE.MeshStandardMaterial({color:'#d9dde3',roughness:.5,metalness:.2,side:THREE.DoubleSide});
+    const spin=built.rotors[i].spin,blade=bladeGeometry(r,spin);
     for(let k=0;k<r.blades;k++){
-      const chord=r.stations[Math.floor(r.stations.length*.4)].c,bl=new THREE.Mesh(new THREE.BoxGeometry(r.radius*(1-r.root),.004,chord),bladeMat);
-      bl.position.x=r.radius*(1+r.root)/2;const arm=new THREE.Group();arm.rotation.y=k*2*Math.PI/r.blades;arm.add(bl);hub.add(arm);bl.castShadow=true;
+      const bl=new THREE.Mesh(blade,bladeMat),arm=new THREE.Group();arm.rotation.y=k*2*Math.PI/r.blades;arm.add(bl);hub.add(arm);bl.castShadow=true;
     }
+    const hubCap=new THREE.Mesh(new THREE.CylinderGeometry(r.radius*r.root*.9,r.radius*r.root*.9,Math.max(.006,r.radius*.04),16),carbon);hubCap.castShadow=true;hub.add(hubCap);
     const disc=new THREE.Mesh(new THREE.CircleGeometry(r.radius,48),new THREE.MeshBasicMaterial({color:'#cfd8e0',transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));
     disc.rotation.x=-Math.PI/2;hub.add(disc);inner.add(hub);
     return {hub,disc,spin:built.rotors[i].spin};

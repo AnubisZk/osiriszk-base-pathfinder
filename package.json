@@ -1,6 +1,6 @@
 {
   "name": "osiriszk-mars-explorer",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "OsirisZk: Earth and Mars rotorcraft simulators (design, missions, experiments) on the ZSK flight core (Rapier, 240 Hz fixed step). NASA Space Apps Challenge 2026.",
   "type": "module",
   "private": true,
@@ -20,7 +20,8 @@
     "bench": "node tools/physics-bench.mjs --with tools/planet-bench-scenarios.mjs --out reports/physics-bench.json",
     "dev:app": "vite app --open",
     "build": "vite build app --outDir ../dist --emptyOutDir --base ./",
-    "experiments": "node tools/experiment.mjs all"
+    "experiments": "node tools/experiment.mjs all",
+    "model-check": "node tools/model-check.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.21.0",

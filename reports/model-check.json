@@ -1,0 +1,214 @@
+{
+ "tool": "osiriszk-model-check",
+ "date": "2026-11-08T17:57:21.636Z",
+ "sources": {
+  "pressure": "Sánchez-Lavega et al. 2023, JGR Planets 128, e2022JE007480",
+  "airTemperature": "NASA/JPL MEDA release (air −83 … −23 °C)",
+  "ingenuity": "Grip 2021 (design 0.0145–0.0185, flown ≈ 0.012 kg/m³)"
+ },
+ "note": "Temperature at a local time uses the simulator's diurnal shape between the published low and high (assumed).",
+ "brief": {
+  "density": 0.02,
+  "pressurePa": 815,
+  "temperatureK": 213.15
+ },
+ "density": [
+  {
+   "season": "low",
+   "pressurePa": 625,
+   "ls": 101,
+   "lst": 6,
+   "temperatureK": 190.15,
+   "density": 0.0172
+  },
+  {
+   "season": "low",
+   "pressurePa": 625,
+   "ls": 101,
+   "lst": 9,
+   "temperatureK": 223.48,
+   "density": 0.0146
+  },
+  {
+   "season": "low",
+   "pressurePa": 625,
+   "ls": 101,
+   "lst": 12,
+   "temperatureK": 245.58,
+   "density": 0.0133
+  },
+  {
+   "season": "low",
+   "pressurePa": 625,
+   "ls": 101,
+   "lst": 15,
+   "temperatureK": 244.26,
+   "density": 0.0134
+  },
+  {
+   "season": "high",
+   "pressurePa": 761,
+   "ls": 55,
+   "lst": 6,
+   "temperatureK": 190.15,
+   "density": 0.0209
+  },
+  {
+   "season": "high",
+   "pressurePa": 761,
+   "ls": 55,
+   "lst": 9,
+   "temperatureK": 223.48,
+   "density": 0.0178
+  },
+  {
+   "season": "high",
+   "pressurePa": 761,
+   "ls": 55,
+   "lst": 12,
+   "temperatureK": 245.58,
+   "density": 0.0162
+  },
+  {
+   "season": "high",
+   "pressurePa": 761,
+   "ls": 55,
+   "lst": 15,
+   "temperatureK": 244.26,
+   "density": 0.0163
+  }
+ ],
+ "flights": [
+  {
+   "label": "brief 0.020",
+   "density": 0.02,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 7.68,
+   "flightTime": 80.56,
+   "maxTilt": 11.96,
+   "rpm": 2537,
+   "thrustMargin": 2.23,
+   "meanPower": 343,
+   "landing": 0.07
+  },
+  {
+   "label": "MEDA high season, 12 h",
+   "density": 0.0162,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 7.87,
+   "flightTime": 80.7,
+   "maxTilt": 11.95,
+   "rpm": 2537,
+   "thrustMargin": 1.78,
+   "meanPower": 350,
+   "landing": 0.06
+  },
+  {
+   "label": "MEDA low season, 12 h",
+   "density": 0.0133,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 7.96,
+   "flightTime": 81.23,
+   "maxTilt": 11.95,
+   "rpm": 2537,
+   "thrustMargin": 1.45,
+   "meanPower": 352,
+   "landing": 0.09
+  }
+ ],
+ "resolution": [
+  {
+   "world": "mars",
+   "cells": 512,
+   "cellSize": 2.34,
+   "generateMs": 49,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 7.68,
+   "flightTime": 80.56,
+   "maxTilt": 11.96,
+   "rpm": 2537,
+   "thrustMargin": 2.23,
+   "meanPower": 343,
+   "landing": 0.07
+  },
+  {
+   "world": "earth",
+   "cells": 512,
+   "cellSize": 2.34,
+   "generateMs": 40,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 2.2,
+   "flightTime": 68.14,
+   "maxTilt": 25.57,
+   "rpm": null,
+   "thrustMargin": null,
+   "meanPower": 130,
+   "landing": 0.05
+  },
+  {
+   "world": "mars",
+   "cells": 1024,
+   "cellSize": 1.17,
+   "generateMs": 136,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 7.68,
+   "flightTime": 80.56,
+   "maxTilt": 11.96,
+   "rpm": 2537,
+   "thrustMargin": 2.23,
+   "meanPower": 343,
+   "landing": 0.07
+  },
+  {
+   "world": "earth",
+   "cells": 1024,
+   "cellSize": 1.17,
+   "generateMs": 105,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 2.2,
+   "flightTime": 68.15,
+   "maxTilt": 25.54,
+   "rpm": null,
+   "thrustMargin": null,
+   "meanPower": 95,
+   "landing": 0.06
+  },
+  {
+   "world": "mars",
+   "cells": 2048,
+   "cellSize": 0.59,
+   "generateMs": 512,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 7.68,
+   "flightTime": 80.56,
+   "maxTilt": 11.96,
+   "rpm": 2537,
+   "thrustMargin": 2.23,
+   "meanPower": 343,
+   "landing": 0.06
+  },
+  {
+   "world": "earth",
+   "cells": 2048,
+   "cellSize": 0.59,
+   "generateMs": 457,
+   "success": true,
+   "reason": "complete",
+   "energyWh": 2.21,
+   "flightTime": 68.14,
+   "maxTilt": 25.51,
+   "rpm": null,
+   "thrustMargin": null,
+   "meanPower": 119,
+   "landing": 0.05
+  }
+ ]
+}

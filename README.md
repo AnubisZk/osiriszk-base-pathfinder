@@ -8,10 +8,11 @@ FPV flight core (Rapier rigid-body physics, fixed 240 Hz step).
 
 ```bash
 npm install
-npm run check        # 105 tests + the 5" core reference trace (must print "AYNI")
+npm run check        # 111 tests + the 5" core reference trace (must print "AYNI")
 npm run dev:app      # landing page → Earth or Mars simulator (English / Türkçe)
 npm run experiments  # all 14 experiments (9 Mars, 5 Earth) → reports/experiments/*.json|csv
-npm run build        # static site in dist/ (any static host; Netlify short links included)
+npm run model-check  # model vs published MEDA conditions and terrain-resolution convergence → reports/model-check.md
+npm run build        # static site in dist/ (any static host; Netlify short links and NASA proxy included)
 ```
 
 ## Two simulators
@@ -49,10 +50,43 @@ Mars, FPV-from-Earth input is delayed by the light time (the vehicle lands on fa
 FPV is direct. Browsers expose a controller only after its first button press; the HUD then shows
 "🎮 … controller connected".
 
+### Real conditions from NASA
+
+The environment panel can replace the model atmosphere with real conditions:
+
+- **Mars:** the latest sol of NASA/JPL's Mars 2020 weather feed — Perseverance's MEDA station at
+  Jezero, the simulator's site. The day's air high/low and pressure are measured; the temperature at
+  the mission's local solar time uses the simulator's diurnal shape (assumed). The mission date moves
+  to that sol at the same local time. Offline, two sourced presets give MEDA's published seasonal
+  extremes (625 Pa at Ls 101°, 761 Pa at Ls 55°; Sánchez-Lavega et al. 2023).
+- **Earth:** NASA POWER hourly data at Ankara (2 m temperature, surface pressure, 10 m wind; 2–7
+  days behind real time). The ISA profile is adjusted so the model gives exactly the measured
+  temperature and pressure at the 938 m site, and the measured wind becomes the wind level.
+
+Data are fetched in the browser at run time (through the site's `/nasa/` proxy on Netlify and in
+`npm run dev:app`, else directly) and never stored or invented; the raw JSON can be downloaded and the
+report records the source, time and values. If a service is unreachable the model values stay.
+
+### Quality levels
+
+| Level | Terrain grid (physics and drawing) | Pixel ratio | Shadow map | Rocks |
+|---|---|---|---|---|
+| low | 512² (2.3 m) | 0.75 | off | 1 500 |
+| medium | 512² (2.3 m) | 1 | 1024 | 3 500 |
+| high | 1024² (1.2 m, ≈ HiRISE DTM post spacing) | device | 2048 | 6 000 |
+| ultra | 2048² (0.6 m) | ≥ 1.5 (supersampled) | 4096 | 6 000 |
+
+Blades are lofted from the same chord and twist tables the rotor aerodynamics uses. Mission results
+do not depend on the level (see `reports/model-check.md`: identical energy and time on 512², 1024²
+and 2048² grids). In the Flight panel (or Shift+B) *Benchmark all levels* measures every level for
+6 s and downloads one JSON with GPU and CPU frame times and the highest level that fits 60 Hz and
+120 Hz. Browsers cap FPS at the display refresh rate, so GPU/CPU milliseconds show the real headroom.
+
 ### Deploying (Netlify)
 
 `npm run build` writes a static site to `dist/` with relative paths and a `_redirects` file, so
-`https://<site>.netlify.app/earth` and `/mars` open the two simulators directly. Drag `dist/` into
+`https://<site>.netlify.app/earth` and `/mars` open the two simulators directly, and `/nasa/mars/*`
+and `/nasa/power/*` proxy the NASA services for the real-conditions buttons. Drag `dist/` into
 Netlify, or set the build command to `npm run build` and the publish directory to `dist`.
 
 ## What it does
@@ -84,6 +118,12 @@ Netlify, or set the build command to `npm run build` and the publish directory t
 - Energy: a solar panel cannot power flight directly. Ingenuity's 425 × 165 mm panel gives ≈ 5–8 W at noon against ≈ 350 W in flight. It recharges the battery instead: ≈ 52 Wh/sol at τ 0.5 against ≈ 25 Wh of night heating and sleep (both partly assumed). That allows a flight every clear sol. At τ 4 only 2 flights in 10 sols are possible and the battery is drained, which is the dust-storm risk. The OsirisZk quad needs ≈ 0.25 m² of panel at τ 1.
 - From Earth the one-way light time is 3–22 min (11 min on 14 Nov 2026), so real-time FPV is
   impossible. Commands arrive after the vehicle's failsafe has landed it.
+- Real Jezero conditions (published MEDA ranges): midday air density is 0.0133 kg/m³ in the
+  low-pressure season and 0.0162 kg/m³ in the high-pressure season, inside the range Ingenuity was
+  designed for and flew in (0.012–0.0185). The brief's 0.020 kg/m³ matches the high-season pre-dawn
+  air (0.0209), the dense end. The Ingenuity-like helicopter flies the standard mission in all three;
+  its thrust margin falls from 2.2 to 1.45 × weight at the nominal 2537 rpm (NASA raised the rotor
+  speed to 2700–2800 rpm in the thinnest air).
 - Earth (Ankara, 938 m): the 5" quad flies the two-target survey on 2.2 Wh; the OsirisZk Mars quad
   and the Mars Science Helicopter concept hexacopter also fly (their large rotors meet dense air); the Ingenuity-like
   helicopter still cannot lift off (motor current limit). Wind up to 9 m/s raises the 5" quad's
@@ -120,6 +160,9 @@ Netlify, or set the build command to `npm run build` and the publish directory t
 - Missions: autonomous mission and budget; identical telemetry on repeat; FPV through the light-time link fails; FPV with no delay succeeds.
 - Energy over sols: the irradiance model's limits; Viking 1 temperature extremes; the battery ledger closes; dust-storm and panel-area trends; the fly/no-fly policy.
 - Experiments: deterministic runs, summary and CSV; terrain generated per planet.
+- Real conditions: Mars and POWER feed parsing (missing values, units, fill values), measured values
+  reproduced exactly at the site, measured wind, proxy-then-direct fetch, MEDA-range densities inside
+  Ingenuity's flown range.
 - Earth simulator: Ankara solstice noon Sun elevations (90° − φ ± 23.44°), equation-of-time extremes, perihelion/aphelion irradiance ratio; ISA density at 938 m; no light delay and no Mars energy model on Earth; Earth terrain has no craters and flyable slopes; the 5" quad flies the Earth survey autonomously and with an on-site FPV pilot; the Ingenuity-like rotorcraft cannot lift off; world URLs and defaults; every English UI string has a Turkish one.
 
 ## Calibration and assumptions
@@ -159,6 +202,7 @@ src/vehicles/    vehicle presets, assembly, RotorcraftVehicle (forces and torque
 src/control/     cascaded flight control and allocation (coaxial, multirotor)
 src/mars/        Mars24 time and Sun, Earth–Mars light time
 src/earth/       Earth Sun (NOAA / Spencer), Ankara site
+src/realdata/    NASA real conditions (Mars 2020 MEDA feed, NASA POWER): parsing → environment overrides
 src/terrain/     procedural and DTM terrain, Rapier heightfield
 src/mission/     mission spec, energy budget, executive, delayed link
 src/sim/         Simulation, telemetry, planet wind

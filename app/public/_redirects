@@ -1,3 +1,6 @@
-# Netlify: short links to the two simulators
+# Netlify. NASA data through the site's own origin (avoids browser CORS limits):
+/nasa/mars/*   https://mars.nasa.gov/:splat           200
+/nasa/power/*  https://power.larc.nasa.gov/:splat     200
+# Short links to the two simulators
 /earth  /?world=earth  301
 /mars   /?world=mars   301
