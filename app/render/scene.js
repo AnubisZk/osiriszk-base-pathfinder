@@ -25,8 +25,10 @@ export const PALETTES={
   mars:{id:'mars',sunColor:'#fff1dd',skyLight:'#d9b38c',groundLight:'#6b3c22',fog:'#c9a37f',beamRef:590,rock:'#8a7258',
     detailTint:[1,.95,.9],speck:[[80,60],[60,30],[40,20]],dust:'#b89a74',
     groundCal:[1.389,2.074,2.73],skyDay:'#f7d49a',skyDust:'#c8a27a',skyToneMapped:false,rockTint:[1,.95,.86]},
+  // Earth ground calibrated against a photo of the steppe fields near Ankara sent by the team
+  // (sunlit stubble fields ≈ #836539: red/green 1.30, green/blue 1.78).
   earth:{id:'earth',sunColor:'#fff6ea',skyLight:'#b9d4f2',groundLight:'#4b4a2c',fog:'#c9d9ea',beamRef:1000,rock:'#8d8a84',
-    detailTint:[.97,1,.9],speck:[[60,50],[70,40],[30,20]],dust:'#9c8b6e'},
+    detailTint:[.97,1,.9],speck:[[60,50],[70,40],[30,20]],dust:'#9c8b6e',groundCal:[1.639,.831,.702]},
 };
 
 function detailTexture(P){
@@ -103,7 +105,8 @@ export class MarsScene {
       if(this.palette.id==='earth'){
         // late-autumn steppe: dry grass with greener patches in hollows, bare soil on slopes (illustrative)
         const green=Math.max(0,Math.min(1,.55*n+.35*m-.02*h)),flat=Math.max(0,Math.min(1,1-slope*5));
-        col[k*3]=(.44-.12*green)*flat+.42*(1-flat)+.02*m;col[k*3+1]=(.42-.02*green)*flat+.36*(1-flat)+.02*m;col[k*3+2]=(.24-.06*green)*flat+.29*(1-flat)+.01*m;
+        const ec=this.palette.groundCal??[1,1,1];
+        col[k*3]=Math.min(1,ec[0]*((.44-.12*green)*flat+.42*(1-flat)+.02*m));col[k*3+1]=Math.min(1,ec[1]*((.42-.02*green)*flat+.36*(1-flat)+.02*m));col[k*3+2]=Math.min(1,ec[2]*((.24-.06*green)*flat+.29*(1-flat)+.01*m));
         continue;
       }
       const r=.50+.16*dust-.10*rock+.03*m+.003*h,g=.30+.09*dust-.07*rock+.02*m+.0015*h,b=.19+.04*dust-.04*rock+.01*m,cal=this.palette.groundCal??[1,1,1];

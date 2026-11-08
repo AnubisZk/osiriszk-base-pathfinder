@@ -28,6 +28,8 @@ function facts(id){
 // Mastcam-Z view of Jezero (the simulator's site). Edit credits here.
 const PHOTOS={
   earth:{src:'img/earth-blue-marble.webp',scale:1,credit:{en:'Photo: NASA, Apollo 17 crew, 7 Dec 1972 (“Blue Marble”, AS17-148-22727)',tr:'Fotoğraf: NASA, Apollo 17 mürettebatı, 7 Ara 1972 (“Blue Marble”, AS17-148-22727)'}},
+  // background of the Earth card (sent by the team; add the photographer/licence when known)
+  earthBackground:{en:'Background: road near Ankara (source to be added)',tr:'Arka plan: Ankara yakınında bir yol (kaynak eklenecek)'},
   mars:{src:'img/mars-viking.webp',scale:1,credit:{en:'Globe: Viking Orbiter mosaic, NASA/JPL/USGS · Background: Jezero, Perseverance Mastcam-Z, NASA/JPL-Caltech/ASU',
     tr:'Küre: Viking yörünge aracı mozaiği, NASA/JPL/USGS · Arka plan: Jezero, Perseverance Mastcam-Z, NASA/JPL-Caltech/ASU'}},
 };
@@ -36,6 +38,10 @@ function photoOf(id){
   if(id==='earth'&&epic){const d=new Date(epic.time).toISOString().slice(0,16).replace('T',' ');
     return {src:epic.src,scale:epic.scale,credit:{en:`Photo: NASA EPIC / DSCOVR, ${d} UTC`,tr:`Fotoğraf: NASA EPIC / DSCOVR, ${d} UTC`}};}
   return PHOTOS[id];
+}
+function creditOf(id,ph){
+  if(id!=='earth')return L(ph.credit);
+  return `${L(ph.credit)} · ${L(PHOTOS.earthBackground)}`;
 }
 async function loadEpic(onReady){
   try{
@@ -52,7 +58,7 @@ function card(id){
   const img=h('img',{src:ph.src,alt:title,width:512,height:512,loading:'eager',style:`transform:scale(${ph.scale})`});
   img.addEventListener('error',()=>{img.remove();},{once:true}); // the CSS globe underneath stays as the last fallback
   return h('a',{class:`card ${id}`,href:worldHref(id)},
-    h('div',{class:'globe'},img),h('small',{class:'credit'},L(ph.credit)),
+    h('div',{class:'globe'},img),h('small',{class:'credit'},creditOf(id,ph)),
     h('h3',{},title),h('p',{},text),
     h('dl',{},...facts(id).flatMap(([k,v])=>[h('dt',{},k),h('dd',{},v)])),
     h('span',{class:'go'},`${t('open')} →`));

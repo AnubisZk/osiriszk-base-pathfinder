@@ -298,6 +298,14 @@ Aşama 2'de eklenecekler: `src/planet/rotor/` (pal elemanı ve momentum teorisi,
 - **Mars renkleri neden değişti:** Önceki "kızıl Mars" görüntüsü gerçeğe uymuyordu. Jezero öğle saatinde açık kahve-bej zemin ve karamel rengi gökyüzüdür.
 - **Değişmeyen:** fizik ve testler aynı.
 
+### 8 Kasım 2026 gece · Ankara fotoğrafı ve Dünya renkleri
+
+- **Dünya kartı:** takımın gönderdiği Ankara yakınındaki bozkır yolu fotoğrafı arka plan oldu. Kaynak satırı "kaynak eklenecek" diyor. Fotoğrafçı ve lisans bilgisi gelince eklenecek.
+- **Dünya zemini:** simülatörde yeşil çayırdı (#646f46, kırmızı/yeşil 0,90). Fotoğraftaki güneş alan anız tarlalarına göre ayarlandı (#836539; kırmızı/yeşil 1,30, yeşil/mavi 1,78). Sonuç #826439, kasım bozkırı gibi sarı-kahve.
+  - Görev haritası da aynı tonlara çekildi.
+  - Daha önce gönderilen küçük bozkır fotoğrafı bunun yerine kaldırıldı.
+- **Gökyüzü:** simülatörün gökyüzü fotoğraftakine zaten yakındı (simülatör #aebfd8, fotoğraf #96a6cb); değiştirilmedi.
+
 ## Açık kararlar (takımdan)
 
 1. **Lisans:** Apache-2.0 öneriliyor; Space Apps varsayılanı bu.

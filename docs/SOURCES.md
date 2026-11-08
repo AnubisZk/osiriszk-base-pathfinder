@@ -67,4 +67,5 @@ All NASA images below are public domain (NASA media guidelines); credit lines ar
 | `app/public/img/earth-blue-marble.webp` | landing page, Earth card when EPIC is unreachable | NASA, Apollo 17 crew, 7 Dec 1972, "Blue Marble" (AS17-148-22727) |
 | EPIC photo (not stored) | landing page, Earth card | NASA EPIC / DSCOVR, date and time shown on the card |
 | `app/public/img/mars-viking.webp` | landing page, Mars globe | sent by the team; identified as the Viking Orbiter colour mosaic (NASA/JPL/USGS) — confirm the source page |
+| `app/public/img/ankara-road.webp` | landing page, Earth card background; reference for the Earth ground colour | sent by the team (a road through the steppe near Ankara, 678 × 452 px); photographer and licence to be added |
 | `app/public/img/jezero-mastcamz.webp` | landing page, Mars card background; reference for the Mars scene colours | NASA/JPL-Caltech/ASU, Perseverance Mastcam-Z at Jezero (raw frame sent by the team; sol to be added). Raw frames are not radiometrically calibrated, so the colour match is to what the camera recorded |

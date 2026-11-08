@@ -35,7 +35,8 @@ date and time; if EPIC cannot be reached it shows Apollo 17's "Blue Marble" (NAS
 card shows a Viking Orbiter globe over a Perseverance Mastcam-Z view of Jezero, the simulator's site.
 The Mars scene's sky, ground and rock colours are calibrated against that Mastcam-Z frame (sky
 ≈ #f7d49a, ground ≈ #b99a71 in the photo; the simulator's midday view now renders #efce98 and
-#b89b72; before: #dacdc2 and #9f653b). Credits are listed in [`docs/SOURCES.md`](docs/SOURCES.md#images). The header's Earth | Mars switch
+#b89b72; before: #dacdc2 and #9f653b). The Earth ground is matched the same way to a photo of the
+steppe fields near Ankara (fields ≈ #836539; the render went from a green #646f46 to #826439). Credits are listed in [`docs/SOURCES.md`](docs/SOURCES.md#images). The header's Earth | Mars switch
 changes world and keeps the language and other settings. All vehicles are available in both worlds.
 
 ### Controls (both simulators)
