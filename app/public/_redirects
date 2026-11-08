@@ -1,0 +1,3 @@
+# Netlify: short links to the two simulators
+/earth  /?world=earth  301
+/mars   /?world=mars   301

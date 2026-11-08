@@ -1,0 +1,7 @@
+run,seed,frame,liftOff,canHover,success,reason,flightTime,energyWh,energyPerKm,distance,observations,maxTilt,tiltRms,hoverRateRms,positionErrorRms,budgetEnergyWh,budgetError,mass,flightsPer10Sols,harvestWhPerSol,nightWhPerSol,minSoC10Sols
+1,1,carbon,true,true,true,complete,68.37083,2.215289,15.23025,145.4532,2,25.37426,4.390628,3.752426,0.1728411,1.86928,-0.1561912,0.65,0,,,
+2,2,carbon,true,true,true,complete,68.30833,2.210032,15.19626,145.4327,2,25.50847,4.572622,4.36016,0.172729,1.867255,-0.1551008,0.65,0,,,
+3,1,fullerene,true,true,true,complete,68.40833,1.897435,13.04486,145.4546,2,25.15852,4.434804,4.240141,0.1821451,1.51552,-0.2012795,0.5660951,0,,,
+4,2,fullerene,true,true,true,complete,68.54583,1.903857,13.09175,145.4242,2,25.44723,4.61288,4.126206,0.1821548,1.513904,-0.2048224,0.5660951,0,,,
+5,1,hexcell,true,true,true,complete,68.37083,1.847796,12.70527,145.4353,2,25.17143,4.431734,4.214993,0.1810349,1.514564,-0.1803401,0.5529082,0,,,
+6,2,hexcell,true,true,true,complete,68.54583,1.850964,12.72627,145.4443,2,25.50035,4.609456,4.065353,0.1809706,1.51295,-0.1826152,0.5529082,0,,,

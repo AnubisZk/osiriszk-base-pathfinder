@@ -221,6 +221,30 @@ Aşama 2'de eklenecekler: `src/planet/rotor/` (pal elemanı ve momentum teorisi,
   - Gölge sapma ayarı.
   - Orta kalitede 1,09 milyon üçgen ve 42 çizim çağrısı.
 
+### 8 Kasım 2026 gece · İki simülatör (Dünya ve Mars) ve Xbox kumandası
+
+- **Giriş sayfası:** adres parametresiz açılınca iki kart çıkıyor: *Dünya Uçuş Laboratuvarı* ve *Mars Hava Kaşifi*. Kartlardaki sayılar modelden geliyor (yerçekimi, Ankara'da ISA yoğunluğu, bugünkü Dünya–Mars ışık süresi).
+- **Adresler:** `?world=earth` ve `?world=mars`. Netlify'da `/earth` ve `/mars` kısa bağlantıları da çalışıyor (`app/public/_redirects`). Üst çubuktaki Dünya | Mars düğmesiyle geçiş yapılıyor; dil ve diğer ayarlar korunuyor.
+- **Dünya simülatörü:**
+  - Ankara, 39,93°K 32,85°D, 938 m. ISA atmosferi (rakım değiştirilebilir), 9,81 m/s².
+  - Güneş NOAA / Spencer (1971) denklemleriyle hesaplanıyor (`src/earth/sun.js`); gündönümü öğle yükseklikleri ve zaman denklemi testle doğrulandı.
+  - Pilot sahada, gecikme yok. Kontrol modları: otonom ve sahada FPV.
+  - Rüzgâr seviyeleri çekirdeğin Dünya seviyeleri: sakin, 3, 6, 9 m/sn.
+  - Arazi prosedürel Dünya arazisi: krater yok, yumuşak tepeler, seyrek kaya. "Harita/ölçüm verisi DEĞİL" etiketi taşıyor.
+  - Sol sol güneş enerjisi modeli Mars'a özgü olduğu için Dünya'da gizli.
+  - Varsayılan araç 5" FPV dörtlü. Gök mavi, alçak güneşte turuncu, gece koyu.
+  - Dünya deneyleri: araçlar, yük, rüzgâr, gövde, güzergâh, Dünya–Mars karşılaştırması.
+- **Mars simülatörü:** değişmedi. Tek düzeltme, gökyüzü ışığının renginin artık güneşe göre güncellenmesi (önceden bir yorum satırı bu kodu devre dışı bırakıyordu).
+- **Deney koşucusu:** arazi önbelleği artık gezegene göre ayrılıyor. Önceden Dünya–Mars deneyinde Dünya koşuları Mars kraterleri üzerinde uçuyordu; düzeltildi ve sonuçlar yeniden üretildi.
+- **Xbox kumandası (standart eşleme, iki dünyada da):**
+  - Sol çubuk tırmanma ve dönüş, sağ çubuk eğim (Mod 2).
+  - A görevi başlat, B in, Y kamera, X kontrol modu (kalkıştan önce), Menu sıfırla.
+  - HUD'da "🎮 kumanda bağlı" satırı, Uçuş panelinde durum ve yardım metni.
+  - Mars'ta Dünya'dan FPV çubuk komutları ışık süresi kadar gecikiyor; sahada FPV doğrudan.
+  - Tarayıcı kumandayı ilk düğme basışından sonra görüyor.
+- **Küçük düzeltmeler:** yörünge kamerası artık aracın içinden değil arkasından başlıyor ve zeminin altına inmiyor. Deney seçimi panel yenilenince sıfırlanmıyor. Telefonda üst çubuk sığıyor.
+- **Testler:** 105 (yeni dosya `tests/earth-world.test.js`, 6 test). Çekirdek izi AYNI.
+
 ## Açık kararlar (takımdan)
 
 1. **Lisans:** Apache-2.0 öneriliyor; Space Apps varsayılanı bu.

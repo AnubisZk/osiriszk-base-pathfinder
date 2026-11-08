@@ -1,6 +1,7 @@
 import {Simulation} from '../sim/Simulation.js';
 import {ProceduralTerrain} from '../terrain/terrain.js';
-import {solarPlan} from '../mission/Mission.js';
+import {solarPlan,DEFAULT_MISSION} from '../mission/Mission.js';
+import {getProfile} from '../planet/profiles.js';
 
 /**
  * Scientific experiment runner: the same mission under controlled conditions, one or more
@@ -47,7 +48,8 @@ export function runExperiment(def,{onProgress=null,terrainCache=new Map()}={}){
   runs.forEach((r,i)=>{
     let m={...def.base,seed:r.seed,timeLimit:def.timeLimit??def.base?.timeLimit??240};
     for(const [k,v] of Object.entries(r.conditions)){if(!VARIABLES[k])throw new RangeError(`Unknown variable '${k}'`);m=VARIABLES[k].apply(m,v);}
-    const tKey=def.terrainSeed??m.seed;if(!terrainCache.has(tKey))terrainCache.set(tKey,new ProceduralTerrain({seed:tKey}));
+    const planet=getProfile(m.profile??DEFAULT_MISSION.profile).planet,tSeed=def.terrainSeed??m.seed,tKey=`${planet}:${tSeed}`;
+    if(!terrainCache.has(tKey))terrainCache.set(tKey,new ProceduralTerrain({seed:tSeed,planet}));
     const sim=new Simulation(m,{terrain:terrainCache.get(tKey),record:true});
     sim.start();const res=sim.run();
     const lifted=sim.telemetry.stats('agl').max>.5;

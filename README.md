@@ -1,17 +1,59 @@
-# OsirisZk · Mars Aerial Explorer
+# OsirisZk · Earth & Mars rotorcraft simulators
 
-A real-time, physics-based simulator for designing Mars exploration rotorcraft, planning their
-missions and comparing designs in reproducible experiments. Built for the NASA Space Apps
-Challenge 2026 (Ankara) by team **OsirisZk** on the team's own FPV flight core (Rapier rigid-body
-physics, fixed 240 Hz step).
+Two real-time, physics-based simulators on one core: **Mars Aerial Explorer** for designing Mars
+exploration rotorcraft, planning their missions at Jezero and comparing designs in reproducible
+experiments, and **Earth Flight Lab** for flying and testing the same vehicles over hills near
+Ankara. Built for the NASA Space Apps Challenge 2026 (Ankara) by team **OsirisZk** on the team's own
+FPV flight core (Rapier rigid-body physics, fixed 240 Hz step).
 
 ```bash
 npm install
-npm run check        # 99 tests + the 5" core reference trace (must print "AYNI")
-npm run dev:app      # mission control app (English / Türkçe)
-npm run experiments  # all 9 experiments → reports/experiments/*.json|csv
-npm run build        # static site in dist/ (any static host)
+npm run check        # 105 tests + the 5" core reference trace (must print "AYNI")
+npm run dev:app      # landing page → Earth or Mars simulator (English / Türkçe)
+npm run experiments  # all 14 experiments (9 Mars, 5 Earth) → reports/experiments/*.json|csv
+npm run build        # static site in dist/ (any static host; Netlify short links included)
 ```
+
+## Two simulators
+
+| | Earth Flight Lab (`?world=earth`, `/earth`) | Mars Aerial Explorer (`?world=mars`, `/mars`) |
+|---|---|---|
+| Site | Ankara 39.93°N 32.85°E, 938 m | Jezero 18.44°N 77.45°E |
+| Air and gravity | ISA (U.S. Standard Atmosphere 1976), 9.81 m/s² | Mars profiles (brief, NASA Fact Sheet, NASA Glenn, Ingenuity design range), 3.71 m/s² |
+| Sun | NOAA / Spencer (1971) equations | Mars24 |
+| Pilot link | on site, no delay | from Earth with the real light time (3–22 min), or hypothetical on-site FPV |
+| Wind | core Earth levels: calm, 3, 6, 9 m/s | Viking ranges: calm, summer, fall, dust storm |
+| Terrain | procedural hills, no craters, sparse rocks — labelled *not survey or map data* | procedural craters and Golombek–Rapp rocks — labelled *not NASA data*; real DTM import |
+| Energy | battery only (the multi-sol solar model is Mars-specific) | battery + solar charging and night heating over sols |
+| Default vehicle | 5" FPV quad | Ingenuity-like coaxial helicopter |
+| Experiments | vehicles, payload, wind, frames, route, Earth vs Mars | frames, density, vehicles, payload, wind, route, solar, panel, Earth vs Mars |
+
+Opening the site without a world shows a landing page with both. The header's Earth | Mars switch
+changes world and keeps the language and other settings. All vehicles are available in both worlds.
+
+### Controls (both simulators)
+
+| | Keyboard | Xbox / standard controller (Mode 2) |
+|---|---|---|
+| Climb / descend | W / S | left stick up / down |
+| Yaw | A / D | left stick left / right |
+| Pitch / roll | arrow keys | right stick |
+| Launch mission | button in the Mission panel | A |
+| Land now | L | B |
+| Camera (chase → navigation → orbit) | C | Y |
+| Control mode (before launch) | Mission or Flight panel | X |
+| Reset | button in the Mission panel | Menu |
+
+Sticks fly the vehicle in the FPV modes; in autonomous mode the vehicle flies its waypoints. On
+Mars, FPV-from-Earth input is delayed by the light time (the vehicle lands on failsafe); on-site
+FPV is direct. Browsers expose a controller only after its first button press; the HUD then shows
+"🎮 … controller connected".
+
+### Deploying (Netlify)
+
+`npm run build` writes a static site to `dist/` with relative paths and a `_redirects` file, so
+`https://<site>.netlify.app/earth` and `/mars` open the two simulators directly. Drag `dist/` into
+Netlify, or set the build command to `npm run build` and the publish directory to `dist`.
 
 ## What it does
 
@@ -26,7 +68,8 @@ npm run build        # static site in dist/ (any static host)
 | 6 Experiments | Full-factorial runner with fixed seeds (frame, mass, rotor system, density, wind, route, planet); summary statistics, charts, CSV/JSON |
 | 7 Interface | Mission control panels: environment, design lab, mission, flight, telemetry, experiments, report (EN/TR) |
 | 8 Performance | Physics decoupled from rendering (interpolated), instancing, quality presets, in-app FPS/CPU/physics/GPU-timer HUD and a 10 s benchmark export; optional WebGPU path (`?renderer=webgpu`) |
-| 9 Validation | 99 automated tests (46 core + 53 new; below) |
+| 9 Validation | 105 automated tests (46 core + 59 new; below) |
+| Earth simulator | Ankara site, ISA air, NOAA Sun, local pilot, Earth winds, procedural Earth terrain, Earth experiments, Xbox controller in both worlds |
 
 ### Key results (default settings, `reports/`)
 
@@ -41,6 +84,10 @@ npm run build        # static site in dist/ (any static host)
 - Energy: a solar panel cannot power flight directly. Ingenuity's 425 × 165 mm panel gives ≈ 5–8 W at noon against ≈ 350 W in flight. It recharges the battery instead: ≈ 52 Wh/sol at τ 0.5 against ≈ 25 Wh of night heating and sleep (both partly assumed). That allows a flight every clear sol. At τ 4 only 2 flights in 10 sols are possible and the battery is drained, which is the dust-storm risk. The OsirisZk quad needs ≈ 0.25 m² of panel at τ 1.
 - From Earth the one-way light time is 3–22 min (11 min on 14 Nov 2026), so real-time FPV is
   impossible. Commands arrive after the vehicle's failsafe has landed it.
+- Earth (Ankara, 938 m): the 5" quad flies the two-target survey on 2.2 Wh; the OsirisZk Mars quad
+  and the Mars Science Helicopter concept hexacopter also fly (their large rotors meet dense air); the Ingenuity-like
+  helicopter still cannot lift off (motor current limit). Wind up to 9 m/s raises the 5" quad's
+  energy by ≈ 8 %.
 
 ## Validation (tests/)
 
@@ -72,7 +119,8 @@ npm run build        # static site in dist/ (any static host)
 - Terrain: deterministic; the Rapier heightfield agrees with the height function; the rock model holds; DTM import keeps the slopes.
 - Missions: autonomous mission and budget; identical telemetry on repeat; FPV through the light-time link fails; FPV with no delay succeeds.
 - Energy over sols: the irradiance model's limits; Viking 1 temperature extremes; the battery ledger closes; dust-storm and panel-area trends; the fly/no-fly policy.
-- Experiments: deterministic runs, summary and CSV.
+- Experiments: deterministic runs, summary and CSV; terrain generated per planet.
+- Earth simulator: Ankara solstice noon Sun elevations (90° − φ ± 23.44°), equation-of-time extremes, perihelion/aphelion irradiance ratio; ISA density at 938 m; no light delay and no Mars energy model on Earth; Earth terrain has no craters and flyable slopes; the 5" quad flies the Earth survey autonomously and with an on-site FPV pilot; the Ingenuity-like rotorcraft cannot lift off; world URLs and defaults; every English UI string has a Turkish one.
 
 ## Calibration and assumptions
 
@@ -110,11 +158,12 @@ src/frames/      mass properties, carbon / C60 / hex-cell frames
 src/vehicles/    vehicle presets, assembly, RotorcraftVehicle (forces and torques in Rapier)
 src/control/     cascaded flight control and allocation (coaxial, multirotor)
 src/mars/        Mars24 time and Sun, Earth–Mars light time
+src/earth/       Earth Sun (NOAA / Spencer), Ankara site
 src/terrain/     procedural and DTM terrain, Rapier heightfield
 src/mission/     mission spec, energy budget, executive, delayed link
 src/sim/         Simulation, telemetry, planet wind
 src/experiment/  experiment runner and presets
-app/             mission control UI, rendering, worker, report
+app/             landing page, world configs (worlds.js), mission control UI, rendering, worker, report
 tools/           experiments, comparison, benchmarks, DTM import, core trace
 ```
 

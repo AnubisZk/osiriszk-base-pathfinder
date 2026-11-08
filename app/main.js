@@ -1,5 +1,6 @@
-// OsirisZk Mars Aerial Explorer — mission control app. Physics: fixed 240 Hz steps (Rapier),
-// rendering: interpolated between the last two physics states; the renderer never writes physics.
+// OsirisZk mission control app — the Earth and the Mars simulator (one app, world from ?world=).
+// Physics: fixed 240 Hz steps (Rapier); rendering: interpolated between the last two physics
+// states; the renderer never writes physics.
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {initializeRapier} from '../src/physics/FlightPhysics.js';
@@ -9,28 +10,31 @@ import {PROFILES,PROFILE_ORDER} from '../src/planet/index.js';
 import {VEHICLES,VEHICLE_ORDER} from '../src/vehicles/presets.js';
 import {FRAME_TYPES,FRAME_LABELS,FEA_NOTE} from '../src/frames/frames.js';
 import {VARIABLES,toCSV} from '../src/experiment/Experiment.js';
-import {EXPERIMENTS} from '../src/experiment/presets.js';
-import {DEFAULT_MISSION,solarPlan} from '../src/mission/Mission.js';
-import {t,L,setLang,getLang} from './i18n.js';
+import {solarPlan} from '../src/mission/Mission.js';
+import {t,L,setLang,getLang,setWorld} from './i18n.js';
+import {WORLDS,resolveWorld,worldHref,worldSpec} from './worlds.js';
 import {MarsScene,followCamera} from './render/scene.js';
 import {DustPlume} from './render/dust.js';
 import {createVehicleModel} from './render/vehicleModel.js';
 import {lineChart,barChart} from './ui/charts.js';
 import {buildReport,markdownToHtml} from './report.js';
 
+const WORLD=resolveWorld()??WORLDS.mars,MARS=WORLD.planet==='mars',EXPERIMENTS=WORLD.experiments;
+setWorld(WORLD.id);document.body.dataset.world=WORLD.id;
 await initializeRapier();
 setLang(getLang());
 const $=s=>document.querySelector(s);
 const params=new URLSearchParams(location.search);
 // Terrain: a real DTM imported with tools/import-dtm.mjs (?terrain=<name>) or the labelled procedural one
 async function loadTerrain(name){
-  if(!name)return new ProceduralTerrain({seed:2026,cells:[512,512]}); // 2.3 m cells (physics and drawing)
+  const procedural=()=>new ProceduralTerrain({seed:2026,cells:[512,512],planet:WORLD.planet}); // 2.3 m cells (physics and drawing)
+  if(!name)return procedural();
   try{const meta=await (await fetch(`terrain/${name}.json`)).json(),buf=await (await fetch(`terrain/${name}.bin`)).arrayBuffer();
     return new HeightmapTerrain(meta.nx,meta.nz,meta.size,new Float32Array(buf),meta);}
-  catch(e){console.warn('DTM not found, using procedural terrain',e);return new ProceduralTerrain({seed:2026,cells:[512,512]});}
+  catch(e){console.warn('DTM not found, using procedural terrain',e);return procedural();}
 }
 const terrain=await loadTerrain(params.get('terrain'));
-let spec=JSON.parse(JSON.stringify(DEFAULT_MISSION));spec.calibrated=true;
+let spec=worldSpec(WORLD);
 let sim=null,model=null,running=false,lastExperiment=null,worker=null,cameraMode='chase';
 
 // ---------- renderer (WebGL by default, WebGPU on ?renderer=webgpu when available) ----------
@@ -41,9 +45,9 @@ if(params.get('renderer')==='webgpu'&&navigator.gpu){
 }
 renderer??=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
 renderer.shadowMap.type=THREE.PCFShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
-const world=new MarsScene(renderer,terrain,$('#quality').value);
-const camera=new THREE.PerspectiveCamera(60,1,.05,4000);const dust=new DustPlume(world.scene),dustColor=new THREE.Color('#c08a62');camera.position.set(6,5,8);
-const orbit=new OrbitControls(camera,canvas);orbit.enabled=false;orbit.enableDamping=true;
+const world=new MarsScene(renderer,terrain,$('#quality').value,WORLD.id);
+const camera=new THREE.PerspectiveCamera(60,1,.05,4000);const dust=new DustPlume(world.scene),dustColor=new THREE.Color(world.palette.dust);camera.position.set(6,5,8);
+const orbit=new OrbitControls(camera,canvas);orbit.enabled=false;orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*.495;orbit.maxDistance=400;
 function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
 
@@ -64,23 +68,49 @@ function rebuild(){
 }
 function launch(){if(running||!sim)return;if(sim.mission.result||sim.time>.1)rebuild();sim.start();running=true;refreshPanels();canvas.focus();}
 function banner(msg){$('#banner').textContent=msg;}
+let toastTimer=0;function toast(msg){const e=$('#toast');e.textContent=msg;e.classList.add('on');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('on'),2600);}
+const CONTROL_LABEL={autonomous:'autonomous','earth-fpv':'earthFpv','local-fpv':'localFpv'};
+function setCamera(mode){cameraMode=mode;orbit.enabled=mode==='orbit';
+  // orbit starts from a viewpoint behind and above the vehicle (not from inside it after FPV)
+  if(mode==='orbit'&&sim){const s=Math.max(1,Math.cbrt(sim.built.mass)),p=sim.vehicle.position;camera.position.set(p.x+5*s,p.y+3*s,p.z+7*s);orbit.target.set(p.x,p.y,p.z);orbit.update();}}
+function cycleCamera(){setCamera(cameraMode==='chase'?'fpv':cameraMode==='fpv'?'orbit':'chase');toast(`${t('camera')}: ${t(cameraMode)}`);if(activeTab==='flight')refreshPanels();}
+function cycleControl(){if(running)return;const c=WORLD.controls;spec.control=c[(c.indexOf(spec.control)+1)%c.length];rebuild();toast(`${t('control')}: ${t(CONTROL_LABEL[spec.control])}`);}
+function reset(){running=false;rebuild();}
 
 // ---------- input: keyboard and standard gamepad ----------
 const keys=new Set();
 addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;keys.add(e.code);
-  if(e.code==='KeyC'){cameraMode=cameraMode==='chase'?'fpv':cameraMode==='fpv'?'orbit':'chase';orbit.enabled=cameraMode==='orbit';}
+  if(e.code==='KeyC')cycleCamera();
   if(e.code==='KeyL'&&running)sim.control.land();});
 addEventListener('keyup',e=>keys.delete(e.code));
+// Xbox / standard-mapping controller (W3C Gamepad "standard" layout): Mode 2 sticks; buttons with
+// edge detection: A launch, B land, X control mode (before launch), Y camera, Menu reset.
+const PAD={A:0,B:1,X:2,Y:3,MENU:9};let padPrev=[],padInfo=null;
+const pads=()=>[...(navigator.getGamepads?.()??[])].filter(p=>p&&p.connected!==false);
+const padName=id=>String(id).replace(/\s*\(.*$/,'').trim()||'Gamepad';
+addEventListener('gamepadconnected',e=>toast(`🎮 ${padName(e.gamepad.id)} — ${t('padOn')}`));
+addEventListener('gamepaddisconnected',()=>{padPrev=[];toast(`🎮 —`);});
+function pollPad(){
+  const all=pads(),pad=all.find(p=>p.mapping==='standard');
+  padInfo=pad?{name:padName(pad.id),standard:true}:all[0]?{name:padName(all[0].id),standard:false}:null;
+  if(!pad){padPrev=[];return;}
+  const prev=padPrev,down=pad.buttons.map(b=>b.pressed),edge=i=>down[i]&&!prev[i];padPrev=down;
+  if(edge(PAD.A))launch();
+  if(edge(PAD.B)&&running)sim.control.land();
+  if(edge(PAD.X))cycleControl();
+  if(edge(PAD.Y))cycleCamera();
+  if(edge(PAD.MENU))reset();
+}
 function stick(){
   const k=c=>keys.has(c)?1:0,s={pitch:k('ArrowUp')-k('ArrowDown'),roll:k('ArrowRight')-k('ArrowLeft'),yaw:k('KeyA')-k('KeyD'),climb:k('KeyW')-k('KeyS')};
-  const pad=[...(navigator.getGamepads?.()??[])].find(p=>p&&p.mapping==='standard');
+  const pad=pads().find(p=>p.mapping==='standard');
   if(pad){const dz=v=>Math.abs(v)<.08?0:v;s.climb||=-dz(pad.axes[1]);s.yaw||=-dz(pad.axes[0]);s.roll||=dz(pad.axes[2]);s.pitch||=-dz(pad.axes[3]);}
   return s;
 }
 
 // ---------- UI ----------
 const TABS=[['env','tabEnv'],['design','tabDesign'],['mission','tabMission'],['flight','tabFlight'],['telemetry','tabTelemetry'],['experiments','tabExperiments'],['report','tabReport']];
-let activeTab='mission';
+let activeTab='mission',expChoice=null;
 const h=(tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs)){if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else if(k==='html')e.innerHTML=v;else if(v!=null&&v!==false)e.setAttribute(k,v===true?'':v);}for(const c of kids.flat())if(c!=null)e.append(c);return e;};
 const row=(label,control)=>h('div',{class:'row'},h('label',{},label),control);
 const select=(options,value,onchange)=>{const s=h('select',{onchange:e=>onchange(e.target.value)},...options.map(([v,lab])=>h('option',{value:v},lab)));s.value=value;return s;};
@@ -101,24 +131,27 @@ const set=(k,v)=>{spec[k]=v;rebuild();};
 function paneEnv(p){
   const env=sim.environment,ov=spec.overrides??{};
   const setOv=(k,v)=>{const o={...spec.overrides};if(v==null)delete o[k];else o[k]=v;if(k==='surfaceDensity')delete o.surfacePressure;spec.overrides=o;rebuild();};
-  const winds=(env.profile.winds??[{id:'calm',label:{en:'Calm',tr:'Sakin'}}]);
-  const date=new Date(spec.date).toISOString().slice(0,16);
+  const winds=WORLD.winds??env.profile.winds??[{id:'calm',label:{en:'Calm',tr:'Sakin'}}];
+  const date=new Date(spec.date).toISOString().slice(0,16),off=WORLD.site.utcOffset;
+  const profiles=PROFILE_ORDER.filter(id=>PROFILES[id].planet===WORLD.planet);
   p.append(
-    row(t('profile'),select(PROFILE_ORDER.map(id=>[id,L(PROFILES[id].label)]),spec.profile,v=>{spec.profile=v;spec.overrides={};spec.wind={...spec.wind,level:'calm'};rebuild();})),
+    row(t('profile'),select(profiles.map(id=>[id,L(PROFILES[id].label)]),spec.profile,v=>{spec.profile=v;spec.overrides={};spec.wind={...spec.wind,level:'calm'};rebuild();})),
+    MARS?null:row(t('siteElev'),num(spec.siteElevation,v=>set('siteElevation',Math.max(0,Math.min(5000,v??0))),{step:50,min:0,max:5000})),
     row(`${t('density')} (kg/m³)`,num(ov.surfaceDensity,v=>setOv('surfaceDensity',v),{step:.0005,min:.001,placeholder:`${t('useProfile')} ${fmt(env.surface.density,4)}`})),
     row(`${t('temperature')} (K)`,num(ov.surfaceTemperature,v=>setOv('surfaceTemperature',v),{step:1,min:100,placeholder:fmt(env.surface.temperature,1)})),
     row(`${t('gravity')} (m/s²)`,num(ov.gravity,v=>setOv('gravity',v),{step:.01,min:.5,placeholder:env.gravity})),
     row(t('wind'),select(winds.map(w=>[w.id,L(w.label)]),spec.wind.level,v=>{spec.wind={...spec.wind,level:v};rebuild();})),
     row(t('windDir'),num(spec.wind.direction,v=>{spec.wind={...spec.wind,direction:v??225};rebuild();},{step:15})),
-    row(`${t('dust')}: ${fmt(spec.opticalDepth,2)}`,h('input',{type:'range',min:0,max:5,step:.05,value:spec.opticalDepth,
+    row(`${t('dust')}: ${fmt(spec.opticalDepth,2)}`,h('input',{type:'range',min:0,max:WORLD.opticalDepthMax,step:.05,value:spec.opticalDepth,
       oninput:e=>{spec.opticalDepth=+e.target.value;world.setSky(sim.sun,spec.opticalDepth);e.target.parentElement.firstChild.textContent=`${t('dust')}: ${fmt(spec.opticalDepth,2)}`;},
       onchange:()=>rebuild()})),
     row(t('date'),h('input',{type:'datetime-local',value:date,onchange:e=>{const ms=Date.parse(e.target.value+':00Z');if(Number.isFinite(ms))set('date',ms);}})),
     h('div',{class:'kv'},
-      h('span',{},`${t('site')}`),h('b',{},'Jezero 18.44°N 77.45°E'),
+      h('span',{},`${t('site')}`),h('b',{},WORLD.site.label),
+      off!=null?h('span',{},`${t('localTime')} (UTC+${off})`):null,off!=null?h('b',{},new Date(spec.date+off*36e5).toISOString().slice(11,16)):null,
       h('span',{},`${t('sun')} ${t('elevation')} / ${t('azimuth')}`),h('b',{},`${fmt(sim.sun.elevation,1)}° / ${fmt(sim.sun.azimuth,0)}°`),
-      h('span',{},t('lst')),h('b',{},`${fmt(sim.sun.localSolarTime,2)} h · Ls ${fmt(sim.sun.Ls,1)}°`),
-      h('span',{},t('delay')),h('b',{},`${fmt(sim.link.oneWayLightTime/60,1)} min · ${fmt(sim.link.distanceAU,3)} AU`)),
+      h('span',{},t('lst')),h('b',{},MARS?`${fmt(sim.sun.localSolarTime,2)} h · Ls ${fmt(sim.sun.Ls,1)}°`:`${fmt(sim.sun.localSolarTime,2)} h · ${t('eot')} ${fmt(sim.sun.equationOfTime,1)} min`),
+      MARS?h('span',{},t('delay')):null,MARS?h('b',{},`${fmt(sim.link.oneWayLightTime/60,1)} min · ${fmt(sim.link.distanceAU,3)} AU`):null),
     h('h3',{},t('params')),
     h('table',{},h('tr',{},h('th',{},''),h('th',{},''),h('th',{},t('status'))),
       ...env.parameters(getLang()).map(r=>h('tr',{},h('td',{},r.key),h('td',{},`${typeof r.value==='number'?+r.value.toPrecision(4):r.value} ${r.unit}`),
@@ -154,10 +187,11 @@ function paneDesign(p){
 function currentPlan(){const e=sim.mission.result?.success?sim.mission.result.energyWh:sim.budget.energyWh;return solarPlan(sim,e,missionSpec());}
 function drawMap(cv){
   const g=cv.getContext('2d'),N=cv.width=cv.height=360,R=150,img=g.createImageData(N,N);
+  const base=MARS?[150,90,60,5,3,2]:[105,112,62,2,1.6,1];
   for(let j=0;j<N;j++)for(let i=0;i<N;i++){const x=(i/N-.5)*2*R,z=(j/N-.5)*2*R,hh=terrain.heightAt(x,z),n=terrain.normalAt(x,z,1.5),sh=.55+.45*Math.max(0,n[0]*.5+n[1]*.7-n[2]*.5);
-    const k=(i+j*N)*4;img.data[k]=(150+hh*5)*sh;img.data[k+1]=(90+hh*3)*sh;img.data[k+2]=(60+hh*2)*sh;img.data[k+3]=255;}
+    const k=(i+j*N)*4;img.data[k]=(base[0]+hh*base[3])*sh;img.data[k+1]=(base[1]+hh*base[4])*sh;img.data[k+2]=(base[2]+hh*base[5])*sh;img.data[k+3]=255;}
   g.putImageData(img,0,0);const P=(x,z)=>[(x/(2*R)+.5)*N,(z/(2*R)+.5)*N];
-  g.fillStyle='#1a0f0899';for(const r of terrain.rocks){if(r.d<.8||Math.abs(r.x)>R||Math.abs(r.z)>R)continue;const [a,b]=P(r.x,r.z);g.fillRect(a,b,2,2);}
+  g.fillStyle=MARS?'#1a0f0899':'#2a2a2a99';for(const r of terrain.rocks){if(r.d<.8||Math.abs(r.x)>R||Math.abs(r.z)>R)continue;const [a,b]=P(r.x,r.z);g.fillRect(a,b,2,2);}
   g.strokeStyle='#7ef0ff';g.lineWidth=2;g.beginPath();let [a,b]=P(0,0);g.moveTo(a,b);for(const w of spec.waypoints){[a,b]=P(w.x,w.z);g.lineTo(a,b);}if(spec.returnHome){[a,b]=P(0,0);g.lineTo(a,b);}g.stroke();
   g.fillStyle='#ffd166';[a,b]=P(0,0);g.beginPath();g.arc(a,b,5,0,7);g.fill();
   spec.waypoints.forEach((w,i)=>{[a,b]=P(w.x,w.z);g.fillStyle='#7ef0ff';g.beginPath();g.arc(a,b,5,0,7);g.fill();g.fillStyle='#fff';g.font='11px system-ui';g.fillText(`${i+1}`,a+7,b-6);});
@@ -174,7 +208,7 @@ function paneMission(p){
     row(`${t('cruise')} (m)`,num(spec.cruiseAltitude,v=>set('cruiseAltitude',Math.max(1,v??5)),{step:1,min:1,max:30})),
     row(`${t('speed')} (m/s)`,num(spec.speed,v=>set('speed',Math.max(.5,v??3)),{step:.5,min:.5,max:12})),
     row(`${t('reserve')} (%)`,num(Math.round(spec.reserve*100),v=>set('reserve',Math.min(.6,Math.max(0,(v??15)/100))),{step:5,min:0,max:60})),
-    row(t('control'),select([['autonomous',t('autonomous')],['earth-fpv',t('earthFpv')],['local-fpv',t('localFpv')]],spec.control,v=>set('control',v))),
+    row(t('control'),select(WORLD.controls.map(c=>[c,t(CONTROL_LABEL[c])]),spec.control,v=>set('control',v))),
     h('h3',{},t('budget')),
     h('div',{class:'kv'},
       h('span',{},t('route')),h('b',{},`${fmt(B.routeLength,0)} m`),h('span',{},t('flightTime')),h('b',{},`${fmt(B.flightTime,0)} s`),
@@ -183,9 +217,10 @@ function paneMission(p){
     h('div',{style:'display:flex;gap:6px;margin:10px 0;flex-wrap:wrap'},
       h('button',{class:'act',disabled:running,onclick:launch},t('launch')),
       h('button',{class:'sec',disabled:!running,onclick:()=>sim.control.land()},t('land')),
-      h('button',{class:'sec',onclick:()=>{running=false;rebuild();}},t('reset'))),
+      h('button',{class:'sec',onclick:reset},t('reset'))),
     r?h('p',{class:r.success?'ok':'bad'},`${t('result')}: ${r.success?t('success'):t('failed')} — ${r.reason} · ${t('observations')} ${r.observations}/${r.requiredObservations} · ${fmt(r.energyWh,2)} Wh · ${fmt(r.flightTime,1)} s`):null,
   );
+  if(!WORLD.solar){requestAnimationFrame(()=>drawMap(cv));return;} // the multi-sol energy model is Mars-specific
   // energy over sols: solar charging, night heating, one flight per sol when the battery allows
   const plan=currentPlan(),soc=h('canvas',{class:'chart'}),pw=h('canvas',{class:'chart'}),sp=sim.built.spec;
   p.append(h('h3',{},t('solarTitle')),
@@ -202,8 +237,11 @@ function paneMission(p){
     lineChart(pw,{x,xLabel:'sol',title:`${t('power')} (W)`,series:[{label:t('panel'),data:plan.timeline.map(q=>q.pv),color:'#ffd166'},{label:t('heater'),data:plan.timeline.map(q=>q.heat),color:'#ff6b6b'}]});}});
 }
 function paneFlight(p){
-  p.append(row(t('camera'),select([['chase',t('chase')],['fpv',t('fpv')],['orbit',t('orbit')]],cameraMode,v=>{cameraMode=v;orbit.enabled=v==='orbit';canvas.focus();})),
+  p.append(row(t('camera'),select([['chase',t('chase')],['fpv',t('fpv')],['orbit',t('orbit')]],cameraMode,v=>{setCamera(v);canvas.focus();})),
+    row(t('control'),select(WORLD.controls.map(c=>[c,t(CONTROL_LABEL[c])]),spec.control,v=>set('control',v))),
     h('p',{class:'note'},t('keys')),
+    h('p',{class:padInfo?'ok':'note',id:'padStatus'},padInfo?`🎮 ${padInfo.name} — ${t('padOn')}${padInfo.standard?'':' (non-standard mapping)'}`:`🎮 ${t('padNone')}`),
+    h('p',{class:'note'},t('padHelp')),MARS?h('p',{class:'note'},t('padFpvMars')):null,
     spec.control==='earth-fpv'?h('p',{class:'warn'},`${t('linkInfo')} (${fmt(sim.link.oneWayLightTime/60,1)} min)`):null,
     spec.control==='autonomous'?h('p',{class:'note'},`${t('autonomous')}: ${t('waypoints')} ${spec.waypoints.length}`):null);
 }
@@ -223,7 +261,7 @@ function drawTelemetry(){
   lineChart(telemetryCanvases[3],{x:c.t,xLabel:'s',title:`${t('tilt')} (°) · rpm/100`,series:[{label:'tilt',data:c.tilt,color:'#ff6b6b'},{label:'rpm/100',data:c.rpm0.map(v=>v/100),color:'#8ec5ff'}]});
 }
 function paneExperiments(p){
-  const ids=Object.keys(EXPERIMENTS);let choice=p.dataset.choice??ids[0];
+  const ids=Object.keys(EXPERIMENTS);let choice=expChoice&&EXPERIMENTS[expChoice]?expChoice:ids[0];
   const prog=h('p',{class:'note'}),chart=h('canvas',{class:'chart'}),chart2=h('canvas',{class:'chart'}),chart3=h('canvas',{class:'chart'}),table=h('div');
   const run=()=>{
     if(worker)return;const def=JSON.parse(JSON.stringify(EXPERIMENTS[choice]));
@@ -239,21 +277,21 @@ function paneExperiments(p){
     const labels=S.map(s=>keys.map(k=>s[k]).join(' / '));
     barChart(chart,{labels,values:S.map(s=>s.success?s.energyWh:NaN),errors:S.map(s=>s.energyWhSd),title:t('energy'),unit:'Wh'});
     barChart(chart2,{labels,values:S.map(s=>100*s.success),title:`${t('success')}`,unit:'%',color:'#7bd88f'});
-    barChart(chart3,{labels,values:S.map(s=>s.flightsPer10Sols),title:`${t('flightsSols')} (10)`,color:'#ffd166'});
-    table.replaceChildren(h('table',{},h('tr',{},...keys.map(k=>h('th',{},L(VARIABLES[k].label))),h('th',{},'✓'),h('th',{},'Wh'),h('th',{},'s'),h('th',{},'tilt°'),h('th',{},'✈/10 sol')),
-      ...S.map(s=>h('tr',{},...keys.map(k=>h('td',{},String(s[k]))),h('td',{},`${fmt(100*s.success,0)}%`),h('td',{},`${fmt(s.energyWh,2)}±${fmt(s.energyWhSd,2)}`),h('td',{},fmt(s.flightTime,1)),h('td',{},fmt(s.maxTilt,1)),h('td',{},fmt(s.flightsPer10Sols,1))))),
+    if(MARS)barChart(chart3,{labels,values:S.map(s=>s.flightsPer10Sols),title:`${t('flightsSols')} (10)`,color:'#ffd166'});
+    table.replaceChildren(h('table',{},h('tr',{},...keys.map(k=>h('th',{},L(VARIABLES[k].label))),h('th',{},'✓'),h('th',{},'Wh'),h('th',{},'s'),h('th',{},'tilt°'),MARS?h('th',{},'✈/10 sol'):null),
+      ...S.map(s=>h('tr',{},...keys.map(k=>h('td',{},String(s[k]))),h('td',{},`${fmt(100*s.success,0)}%`),h('td',{},`${fmt(s.energyWh,2)}±${fmt(s.energyWhSd,2)}`),h('td',{},fmt(s.flightTime,1)),h('td',{},fmt(s.maxTilt,1)),MARS?h('td',{},fmt(s.flightsPer10Sols,1)):null))),
       h('div',{style:'display:flex;gap:6px;margin-top:6px'},
         h('button',{class:'sec',onclick:()=>download(`${d.name}.csv`,toCSV(lastExperiment.rows),'text/csv')},`${t('export')} CSV`),
         h('button',{class:'sec',onclick:()=>download(`${d.name}.json`,JSON.stringify(lastExperiment,null,1),'application/json')},`${t('export')} JSON`)));
   };
   const def=EXPERIMENTS[choice];
-  p.append(row(t('expPreset'),select(ids.map(id=>[id,L(EXPERIMENTS[id].label)]),choice,v=>{p.dataset.choice=v;refreshPanels();})),
+  p.append(row(t('expPreset'),select(ids.map(id=>[id,L(EXPERIMENTS[id].label)]),choice,v=>{expChoice=v;refreshPanels();})),
     h('p',{class:'note'},`${t('expVar')}: ${def.variables.map(v=>`${L(VARIABLES[v.key].label)} = ${v.values.join(', ')}`).join(' × ')} · ${t('expSeeds')}: ${def.seeds.length}`),
-    h('button',{class:'act',onclick:run,disabled:!!worker},t('expRun')),prog,chart,chart2,chart3,table);
+    h('button',{class:'act',onclick:run,disabled:!!worker},t('expRun')),prog,chart,chart2,MARS?chart3:null,table);
   showResults();
 }
 function paneReport(p){
-  const md=buildReport({sim,experiment:lastExperiment,dust:spec.opticalDepth,solar:currentPlan()});
+  const md=buildReport({sim,experiment:lastExperiment,dust:spec.opticalDepth,solar:WORLD.solar?currentPlan():null,world:WORLD.id,site:WORLD.site.label});
   p.append(h('div',{style:'display:flex;gap:6px'},
     h('button',{class:'sec',onclick:()=>download('osiriszk-report.md',md,'text/markdown')},`${t('download')} .md`),
     h('button',{class:'sec',onclick:()=>download('osiriszk-report.json',JSON.stringify({spec:missionSpec(),result:sim.mission.result,budget:sim.budget,experiment:lastExperiment,environment:sim.environment.toJSON()},null,1),'application/json')},`${t('download')} .json`)),
@@ -261,8 +299,13 @@ function paneReport(p){
 }
 function download(name,text,type){const a=h('a',{href:URL.createObjectURL(new Blob([text],{type})),download:name});document.body.append(a);a.click();a.remove();}
 
+function buildHeader(){
+  document.title=t('title');$('#home').title=t('home');
+  $('#worlds').replaceChildren(...['earth','mars'].map(id=>h('a',{href:worldHref(id),class:id===WORLD.id?'on':'','aria-current':id===WORLD.id?'page':null},t(id==='earth'?'worldEarth':'worldMars'))));
+}
+$('#home').href=worldHref(null);
 $('#lang').value=getLang();
-$('#lang').onchange=e=>{setLang(e.target.value);buildTabs();refreshPanels();};
+$('#lang').onchange=e=>{setLang(e.target.value);buildHeader();buildTabs();refreshPanels();};
 $('#quality').onchange=e=>{world.setQuality(e.target.value);canvas.focus();};
 
 // ---------- performance measurement ----------
@@ -277,7 +320,7 @@ function startBench(){perf.bench={start:performance.now(),frames:[],phys:[]};}
 const rp=new THREE.Vector3(),rq=new THREE.Quaternion(),tmp=new THREE.Vector3(),fwd=new THREE.Vector3();let last=performance.now(),hudT=0,chartT=0;
 function frame(now){
   const dt=Math.min(.1,(now-last)/1000);last=now;const t0=performance.now();
-  let alpha=1;
+  let alpha=1;pollPad();
   if(running&&sim){
     if(spec.control!=='autonomous'&&sim.mission.phase==='piloted')sim.mission.pilot(stick());
     const tp=performance.now();alpha=sim.physics.advance(dt,onStep);perf.phys+=performance.now()-tp;
@@ -321,10 +364,11 @@ function hud(){
     `${t('speed')}: ${fmt(Math.hypot(vel.x,vel.z),1)} m/s   ${t('thrust')}: ${fmt(o.thrust,1)} N / ${fmt(c.W,1)} N\n${t('power')}: ${fmt(o.power,0)} W   ${t('energy')}: ${fmt(v.energyWh,2)} Wh\n`+
     `${t('soc')}: ${fmt(100*v.battery.soc,1)} %  ${fmt(v.battery.voltage,1)} V   rpm ${fmt(v.rpm(0),0)}\nρ ${fmt(o.density,4)} kg/m³   t ${fmt(sim.time,1)} s`+
     (link&&link.delay>0?`\n${t('linkWait')}: ${wait!=null?new Date(wait*1000).toISOString().slice(11,19):fmt(link.delay/60,1)+' min'}`:'')+
+    (padInfo?`\n🎮 ${padInfo.name} · ${t(CONTROL_LABEL[spec.control])}`:'')+
     `\n[${t('perf')}] ${params.get('bench')?'':'B: '+t('bench')}`;
 }
 addEventListener('keydown',e=>{if(e.code==='KeyB'&&!perf.bench)startBench();});
 
-buildTabs();rebuild();requestAnimationFrame(frame);
+buildHeader();buildTabs();rebuild();requestAnimationFrame(frame);
 // read-only handle for automated checks
-window.__osiris={get sim(){return sim;},get running(){return running;},launch,rebuild,get spec(){return spec;},perf};
+window.__osiris={world:WORLD.id,get sim(){return sim;},get running(){return running;},launch,rebuild,get spec(){return spec;},perf,get pad(){return padInfo;},pollPad,camera,setCamera};

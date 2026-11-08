@@ -1,0 +1,4 @@
+route,runs,liftOff,liftOffSd,canHover,canHoverSd,success,successSd,flightTime,flightTimeSd,energyWh,energyWhSd,energyPerKm,energyPerKmSd,distance,distanceSd,observations,observationsSd,maxTilt,maxTiltSd,tiltRms,tiltRmsSd,hoverRateRms,hoverRateRmsSd,positionErrorRms,positionErrorRmsSd,budgetEnergyWh,budgetEnergyWhSd,budgetError,budgetErrorSd,mass,massSd,flightsPer10Sols,flightsPer10SolsSd,harvestWhPerSol,harvestWhPerSolSd,nightWhPerSol,nightWhPerSolSd,minSoC10Sols,minSoC10SolsSd
+short,1,1,0,1,0,1,0,41.875,0,1.375569,0,16.86054,0,81.58511,0,1,0,26.07534,0,4.708679,0,3.84807,0,0.1713906,0,1.12801,0,-0.1799687,0,0.65,0,0,0,,0,,0,,0
+standard,1,1,0,1,0,1,0,68.37083,0,2.215289,0,15.23025,0,145.4532,0,2,0,25.37426,0,4.390628,0,3.752426,0,0.1728411,0,1.86928,0,-0.1561912,0,0.65,0,0,0,,0,,0,,0
+survey,1,1,0,1,0,1,0,128.1167,0,4.127215,0,12.92051,0,319.4312,0,3,0,28.70094,0,3.768156,0,3.944647,0,0.1975432,0,3.60444,0,-0.1266652,0,0.65,0,0,0,,0,,0,,0

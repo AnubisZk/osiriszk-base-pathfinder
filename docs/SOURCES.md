@@ -38,6 +38,8 @@ Helicopter Aerodynamics*), propeller and rotorcraft thrust-coefficient conventio
 | `golombek1997` | Golombek & Rapp (1997), *JGR* 102(E2) — https://doi.org/10.1029/96JE03319 | rock size–frequency model F(D) = k e^(−qD), q = 1.79 + 0.152/k |
 | `jplSolarArray` | NASA/JPL, *Mars Helicopter's Solar Array (PIA24545)* — https://www.jpl.nasa.gov/images/pia24545-mars-helicopters-solar-array-as-seen-by-perseverances-mastcam-z/ | panel 425 × 165 mm; energy used for night heaters and flight; ≈ 350 W in flight |
 | `appelbaum1989` | Appelbaum & Flood, *Solar radiation on Mars*, NASA-TM-102299 (1989) — https://ntrs.nasa.gov/citations/19890018252 | trend of global irradiance with optical depth (shape of the assumed diffuse-light term) |
+| `noaaSolar` | NOAA Global Monitoring Laboratory, *General Solar Position Calculations* (Fourier series of J. W. Spencer, 1971, *Search* 2(5), 172) — https://gml.noaa.gov/grad/solcalc/solareqns.PDF | Earth simulator: Sun declination, equation of time, Earth–Sun distance (TOA irradiance 1361 W/m² × (r₀/r)²), Sun elevation/azimuth at Ankara (`src/earth/sun.js`); checked against solstice noon elevations and the equation-of-time extremes |
+| `isa` (again) | U.S. Standard Atmosphere 1976 | Earth simulator air at the Ankara site (938 m, the city's approximate elevation, assumed) |
 | `hirise` | HiRISE DTMs — https://www.uahirise.org/dtm/ | real terrain import (tools/import-dtm.mjs) |
 | textbooks | Leishman, *Principles of Helicopter Aerodynamics*; Cheeseman & Bennett (1955) ground effect; Pitt & Peters dynamic inflow; Lock's drag-rise law; Prandtl tip loss; White, *Fluid Mechanics* (cylinder Cd ≈ 1 + 10/Re^(2/3)); Hoerner (flat plate Cd 1.17) | standard rotorcraft and fluid relations |
 

@@ -53,12 +53,18 @@ export class HeightmapTerrain extends GridTerrain {
   }
 }
 
+/** Earth defaults: rolling steppe-like hills, no craters, sparse rocks (all assumed, illustrative). */
+export const EARTH_TERRAIN=Object.freeze({relief:16,craterDensity:0,rockAbundance:.01,maxRocks:1500});
+
 export class ProceduralTerrain extends GridTerrain {
   /**
-   * opts: {seed, size [m, m], cells [nx, nz], relief (m), craterDensity (craters ≥ 10 m per km²),
-   *        rockAbundance k (fraction of area covered by rocks), rockArea (m) half-size for rocks}
+   * opts: {planet 'mars'|'earth', seed, size [m, m], cells [nx, nz], relief (m), craterDensity (craters ≥ 10 m
+   *        per km²), rockAbundance k (fraction of area covered by rocks), rockArea (m) half-size for rocks}
+   * Earth uses EARTH_TERRAIN as defaults; Mars keeps the original defaults.
    */
-  constructor({seed=2026,size=[1200,1200],cells=[256,256],relief=6,craterDensity=60,rockAbundance=.08,rockArea=250,maxRocks=6000}={}){
+  constructor(opts={}){
+    const planet=opts.planet==='earth'?'earth':'mars';
+    const {seed=2026,size=[1200,1200],cells=[256,256],relief=6,craterDensity=60,rockAbundance=.08,rockArea=250,maxRocks=6000}={...(planet==='earth'?EARTH_TERRAIN:{}),...opts};
     const [nx,nz]=cells,rand=mulberry32(seed),W=nx+1,heights=new Float32Array(W*(nz+1));
     // value-noise octaves (smooth lattice noise)
     const lattice=[];for(let o=0;o<5;o++){const n=4<<o,g=new Float32Array((n+1)*(n+1));for(let k=0;k<g.length;k++)g[k]=rand()*2-1;lattice.push({n,g});}
@@ -78,9 +84,11 @@ export class ProceduralTerrain extends GridTerrain {
       const x=(i/nx-.5)*size[0],z=(j/nz-.5)*size[1];
       heights[i+j*W]=relief*noise(x,z)+craterAt(x,z);
     }
-    super(nx,nz,size,heights,{source:'procedural',procedural:true,seed,
-      label:{en:'Procedural terrain — illustrative, NOT NASA data',tr:'Prosedürel arazi — temsilî, NASA verisi DEĞİL'},
-      method:'value-noise relief, power-law crater field (assumed), Golombek & Rapp rock-size model',sources:['golombek1997'],
+    super(nx,nz,size,heights,{source:'procedural',procedural:true,seed,planet,
+      label:planet==='earth'?{en:'Procedural Earth terrain — illustrative, NOT survey or map data',tr:'Prosedürel Dünya arazisi — temsilî, harita/ölçüm verisi DEĞİL'}
+        :{en:'Procedural terrain — illustrative, NOT NASA data',tr:'Prosedürel arazi — temsilî, NASA verisi DEĞİL'},
+      method:planet==='earth'?'value-noise rolling hills (assumed), sparse rocks from the Golombek & Rapp model (fit to Mars and Earth analog sites)'
+        :'value-noise relief, power-law crater field (assumed), Golombek & Rapp rock-size model',sources:['golombek1997'],
       rockAbundance,craterDensity});
     this.craters=craters;
     // rocks (Golombek & Rapp 1997): cumulative area fraction F(D) = k e^(−qD); sample D ≥ 0.15 m

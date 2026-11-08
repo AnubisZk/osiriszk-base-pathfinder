@@ -56,7 +56,8 @@ export function energyBudget(sim,spec){
  * flight of `energyWh` per sol at the mission's local solar time when the battery allows it.
  */
 export function solarPlan(sim,energyWh,spec=sim.spec){
-  if(!Number.isFinite(energyWh))return null;
+  // The multi-sol model uses the Mars Sun, sol length and Mars thermal ranges: Mars only.
+  if(!Number.isFinite(energyWh)||sim.environment.planet!=='mars')return null;
   const day=spec.date-((sim.sun.localSolarTime/24)*88775244); // local midnight before the mission
   return simulateSols({vehicle:sim.built.spec,site:spec.site,start:day,sols:spec.solarSols??10,tau:spec.opticalDepth??.5,
     dustPerSol:spec.dustPerSol??.002,panelArea:spec.panelArea??null,flight:{energyWh,lst:sim.sun.localSolarTime}});

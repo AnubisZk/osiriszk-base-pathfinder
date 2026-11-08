@@ -1,0 +1,9 @@
+run,seed,vehicle,liftOff,canHover,success,reason,flightTime,energyWh,energyPerKm,distance,observations,maxTilt,tiltRms,hoverRateRms,positionErrorRms,budgetEnergyWh,budgetError,mass,flightsPer10Sols,harvestWhPerSol,nightWhPerSol,minSoC10Sols
+1,1,fpv5,true,true,true,complete,68.37083,2.215289,15.23025,145.4532,2,25.37426,4.390628,3.752426,0.1728411,1.86928,-0.1561912,0.65,0,,,
+2,2,fpv5,true,true,true,complete,68.30833,2.210032,15.19626,145.4327,2,25.50847,4.572622,4.36016,0.172729,1.867255,-0.1551008,0.65,0,,,
+3,1,osiris-mars-quad,true,true,true,complete,80.4875,5.548161,33.80327,164.1309,2,13.86954,5.871797,5.417589,0.5434035,2.859506,-0.484603,2.983259,0,,,
+4,2,osiris-mars-quad,true,true,true,complete,80.60833,5.532128,33.3824,165.7199,2,13.93185,5.911657,5.355464,0.5645646,2.857225,-0.4835215,2.983259,0,,,
+5,1,ingenuity-like,false,true,false,did not lift off: motor current (torque) limit,20.00833,4.267408,,0.02302898,0,2.261506,,,,17.37138,,1.8,0,,,
+6,2,ingenuity-like,false,true,false,did not lift off: motor current (torque) limit,20.00833,4.278575,,0.01228093,0,1.287836,,,,17.35552,,1.8,0,,,
+7,1,msh-hexa,true,true,true,complete,70.60833,44.73321,305.1055,146.6155,2,12.37886,4.96685,5.552112,0.2579888,34.36936,-0.2316813,20.8,0,,,
+8,2,msh-hexa,true,true,true,complete,70.825,44.47029,303.0463,146.7442,2,12.31421,4.968471,5.417754,0.2513046,34.33615,-0.2278857,20.8,0,,,

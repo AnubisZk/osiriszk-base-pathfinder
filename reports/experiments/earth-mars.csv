@@ -1,5 +1,5 @@
 run,seed,profile,vehicle,liftOff,canHover,success,reason,flightTime,energyWh,energyPerKm,distance,observations,maxTilt,tiltRms,hoverRateRms,positionErrorRms,budgetEnergyWh,budgetError,mass,flightsPer10Sols,harvestWhPerSol,nightWhPerSol,minSoC10Sols
-1,1,earth-isa,fpv5,true,true,true,complete,68.20833,2.137824,14.70136,145.4168,2,24.91233,4.511949,4.74133,0.1758925,1.64756,-0.2293288,0.65,1,0,35.50932,0
-2,1,earth-isa,ingenuity-like,false,true,false,did not lift off: motor current (torque) limit,20.00833,4.24714,,0.01459499,0,1.212951,,,,15.54623,,1.8,0,,,
+1,1,earth-isa,fpv5,true,true,true,complete,68.40833,2.147917,14.76794,145.4446,2,25.33123,4.401598,5.10721,0.1750078,1.648912,-0.2323202,0.65,0,,,
+2,1,earth-isa,ingenuity-like,false,true,false,did not lift off: motor current (torque) limit,20.00833,4.242548,,0.02299102,0,2.261591,,,,15.55755,,1.8,0,,,
 3,1,mars-brief,fpv5,false,false,false,cannot take off: maximum thrust below weight,6.008333,0.3245971,,0.01256416,0,6.971378,,,,,,0.65,0,,,
 4,1,mars-brief,ingenuity-like,true,true,true,complete,80.67083,7.71053,52.56178,146.6946,2,11.95549,7.207263,7.270267,0.2353342,6.599382,-0.1441078,1.8,10,51.5948,24.70746,0.6400186

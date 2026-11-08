@@ -8,6 +8,7 @@ import {PlanetWind} from './PlanetWind.js';
 import {Telemetry} from './Telemetry.js';
 import {MissionRunner,energyBudget,DEFAULT_MISSION} from '../mission/Mission.js';
 import {earthMarsLink,sunPosition} from '../mars/time.js';
+import {earthSunPosition} from '../earth/sun.js';
 
 /**
  * One simulation: environment, Rapier world, terrain, vehicle, flight control, mission executive,
@@ -22,7 +23,8 @@ export class Simulation {
     this.environment=new PlanetEnvironment(s.profile,s.overrides??{});
     this.wind=new PlanetWind({environment:this.environment,level:s.wind.level,direction:s.wind.direction,seed:s.seed});
     this.physics=new PlanetPhysics(this.environment,{siteElevation:s.siteElevation,wind:this.wind});
-    this.terrain=terrain===false?null:(terrain??new ProceduralTerrain({seed:s.seed}));
+    this.planet=this.environment.planet;
+    this.terrain=terrain===false?null:(terrain??new ProceduralTerrain({seed:s.seed,planet:this.planet}));
     if(this.terrain)this.terrain.addToPhysics(this.physics);else this.physics.addGround();
     this.built=buildVehicle(s.vehicle,{frame:s.frame,payload:s.payload,rotorLossFactor:s.rotorLossFactor??null});
     const start=s.start??[0,0];
@@ -31,7 +33,9 @@ export class Simulation {
     this.physics.step(); // settle colliders and scene queries
     this.control=new FlightControl(this.vehicle);
     this.physics.addForceHook((ph,dt)=>{this.mission?.update(dt);this.control.update(dt);},{first:true});
-    this.link=earthMarsLink(s.date);this.sun=sunPosition(s.date,s.site.lat,s.site.lonEast);
+    // On Earth the pilot is local (no light time) and the Sun follows the NOAA equations.
+    this.link=this.planet==='earth'?{distanceAU:0,distanceKm:0,oneWayLightTime:0,local:true}:earthMarsLink(s.date);
+    this.sun=(this.planet==='earth'?earthSunPosition:sunPosition)(s.date,s.site.lat,s.site.lonEast);
     this.telemetry=new Telemetry(.1);this.record=record;
     this.mission=new MissionRunner(this,s);this.budget=energyBudget(this,s);
   }

@@ -1,0 +1,4 @@
+run,seed,route,liftOff,canHover,success,reason,flightTime,energyWh,energyPerKm,distance,observations,maxTilt,tiltRms,hoverRateRms,positionErrorRms,budgetEnergyWh,budgetError,mass,flightsPer10Sols,harvestWhPerSol,nightWhPerSol,minSoC10Sols
+1,1,short,true,true,true,complete,41.875,1.375569,16.86054,81.58511,1,26.07534,4.708679,3.84807,0.1713906,1.12801,-0.1799687,0.65,0,,,
+2,1,standard,true,true,true,complete,68.37083,2.215289,15.23025,145.4532,2,25.37426,4.390628,3.752426,0.1728411,1.86928,-0.1561912,0.65,0,,,
+3,1,survey,true,true,true,complete,128.1167,4.127215,12.92051,319.4312,3,28.70094,3.768156,3.944647,0.1975432,3.60444,-0.1266652,0.65,0,,,

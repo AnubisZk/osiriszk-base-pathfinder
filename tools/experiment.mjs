@@ -3,7 +3,8 @@
 import {writeFileSync,mkdirSync} from 'node:fs';
 import {initializeRapier} from '../src/physics/FlightPhysics.js';
 import {runExperiment,toCSV} from '../src/experiment/Experiment.js';
-import {EXPERIMENTS} from '../src/experiment/presets.js';
+import {EXPERIMENTS as MARS_EXPERIMENTS,EARTH_EXPERIMENTS} from '../src/experiment/presets.js';
+const EXPERIMENTS={...MARS_EXPERIMENTS,...EARTH_EXPERIMENTS};
 await initializeRapier();
 const name=process.argv[2]??'all',i=process.argv.indexOf('--out'),out=i>0?process.argv[i+1]:'reports/experiments';
 const list=name==='all'?Object.keys(EXPERIMENTS):[name];

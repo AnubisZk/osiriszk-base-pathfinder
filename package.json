@@ -1,7 +1,7 @@
 {
   "name": "osiriszk-mars-explorer",
-  "version": "0.2.0",
-  "description": "OsirisZk Mars Aerial Explorer: Mars and Earth flight physics for exploration drones on the ZSK flight core (Rapier, 240 Hz fixed step). NASA Space Apps Challenge 2026.",
+  "version": "0.4.0",
+  "description": "OsirisZk: Earth and Mars rotorcraft simulators (design, missions, experiments) on the ZSK flight core (Rapier, 240 Hz fixed step). NASA Space Apps Challenge 2026.",
   "type": "module",
   "private": true,
   "main": "src/index.js",

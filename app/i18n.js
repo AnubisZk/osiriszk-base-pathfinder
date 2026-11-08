@@ -25,6 +25,18 @@ const S={
     solarTitle:'Energy over sols (solar + night heating)',panelArea:'Solar panel area',dustRate:'Panel dust loss',harvest:'Solar harvest',night:'Night heating + sleep',
     flyToday:'Can we fly today?',flightsSols:'Flights in sols',survives:'Battery survives',panel:'panel',heater:'heater',
     solarNote:'Panel cannot power flight directly (watts vs hundreds of watts): it recharges the battery. Diffuse-light shape, thermal conductance and sleep power are assumed.',
+    'title@earth':'OsirisZk · Earth Flight Lab','subtitle@earth':'Rotorcraft design & mission simulator · Ankara','tabEnv@earth':'Earth environment',
+    'dust@earth':'Haze optical depth τ (visuals only)','localFpv@earth':'FPV pilot on site (no delay)',
+    worldEarth:'Earth',worldMars:'Mars',siteElev:'Site elevation (m, ISA)',home:'All simulators',localTime:'Local time',eot:'equation of time',
+    padOn:'controller connected',padNone:'No controller: press any button on it to connect',
+    padHelp:'Xbox / standard controller (Mode 2): left stick climb + yaw, right stick tilt · A launch · B land · Y camera · X control mode (before launch) · Menu reset. Sticks fly the vehicle in FPV modes.',
+    padFpvMars:'On Mars, FPV-from-Earth stick input is delayed by the light time; on-site FPV is direct.',
+    landTitle:'Choose a simulator',landSub:'One physics core (Rapier rigid bodies, fixed 240 Hz step), two worlds. English / Türkçe.',
+    earthCardTitle:'Earth Flight Lab',earthCardText:'Fly and test rotorcraft over hills near Ankara: ISA air, local pilot with no delay, Earth wind levels.',
+    marsCardTitle:'Mars Aerial Explorer',marsCardText:'Design Mars rotorcraft, plan missions at Jezero, run experiments: thin CO₂ air, solar energy over sols, light-time delay to Earth.',
+    open:'Open simulator',gravityShort:'Gravity',densityShort:'Air density',delayShort:'Pilot delay',vehicleShort:'Default vehicle',
+    earthDelay:'none (on site)',marsDelay:'3–22 min light time',
+    landFoot:'Terrain is procedural and labelled as such in both worlds unless real elevation data is loaded. Xbox controller supported.',
   },
   tr:{
     title:'OsirisZk · Mars Hava Kaşifi',subtitle:'Mars rotorlu araç tasarım ve görev simülatörü',
@@ -51,11 +63,26 @@ const S={
     solarTitle:'Sol sol enerji (güneş + gece ısıtması)',panelArea:'Güneş paneli alanı',dustRate:'Panel toz kaybı',harvest:'Güneşten toplanan',night:'Gece ısıtma + uyku',
     flyToday:'Bugün uçabilir miyiz?',flightsSols:'Sollardaki uçuş sayısı',survives:'Batarya hayatta kalır',panel:'panel',heater:'ısıtıcı',
     solarNote:'Panel uçuşu doğrudan besleyemez (birkaç watt, uçuş yüzlerce watt): bataryayı doldurur. Dağınık ışık şekli, ısıl iletkenlik ve uyku gücü varsayımsaldır.',
+    'title@earth':'OsirisZk · Dünya Uçuş Laboratuvarı','subtitle@earth':'Rotorlu araç tasarım ve görev simülatörü · Ankara','tabEnv@earth':'Dünya ortamı',
+    'dust@earth':'Pus optik derinliği τ (yalnız görsel)','localFpv@earth':'Sahada FPV pilot (gecikmesiz)',
+    worldEarth:'Dünya',worldMars:'Mars',siteElev:'Bölge rakımı (m, ISA)',home:'Tüm simülatörler',localTime:'Yerel saat',eot:'zaman denklemi',
+    padOn:'kumanda bağlı',padNone:'Kumanda yok: bağlamak için kumandada bir düğmeye bas',
+    padHelp:'Xbox / standart kumanda (Mod 2): sol çubuk tırmanma + dönüş, sağ çubuk eğim · A başlat · B in · Y kamera · X kontrol modu (kalkıştan önce) · Menu sıfırla. Çubuklar FPV modlarında aracı uçurur.',
+    padFpvMars:'Mars\'ta Dünya\'dan FPV çubuk komutları ışık süresi kadar gecikir; sahada FPV doğrudandır.',
+    landTitle:'Bir simülatör seç',landSub:'Tek fizik çekirdeği (Rapier katı cisim, sabit 240 Hz adım), iki dünya. English / Türkçe.',
+    earthCardTitle:'Dünya Uçuş Laboratuvarı',earthCardText:'Ankara yakınındaki tepeler üzerinde rotorlu araçları uçur ve test et: ISA havası, gecikmesiz yerel pilot, Dünya rüzgâr seviyeleri.',
+    marsCardTitle:'Mars Hava Kaşifi',marsCardText:'Mars rotorlu araçları tasarla, Jezero\'da görev planla, deney yap: ince CO₂ havası, sol sol güneş enerjisi, Dünya\'ya ışık gecikmesi.',
+    open:'Simülatörü aç',gravityShort:'Yerçekimi',densityShort:'Hava yoğunluğu',delayShort:'Pilot gecikmesi',vehicleShort:'Varsayılan araç',
+    earthDelay:'yok (sahada)',marsDelay:'3–22 dk ışık süresi',
+    landFoot:'Gerçek yükseklik verisi yüklenmedikçe arazi iki dünyada da prosedüreldir ve öyle etiketlenir. Xbox kumandası desteklenir.',
   },
 };
-let lang='en';
+export const STRINGS=S;
+let lang='en',world='mars';
 try{lang=localStorage.getItem('osiris-lang')||'en';}catch{}
 export const getLang=()=>lang;
 export function setLang(l){lang=S[l]?l:'en';try{localStorage.setItem('osiris-lang',lang);}catch{}document.documentElement.lang=lang;}
-export const t=k=>S[lang][k]??S.en[k]??k;
+/** World-specific strings are keyed 'key@earth'; they fall back to the shared key. */
+export function setWorld(w){world=w;}
+export const t=k=>S[lang][`${k}@${world}`]??S[lang][k]??S.en[`${k}@${world}`]??S.en[k]??k;
 export const L=o=>o?.[lang]??o?.en??'';

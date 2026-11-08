@@ -8,16 +8,18 @@ import {getLang,L} from './i18n.js';
 
 /** Scientific report (Markdown) from the current environment, design, mission and experiment. */
 const f=(v,d=2)=>Number.isFinite(v)?(+v).toFixed(d):'—';
-export function buildReport({sim,experiment=null,dust,solar=null}){
-  const lang=getLang(),tr=lang==='tr',env=sim.environment,b=sim.built,r=sim.mission.result,bud=sim.budget,T=sim.telemetry;
+export function buildReport({sim,experiment=null,dust,solar=null,world='mars',site=null}){
+  const lang=getLang(),tr=lang==='tr',env=sim.environment,b=sim.built,r=sim.mission.result,bud=sim.budget,T=sim.telemetry,mars=world==='mars';
   const H=(en,t)=>tr?t:en,lines=[];
-  lines.push(`# ${H('OsirisZk Mars Aerial Explorer — mission report','OsirisZk Mars Hava Kaşifi — görev raporu')}`,'',
+  lines.push(`# ${mars?H('OsirisZk Mars Aerial Explorer — mission report','OsirisZk Mars Hava Kaşifi — görev raporu'):H('OsirisZk Earth Flight Lab — mission report','OsirisZk Dünya Uçuş Laboratuvarı — görev raporu')}`,'',
     `${H('Generated','Oluşturuldu')}: ${new Date().toISOString()} · ${H('simulation date','simülasyon tarihi')}: ${new Date(sim.spec.date).toISOString()}`,'');
   lines.push(`## 1. ${H('Environment','Ortam')}`,'',`${H('Profile','Profil')}: **${L(env.label)}**`,'',
     `| ${H('Parameter','Parametre')} | ${H('Value','Değer')} | ${H('Unit','Birim')} | ${H('Status','Durum')} | ${H('Source','Kaynak')} |`,'|---|---|---|---|---|');
   for(const p of env.parameters(lang))lines.push(`| ${p.key} | ${typeof p.value==='number'?+p.value.toPrecision(5):p.value} | ${p.unit} | ${p.statusLabel} | ${p.source?.title??''} |`);
-  lines.push('',`${H('Sun','Güneş')}: ${f(sim.sun.elevation,1)}° ${H('elevation','yükseklik')}, ${H('local solar time','yerel güneş saati')} ${f(sim.sun.localSolarTime,2)} h, Ls ${f(sim.sun.Ls,1)}°. ${H('Dust optical depth','Toz optik derinliği')} τ = ${f(dust,2)} (${H('assumed','varsayımsal')}).`,
-    `${H('Earth–Mars one-way light time','Dünya–Mars tek yön ışık süresi')}: **${f(sim.link.oneWayLightTime/60,1)} min** (${f(sim.link.distanceAU,3)} AU).`,'',
+  if(mars)lines.push('',`${H('Sun','Güneş')}: ${f(sim.sun.elevation,1)}° ${H('elevation','yükseklik')}, ${H('local solar time','yerel güneş saati')} ${f(sim.sun.localSolarTime,2)} h, Ls ${f(sim.sun.Ls,1)}°. ${H('Dust optical depth','Toz optik derinliği')} τ = ${f(dust,2)} (${H('assumed','varsayımsal')}).`,
+    `${H('Earth–Mars one-way light time','Dünya–Mars tek yön ışık süresi')}: **${f(sim.link.oneWayLightTime/60,1)} min** (${f(sim.link.distanceAU,3)} AU).`,'');
+  else lines.push('',`${H('Site','Bölge')}: ${site??''}, ${H('site elevation','rakım')} ${f(sim.spec.siteElevation,0)} m (ISA). ${H('Sun (NOAA equations)','Güneş (NOAA denklemleri)')}: ${f(sim.sun.elevation,1)}° ${H('elevation','yükseklik')}, ${f(sim.sun.azimuth,0)}° ${H('azimuth','azimut')}, ${H('local solar time','yerel güneş saati')} ${f(sim.sun.localSolarTime,2)} h. ${H('Pilot link: on site, no delay.','Pilot bağlantısı: sahada, gecikmesiz.')}`,'');
+  lines.push(
     `${H('Terrain','Arazi')}: ${L(sim.terrain?.meta?.label)??'flat'}.`,'');
   lines.push(`## 2. ${H('Vehicle design','Araç tasarımı')}`,'',`**${L(b.spec.label)}**, ${H('frame','gövde')}: ${L(FRAME_LABELS[b.frame])}, ${H('payload','yük')} ${f(b.payload,2)} kg`,'',
     `- ${H('Mass','Kütle')}: ${f(b.mass,3)} kg (${H('calibration mass','kalibrasyon kütlesi')} ${f(b.miscMass,3)} kg)`,

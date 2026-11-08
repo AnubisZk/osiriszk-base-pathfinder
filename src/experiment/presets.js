@@ -19,3 +19,25 @@ export const EXPERIMENTS=Object.freeze({
   'earth-mars':{name:'earth-mars',label:{en:'Earth vs Mars: same vehicles',tr:'Dünya ve Mars: aynı araçlar'},
     base:{},variables:[{key:'profile',values:['earth-isa','mars-brief']},{key:'vehicle',values:['fpv5','ingenuity-like']}],seeds:[1]},
 });
+
+/**
+ * Earth-world experiments: the same runner at Ankara (ISA atmosphere, 938 m site, NOAA Sun, core
+ * Earth wind levels, procedural Earth terrain). Vehicle, payload and route choices are the team's
+ * scenarios; nothing here is Mars-specific.
+ */
+export const EARTH_BASE=Object.freeze({profile:'earth-isa',site:{lat:39.93,lonEast:32.85},siteElevation:938,
+  date:Date.UTC(2026,10,14,8,0,0)/* 11:00 TRT */,vehicle:'fpv5',opticalDepth:.2,
+  waypoints:[{x:0,z:-40,action:'observe',dwell:4,name:'Survey point A'},{x:30,z:-60,action:'observe',dwell:4,name:'Survey point B'}]});
+const earth=(over)=>({...EARTH_BASE,...over});
+export const EARTH_EXPERIMENTS=Object.freeze({
+  'earth-vehicles':{name:'earth-vehicles',label:{en:'Rotor systems on Earth (Ankara, 938 m)',tr:'Dünya\'da rotor sistemleri (Ankara, 938 m)'},
+    base:earth({}),variables:[{key:'vehicle',values:['fpv5','osiris-mars-quad','ingenuity-like','msh-hexa']}],seeds:[1,2]},
+  'earth-payload':{name:'earth-payload',label:{en:'Payload on the 5" quad (Earth)',tr:'5" dörtlüde yük (Dünya)'},
+    base:earth({}),variables:[{key:'payload',values:[0,.1,.2,.4,.6]}],seeds:[1]},
+  'earth-wind':{name:'earth-wind',label:{en:'Earth wind levels on the 5" quad',tr:'5" dörtlüde Dünya rüzgâr seviyeleri'},
+    base:earth({}),variables:[{key:'wind',values:['calm','light','moderate','strong']}],seeds:[1,2,3]},
+  'earth-frames':{name:'earth-frames',label:{en:'Frame geometry on the 5" quad (Earth)',tr:'5" dörtlüde gövde geometrisi (Dünya)'},
+    base:earth({}),variables:[{key:'frame',values:['carbon','fullerene','hexcell']}],seeds:[1,2]},
+  'earth-route':{name:'earth-route',label:{en:'Route length vs energy (Earth)',tr:'Güzergâh uzunluğu ve enerji (Dünya)'},
+    base:earth({}),variables:[{key:'route',values:['short','standard','survey']}],seeds:[1]},
+});
