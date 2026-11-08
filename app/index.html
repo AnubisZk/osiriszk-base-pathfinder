@@ -60,7 +60,9 @@
     .card:hover,.card:focus-visible{transform:translateY(-3px);border-color:#ffffff55;outline:none}
     .card.earth{background:linear-gradient(160deg,#10314a 0%,#0d1e26 55%,#0b1512 100%)}
     .card.mars{background:linear-gradient(160deg,#4a2010 0%,#2a140c 55%,#140c09 100%)}
-    .card .globe{width:96px;height:96px;border-radius:50%;margin-bottom:6px;box-shadow:0 0 40px #0008,inset -14px -12px 26px #0009}
+    .card .globe{position:relative;width:132px;height:132px;border-radius:50%;overflow:hidden;margin-bottom:2px;box-shadow:0 0 44px #000a,0 0 0 1px #ffffff14}
+    .card .globe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;background:#000}
+    .card .credit{font-size:11px;color:#ffffff80;margin-bottom:4px}
     .card.earth .globe{background:radial-gradient(ellipse 30% 7% at 48% 5%,#f4f8fb 0 70%,transparent 76%),radial-gradient(ellipse 40% 6% at 60% 30%,#ffffff8c 0 60%,transparent 70%),radial-gradient(ellipse 30% 22% at 38% 42%,#5f8f3e 0 60%,transparent 64%),radial-gradient(ellipse 22% 30% at 64% 66%,#6f8f45 0 60%,transparent 64%),radial-gradient(circle at 35% 35%,#6ab8ff,#1f5fa8 58%,#0b2347)}
     .card.mars .globe{background:radial-gradient(ellipse 26% 8% at 50% 6%,#f6efe6 0 70%,transparent 76%),radial-gradient(ellipse 20% 13% at 30% 58%,#7a3518b0 0 60%,transparent 70%),radial-gradient(ellipse 13% 18% at 66% 44%,#6e3016a0 0 55%,transparent 68%),radial-gradient(circle at 35% 35%,#f0a070,#b4532a 58%,#4d1d0c)}
     .card h3{margin:0;font-size:22px;text-transform:none;letter-spacing:0;color:var(--text)}.card p{margin:0;color:#ffffffc0;font-size:14px;line-height:1.5}

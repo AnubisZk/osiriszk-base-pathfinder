@@ -269,6 +269,16 @@ Aşama 2'de eklenecekler: `src/planet/rotor/` (pal elemanı ve momentum teorisi,
 - **Düzeltme:** Rüzgâr yönü etiketi "geldiği yön" diyordu ama alan havanın aktığı yönü tutuyordu (çekirdek kuralı). Arayüz artık meteorolojik "geldiği yön"ü gösterip dönüştürüyor; fizik değişmedi.
 - **Testler:** 111 (yeni dosya `tests/realdata.test.js`, 6 test). Çekirdek izi AYNI.
 
+### 8 Kasım 2026 gece · Giriş sayfasında gerçek fotoğraflar
+
+- Kartlardaki çizilmiş küreler kaldırıldı, yerlerine fotoğraf geldi.
+- **Dünya kartı:** NASA EPIC'in o günkü fotoğrafı (DSCOVR uydusu, Güneş–Dünya L1 noktasından). Ankara'nın boylamına en yakın merkezli kare seçiliyor; çekim tarihi ve saati kartta yazıyor. Diskin boyutu uydunun uzaklığından hesaplanıp daireye oturtuluyor. EPIC'e ulaşılamazsa takımın gönderdiği Dünya görseli çıkıyor.
+- **Mars kartı:** takımın gönderdiği fotoğraf. Viking yörünge aracı mozaiğine (NASA/JPL/USGS) benziyor; kaynak sayfası doğrulanmalı.
+- Fotoğraflar gezegen diskine göre kırpıldı: 512 × 512 WebP, 47 KB ve 22 KB.
+- EPIC isteği sitenin `/nasa/epic/` vekilinden, olmazsa doğrudan gidiyor. Bu ortamdan EPIC'e erişim yok; geçiş taklit veriyle denendi.
+- Takımın Dünya görseli fotoğraf değil, büyük olasılıkla dijital çizim ve kaynağı belli değil. Yarışma sitesi için lisanslı bir NASA fotoğrafıyla değiştirilmesi öneriliyor (ör. Apollo 17 "Blue Marble"). Çoğu zaman EPIC fotoğrafı gösterileceği için yalnız yedek olarak duruyor.
+- **Testler:** 112 (EPIC ayrıştırma, seçim, adres ve disk boyutu).
+
 ## Açık kararlar (takımdan)
 
 1. **Lisans:** Apache-2.0 öneriliyor; Space Apps varsayılanı bu.

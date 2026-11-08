@@ -1,6 +1,6 @@
 {
   "name": "osiriszk-mars-explorer",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "OsirisZk: Earth and Mars rotorcraft simulators (design, missions, experiments) on the ZSK flight core (Rapier, 240 Hz fixed step). NASA Space Apps Challenge 2026.",
   "type": "module",
   "private": true,

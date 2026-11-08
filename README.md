@@ -8,7 +8,7 @@ FPV flight core (Rapier rigid-body physics, fixed 240 Hz step).
 
 ```bash
 npm install
-npm run check        # 111 tests + the 5" core reference trace (must print "AYNI")
+npm run check        # 112 tests + the 5" core reference trace (must print "AYNI")
 npm run dev:app      # landing page → Earth or Mars simulator (English / Türkçe)
 npm run experiments  # all 14 experiments (9 Mars, 5 Earth) → reports/experiments/*.json|csv
 npm run model-check  # model vs published MEDA conditions and terrain-resolution convergence → reports/model-check.md
@@ -29,7 +29,10 @@ npm run build        # static site in dist/ (any static host; Netlify short link
 | Default vehicle | 5" FPV quad | Ingenuity-like coaxial helicopter |
 | Experiments | vehicles, payload, wind, frames, route, Earth vs Mars | frames, density, vehicles, payload, wind, route, solar, panel, Earth vs Mars |
 
-Opening the site without a world shows a landing page with both. The header's Earth | Mars switch
+Opening the site without a world shows a landing page with both. The Earth card shows the day's
+NASA EPIC photo (DSCOVR, from the Sun–Earth L1 point) centred nearest Ankara's longitude, with the
+date and time; if EPIC cannot be reached it shows the team's image. The Mars card shows the team's
+photo. Credits are listed in [`docs/SOURCES.md`](docs/SOURCES.md#images). The header's Earth | Mars switch
 changes world and keeps the language and other settings. All vehicles are available in both worlds.
 
 ### Controls (both simulators)
@@ -160,7 +163,7 @@ Netlify, or set the build command to `npm run build` and the publish directory t
 - Missions: autonomous mission and budget; identical telemetry on repeat; FPV through the light-time link fails; FPV with no delay succeeds.
 - Energy over sols: the irradiance model's limits; Viking 1 temperature extremes; the battery ledger closes; dust-storm and panel-area trends; the fly/no-fly policy.
 - Experiments: deterministic runs, summary and CSV; terrain generated per planet.
-- Real conditions: Mars and POWER feed parsing (missing values, units, fill values), measured values
+- Real conditions: Mars, POWER and EPIC feed parsing (missing values, units, fill values), measured values
   reproduced exactly at the site, measured wind, proxy-then-direct fetch, MEDA-range densities inside
   Ingenuity's flown range.
 - Earth simulator: Ankara solstice noon Sun elevations (90° − φ ± 23.44°), equation-of-time extremes, perihelion/aphelion irradiance ratio; ISA density at 938 m; no light delay and no Mars energy model on Earth; Earth terrain has no craters and flyable slopes; the 5" quad flies the Earth survey autonomously and with an on-site FPV pilot; the Ingenuity-like rotorcraft cannot lift off; world URLs and defaults; every English UI string has a Turkish one.

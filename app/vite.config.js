@@ -5,6 +5,7 @@ export default {
     proxy:{
       '/nasa/mars':{target:'https://mars.nasa.gov',changeOrigin:true,rewrite:p=>p.replace(/^\/nasa\/mars/,'')},
       '/nasa/power':{target:'https://power.larc.nasa.gov',changeOrigin:true,rewrite:p=>p.replace(/^\/nasa\/power/,'')},
+      '/nasa/epic':{target:'https://epic.gsfc.nasa.gov',changeOrigin:true,rewrite:p=>p.replace(/^\/nasa\/epic/,'')},
     },
   },
 };

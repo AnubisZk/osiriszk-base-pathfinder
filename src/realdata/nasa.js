@@ -8,6 +8,8 @@
 //  Earth · NASA POWER (Langley) hourly point data: 2 m temperature (°C), surface pressure (kPa),
 //          10 m wind speed (m/s) and direction (° from north, where the wind comes from).
 //          Typically 2–7 days behind real time.
+//  Earth · NASA EPIC (DSCOVR, Sun–Earth L1): full-disk natural-colour photos of the sunlit Earth,
+//          several per day, usually 12–36 h behind. Used on the landing page.
 import {ambientTemperature} from '../power/solar.js';
 
 export const NASA_SERVICES=Object.freeze({
@@ -23,6 +25,14 @@ export const NASA_SERVICES=Object.freeze({
     url:'https://power.larc.nasa.gov/api/temporal/hourly/point',
     proxy:'nasa/power/api/temporal/hourly/point',
     page:'https://power.larc.nasa.gov/',
+  },
+  epic:{
+    label:'NASA EPIC (DSCOVR), natural colour',
+    url:'https://epic.gsfc.nasa.gov/api/natural',
+    proxy:'nasa/epic/api/natural',
+    archive:'https://epic.gsfc.nasa.gov/archive/natural',
+    page:'https://epic.gsfc.nasa.gov/',
+    fovDeg:.61, // EPIC field of view (the 2048² images span it)
   },
 });
 
@@ -130,4 +140,34 @@ export async function fetchFirstJSON(urls,{timeout=15000,fetchImpl=globalThis.fe
     finally{clearTimeout(timer);}
   }
   throw new Error(errors.join(' · '));
+}
+
+/** EPIC "natural" image list → [{image, time (UTC ms), lat, lon, distanceKm}], oldest first. */
+export function parseEpic(json){
+  if(!Array.isArray(json))throw new Error('Unexpected EPIC format (not a list)');
+  const out=[];
+  for(const e of json){
+    const m=/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/.exec(e?.date??'');
+    if(!m||typeof e.image!=='string'||!/^[\w-]+$/.test(e.image))continue;
+    const p=e.dscovr_j2000_position,dist=p?Math.hypot(p.x,p.y,p.z):null;
+    out.push({image:e.image,time:Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5],+m[6]),lat:num(e.centroid_coordinates?.lat),lon:num(e.centroid_coordinates?.lon),
+      distanceKm:Number.isFinite(dist)&&dist>1e5?dist:null});
+  }
+  return out.sort((a,b)=>a.time-b.time);
+}
+/** The photo centred nearest a longitude (e.g. Ankara's), latest on ties. */
+export function pickEpic(list,lonEast){
+  let best=null,err=Infinity;
+  for(const e of list){if(e.lon==null)continue;const d=Math.abs(((e.lon-lonEast)%360+540)%360-180);if(d<=err){err=d;best=e;}}
+  return best??list.at(-1)??null;
+}
+/** Archive URL of one EPIC photo: kind 'jpg' (2048², ~0.5 MB), 'png' (2048²) or 'thumbs'. */
+export function epicImageURL(e,kind='jpg',base=NASA_SERVICES.epic.archive){
+  const d=new Date(e.time),p=n=>String(n).padStart(2,'0'),ext=kind==='png'?'png':'jpg';
+  return `${base}/${d.getUTCFullYear()}/${p(d.getUTCMonth()+1)}/${p(d.getUTCDate())}/${kind}/${e.image}.${ext}`;
+}
+/** Share of the image width covered by the Earth's disk, from DSCOVR's distance (null if unknown). */
+export function epicDiskFraction(e,fovDeg=NASA_SERVICES.epic.fovDeg){
+  if(!e?.distanceKm)return null;
+  return Math.min(1,2*Math.atan(6371/e.distanceKm)*180/Math.PI/fovDeg);
 }

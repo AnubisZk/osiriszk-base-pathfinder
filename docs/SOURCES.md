@@ -44,6 +44,7 @@ Helicopter Aerodynamics*), propeller and rotorcraft thrust-coefficient conventio
 | `nasaMedaRelease` | NASA, *NASA's First Weather Report from Jezero Crater on Mars* (2021) — https://www.nasa.gov/directorates/stmd/nasas-first-weather-report-from-jezero-crater-on-mars/ ; JPL release on MEDA temperatures (air −83 … −23 °C) | MEDA air temperature range used with the published pressures; first pressure reading 718 Pa |
 | `mars2020Weather` | NASA/JPL Mars 2020 weather feed (Perseverance MEDA, outreach product) — `https://mars.nasa.gov/rss/api/?feed=weather&category=mars2020&feedtype=json` | live "real conditions" in the Mars simulator: latest sol's air high/low (°C) and pressure (Pa); fetched in the browser, never stored |
 | `nasaPower` | NASA POWER (Prediction Of Worldwide Energy Resources), Langley Research Center, hourly point API — https://power.larc.nasa.gov/docs/tutorials/service-data-request/api/ | live "real conditions" in the Earth simulator: T2M (°C), PS (kPa), WS10M (m/s), WD10M (°) at Ankara, 2–7 days behind real time |
+| `nasaEpic` | NASA EPIC (Earth Polychromatic Imaging Camera on NOAA's DSCOVR), natural-colour API — https://epic.gsfc.nasa.gov/ | landing page: the day's full-disk Earth photo centred nearest Ankara's longitude (fetched in the browser; disk size from DSCOVR's distance and the 0.61° field of view) |
 | `hirise` | HiRISE DTMs — https://www.uahirise.org/dtm/ | real terrain import (tools/import-dtm.mjs) |
 | textbooks | Leishman, *Principles of Helicopter Aerodynamics*; Cheeseman & Bennett (1955) ground effect; Pitt & Peters dynamic inflow; Lock's drag-rise law; Prandtl tip loss; White, *Fluid Mechanics* (cylinder Cd ≈ 1 + 10/Re^(2/3)); Hoerner (flat plate Cd 1.17) | standard rotorcraft and fluid relations |
 
@@ -56,3 +57,11 @@ Helicopter Aerodynamics*), propeller and rotorcraft thrust-coefficient conventio
 | `three` 0.186.1 | MIT | math classes, rendering in the demo |
 | `vite` 8.3.4 | MIT | development server / build (dev only) |
 | `geotiff` 3.0.5 | MIT | DTM import tool (dev only) |
+
+## Images
+
+| File | Used for | Credit |
+|---|---|---|
+| `app/public/img/mars-viking.webp` | landing page, Mars card | sent by the team; identified as the Viking Orbiter colour mosaic (NASA/JPL/USGS) — confirm the source page |
+| `app/public/img/earth-team.webp` | landing page, Earth card when EPIC is unreachable | sent by the team; source to be credited (it looks like a digital rendering, not a photograph) |
+| EPIC photo (not stored) | landing page, Earth card | NASA EPIC / DSCOVR, date and time shown on the card |

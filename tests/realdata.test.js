@@ -7,7 +7,7 @@ import {initializeRapier} from '../src/physics/FlightPhysics.js';
 import {PlanetEnvironment} from '../src/planet/PlanetEnvironment.js';
 import {Simulation} from '../src/sim/Simulation.js';
 import {PlanetWind} from '../src/sim/PlanetWind.js';
-import {parseMarsWeather,latestCompleteSol,marsConditions,powerURL,parsePowerHourly,pickPowerHour,earthConditions,fetchFirstJSON,MEDA_PUBLISHED,NASA_SERVICES} from '../src/realdata/nasa.js';
+import {parseEpic,pickEpic,epicImageURL,epicDiskFraction,parseMarsWeather,latestCompleteSol,marsConditions,powerURL,parsePowerHourly,pickPowerHour,earthConditions,fetchFirstJSON,MEDA_PUBLISHED,NASA_SERVICES} from '../src/realdata/nasa.js';
 
 await initializeRapier();
 const near=(a,b,tol,msg)=>assert.ok(Math.abs(a-b)<=tol,`${msg??''} ${a} vs ${b} ± ${tol}`);
@@ -80,4 +80,20 @@ test('model check: published MEDA seasonal pressures give midday densities insid
   assert.ok(lo>=.012&&lo<.0145,`low season midday ${lo}`);assert.ok(hi>=.0145&&hi<=.0185,`high season midday ${hi}`);
   const dawnHigh=marsConditions({...air,pressurePa:M.pressureMax.value},6,env).density;
   near(dawnHigh,env.density(0),.0015,'brief 0.020 ≈ high-season pre-dawn');
+});
+
+test('EPIC (landing photo): list parsing, nearest-longitude pick, archive URL, disk size from DSCOVR distance',()=>{
+  const fx=[ // fixture in the API's shape
+    {image:'epic_1b_20261107013000',date:'2026-11-07 01:25:00',centroid_coordinates:{lat:-5,lon:150},dscovr_j2000_position:{x:1.4e6,y:3e5,z:1e5}},
+    {image:'epic_1b_20261107093000',date:'2026-11-07 09:25:00',centroid_coordinates:{lat:-5,lon:30},dscovr_j2000_position:{x:1.4e6,y:3e5,z:1e5}},
+    {image:'epic_1b_20261107233000',date:'2026-11-07 23:25:00',centroid_coordinates:{lat:-5,lon:-170}},
+    {image:'../../etc/passwd',date:'2026-11-07 10:00:00',centroid_coordinates:{lat:0,lon:33}}, // rejected name
+  ];
+  const l=parseEpic(fx);assert.equal(l.length,3);assert.equal(l[0].time,Date.UTC(2026,10,7,1,25));
+  assert.equal(pickEpic(l,32.85).image,'epic_1b_20261107093000');
+  assert.equal(pickEpic(l,-175).image,'epic_1b_20261107233000'); // wraps across ±180°
+  assert.equal(epicImageURL(l[1]),'https://epic.gsfc.nasa.gov/archive/natural/2026/11/07/jpg/epic_1b_20261107093000.jpg');
+  assert.equal(epicImageURL(l[1],'png','nasa/epic/archive/natural'),'nasa/epic/archive/natural/2026/11/07/png/epic_1b_20261107093000.png');
+  const f=epicDiskFraction(l[1]);assert.ok(f>.75&&f<.85,`disk fraction ${f}`);assert.equal(epicDiskFraction(l[2]),null);
+  assert.throws(()=>parseEpic({}),/not a list/);
 });
