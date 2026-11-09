@@ -64,6 +64,16 @@ function card(id){
     h('span',{class:'go'},`${t('open')} →`));
 }
 
+// The mission-design game built on the Mars simulator (its own page).
+function pathfinderCard(){
+  return h('a',{class:'card pathfinder',href:`pathfinder.html${location.search}`},
+    h('small',{class:'credit'},L({en:'Mission-design game',tr:'Görev tasarım oyunu'})),
+    h('h3',{},'Mars Base Pathfinder'),
+    h('p',{},L({en:'Where should humanity establish its first Mars research base, and why? Design a scout drone, fly autonomous surveys of three candidate sites, merge the photos with NASA data and decide with TOPSIS and sensitivity analysis.',
+      tr:'İnsanlık ilk Mars araştırma üssünü nereye kurmalı ve neden? Bir keşif dronu tasarlayın, üç aday bölgede otonom taramalar uçun, fotoğrafları NASA verisiyle birleştirin ve TOPSIS ile duyarlılık analiziyle karar verin.'})),
+    h('span',{class:'go'},`${t('open')} →`));
+}
+
 export function showLanding(){
   setLang(getLang());
   document.body.classList.add('landing');document.title='OsirisZk · Earth & Mars rotorcraft simulators';
@@ -74,6 +84,7 @@ export function showLanding(){
       h('div',{class:'land-top'},h('h1',{},h('span',{},'OsirisZk'),' · NASA Space Apps 2026'),lang),
       h('h2',{},t('landTitle')),h('p',{class:'sub'},t('landSub')),
       h('div',{class:'cards'},card('earth'),card('mars')),
+      pathfinderCard(),
       h('p',{class:'foot'},t('landFoot')));
   };
   render();

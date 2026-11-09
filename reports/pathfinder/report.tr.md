@@ -1,17 +1,19 @@
 # Mars Base Pathfinder — görev raporu
 
-*Oluşturuldu: 2026-11-09T08:33:49.861Z · OsirisZk · maliyetler temsili oyun değerleridir; sentetik arazi ve varsayımlar etiketlidir*
+*Oluşturuldu: 2026-11-09T09:15:16.871Z · OsirisZk · maliyetler temsili oyun değerleridir; sentetik arazi ve varsayımlar etiketlidir*
 
 ## Cevap: “Where should humanity establish its first Mars research base, and why?”
+
+*(İnsanlık ilk Mars araştırma üssünü nereye kurmalı ve neden?)*
 
 **Arcadia Planitia** — TOPSIS yakınlık katsayısı C = 0.780; sonraki: Jezero Krateri C = 0.220.
 
 **Neden** (ağırlıklı, normalize üstünlük; karşısında Jezero Krateri):
 
-- Su buzu erişimi: 0.85 ± 0.15 *(varsayım)* karşı 0.10 ± 0.20 *(varsayım)* index 0–1 → lehine (0.193)
-- Bilimsel araştırma değeri: 6.00 ± 1.00 *(varsayım)* karşı 9.00 ± 1.00 *(varsayım)* 1–9 → aleyhine (-0.050)
-- Eğim ve iniş güvenliği: 96.33 ± 2.98 *(simülasyon)* karşı 75.38 ± 7.39 *(simülasyon)* % → lehine (0.034)
-- Güneş enerjisi potansiyeli: 2536 ± 380.41 *(model)* karşı 3232 ± 484.73 *(model)* Wh/m²/sol → aleyhine (-0.024)
+- Su buzu erişimi (index 0–1): 0.85 ± 0.15 *(varsayım)* karşı 0.10 ± 0.20 *(varsayım)* → lehine (+0.193)
+- Bilimsel araştırma değeri (1–9): 6.00 ± 1.00 *(varsayım)* karşı 9.00 ± 1.00 *(varsayım)* → aleyhine (-0.050)
+- Eğim ve iniş güvenliği (%): 96.3 ± 3.0 *(simülasyon)* karşı 75.4 ± 7.4 *(simülasyon)* → lehine (+0.034)
+- Güneş enerjisi potansiyeli (Wh/m²/sol): 2536 ± 380 *(model)* karşı 3232 ± 485 *(model)* → aleyhine (-0.024)
 
 **Ne kadar sağlam**: her ağırlık şu aralıkta değiştikçe kazanan birinci kalıyor:
 
@@ -19,11 +21,11 @@
 - Eğim ve iniş güvenliği (şimdi 0.20): 0.00 – 1.00
 - Güneş enerjisi potansiyeli (şimdi 0.14): 0.00 – 0.56; dışında: Jezero Krateri
 - Sıcaklık (şimdi 0.08): 0.00 – 0.82; dışında: Jezero Krateri
-- Toz ve rüzgâr riski (şimdi 0.08): 0.00 – 0.99; dışında: Jezero Krateri
+- Toz ve rüzgâr riski (şimdi 0.08): 0.00 – 0.99; ötesinde bölgeler eşitlenir (bu ölçüt onları ayırmıyor)
 - Bilimsel araştırma değeri (şimdi 0.18): 0.00 – 0.46; dışında: Jezero Krateri
 - Ulaşım ve haberleşme (şimdi 0.10): 0.00 – 1.00
 
-Tohumlu Monte Carlo (2000 çekiliş): rastgele ağırlıklar 74 %, belirsizlik içindeki veri 99 %, ikisi birden 70 % çekilişte bu bölge birinci kalıyor.
+Tohumlu Monte Carlo (her biri 2000 çekiliş): bu bölge rastgele ağırlıklarla çekilişlerin %74 kadarında, veriler belirsizlikleri içinde değiştirildiğinde %99, ikisi birden değiştiğinde %70 birinci kalıyor.
 
 **Neye dayanıyor**: 3 × Kullanıcı varsayımı, 1 × Dron simülasyonu, 3 × Model hesabı. Varsayımlar değiştirilebilir, NASA verisi içe aktarılabilir; karar yeniden hesaplanır.
 
@@ -44,7 +46,7 @@ Tohumlu Monte Carlo (2000 çekiliş): rastgele ağırlıklar 74 %, belirsizlik i
 
 ## 2. Keşif dronu
 
-- Rotor: r50 · batarya: b2 · kamera: Standart 13 MP renkli (Ingenuity sınıfı) · gövde: carbon
+- Rotor: 0,50 m rotor (standart) · batarya: Standart: 6S2P Li-iyon (12 hücre) · kamera: Standart 13 MP renkli (Ingenuity sınıfı) · gövde: Geleneksel karbon fiber
 - Kamera: 4208 × 3120 px, 1.12 µm, f = 3.4 mm, 0.2 kg, 3 W, σpx 0.5 (standart kameranın piksel sayısı Ingenuity basın kitinden; gerisi varsayım)
 - Yalnız kütle, kütle merkezi, atalet ve sürükleme. Yapısal dayanım simüle edilmez: sonlu elemanlar analizi (FEA) ve test gerekir.
 
@@ -59,53 +61,53 @@ Tohumlu Monte Carlo (2000 çekiliş): rastgele ağırlıklar 74 %, belirsizlik i
 | Ölçüt | Jezero Krateri | Arcadia Planitia | Mawrth Vallis |
 |---|---|---|---|
 | Su buzu erişimi (index 0–1, yüksek iyi) | 0.10 ± 0.20 *(varsayım)* | 0.85 ± 0.15 *(varsayım)* | 0.15 ± 0.20 *(varsayım)* |
-| Eğim ve iniş güvenliği (%, yüksek iyi) | 75.38 ± 7.39 *(simülasyon)* | 96.33 ± 2.98 *(simülasyon)* | 43.98 ± 7.36 *(simülasyon)* |
-| Güneş enerjisi potansiyeli (Wh/m²/sol, yüksek iyi) | 3232 ± 484.73 *(model)* | 2536 ± 380.41 *(model)* | 3142 ± 471.34 *(model)* |
-| Sıcaklık (K, yüksek iyi) | 206.67 ± 15.00 *(model)* | 194.52 ± 15.00 *(model)* | 205.23 ± 15.00 *(model)* |
+| Eğim ve iniş güvenliği (%, yüksek iyi) | 75.4 ± 7.4 *(simülasyon)* | 96.3 ± 3.0 *(simülasyon)* | 44.0 ± 7.4 *(simülasyon)* |
+| Güneş enerjisi potansiyeli (Wh/m²/sol, yüksek iyi) | 3232 ± 485 *(model)* | 2536 ± 380 *(model)* | 3142 ± 471 *(model)* |
+| Sıcaklık (K, yüksek iyi) | 207 ± 15 *(model)* | 195 ± 15 *(model)* | 205 ± 15 *(model)* |
 | Toz ve rüzgâr riski (τ, düşük iyi) | 0.50 ± 0.20 *(varsayım)* | 0.50 ± 0.20 *(varsayım)* | 0.50 ± 0.20 *(varsayım)* |
 | Bilimsel araştırma değeri (1–9, yüksek iyi) | 9.00 ± 1.00 *(varsayım)* | 6.00 ± 1.00 *(varsayım)* | 8.00 ± 1.00 *(varsayım)* |
-| Ulaşım ve haberleşme (Pa, yüksek iyi) | 803.87 ± 120.58 *(model)* | 871.76 ± 130.76 *(model)* | 796.66 ± 119.50 *(model)* |
-| latitude | 18.445 *(yayın)* | 42.000 ± 0.000 *(varsayım)* | 22.600 ± 0.000 *(varsayım)* |
-| longitude | 77.451 *(yayın)* | 192.000 ± 0.000 *(varsayım)* | 343.500 ± 0.000 *(varsayım)* |
-| elevation | -2600 ± 300 *(varsayım)* | -3500 ± 400 *(varsayım)* | -2500 ± 400 *(varsayım)* |
+| Ulaşım ve haberleşme (Pa, yüksek iyi) | 804 ± 121 *(model)* | 872 ± 131 *(model)* | 797 ± 119 *(model)* |
+| Enlem (°K) | 18.445 *(yayın)* | 42.000 *(varsayım)* | 22.600 *(varsayım)* |
+| Boylam (°D) | 77.451 *(yayın)* | 192.000 *(varsayım)* | 343.500 *(varsayım)* |
+| Yükseklik, MOLA referansı (m) | -2600 ± 300 *(varsayım)* | -3500 ± 400 *(varsayım)* | -2500 ± 400 *(varsayım)* |
 
 **Her değerin kaynağı**
 
 *Jezero Krateri*
 
-- **ice**: 0.10 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: 18° N: near-surface ice is not expected this close to the equator (ez2015, piqueux2019); water would come from hydrated minerals
-- **safeArea**: 75.38 ± 7.39 *(simülasyon)* — kaynak: drone survey; çözünürlük: 1 m grid · GSD 6.8 mm/px · 144 photos; adımlar: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 2.8 % ⊕ threshold 6.9 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
-- **solar**: 3232 ± 484.73 *(model)* — kaynak: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); adımlar: Sun position over one Mars year (Mars24), latitude 18.44° (published) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
-- **temperature**: 206.67 ± 15.00 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 131.0 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
-- **dust**: 0.50 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
-- **science**: 9.00 ± 1.00 *(varsayım)* — kaynak: —; gerekçe: Delta and lake sediments with organics potential; Perseverance cached samples; MEDA weather record
-- **pressure**: 803.87 ± 120.58 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: p = 636 Pa · exp(−h / 11.1 km), h = -2600 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
-- **latitude**: 18.44 *(yayın)* — kaynak: NASA GISS, Mars lander missions (coordinates of Mars landing sites), via Wikipedia "Octavia E. Butler Landing"
-- **elevation**: -2600 ± 300.00 *(varsayım)* — kaynak: —; gerekçe: Approximate; replace with a MOLA MEGDR sample (raster adapter)
+- **Su buzu erişimi**: 0.10 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: 18° N: near-surface ice is not expected this close to the equator (ez2015, piqueux2019); water would come from hydrated minerals
+- **Eğim ve iniş güvenliği**: 75.4 ± 7.4 *(simülasyon)* — kaynak: drone survey; çözünürlük: 1 m grid · GSD 6.8 mm/px · 144 photos; adımlar: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 2.8 % ⊕ threshold 6.9 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
+- **Güneş enerjisi potansiyeli**: 3232 ± 485 *(model)* — kaynak: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); adımlar: Sun position over one Mars year (Mars24), latitude 18.44° (published) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
+- **Sıcaklık**: 207 ± 15 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 131.0 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
+- **Toz ve rüzgâr riski**: 0.50 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
+- **Bilimsel araştırma değeri**: 9.00 ± 1.00 *(varsayım)* — kaynak: —; gerekçe: Delta and lake sediments with organics potential; Perseverance cached samples; MEDA weather record
+- **Ulaşım ve haberleşme**: 804 ± 121 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: p = 636 Pa · exp(−h / 11.1 km), h = -2600 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
+- **Enlem (°K)**: 18.4 *(yayın)* — kaynak: NASA GISS, Mars lander missions (coordinates of Mars landing sites), via Wikipedia "Octavia E. Butler Landing"
+- **Yükseklik, MOLA referansı (m)**: -2600 ± 300 *(varsayım)* — kaynak: —; gerekçe: Approximate; replace with a MOLA MEGDR sample (raster adapter)
 
 *Arcadia Planitia*
 
-- **ice**: 0.85 ± 0.15 *(varsayım)* — kaynak: —; gerekçe: Piqueux et al. 2019: ice within ~30 cm of the surface in parts of Arcadia Planitia, "the most tempting target"
-- **safeArea**: 96.33 ± 2.98 *(simülasyon)* — kaynak: drone survey; çözünürlük: 1 m grid · GSD 6.7 mm/px · 144 photos; adımlar: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.4 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 1.2 % ⊕ threshold 2.7 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
-- **solar**: 2536 ± 380.41 *(model)* — kaynak: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); adımlar: Sun position over one Mars year (Mars24), latitude 42.00° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
-- **temperature**: 194.52 ± 15.00 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 102.8 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
-- **dust**: 0.50 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
-- **science**: 6.00 ± 1.00 *(varsayım)* — kaynak: —; gerekçe: Ice and recent-climate record; younger, less diverse geology than the crater sites
-- **pressure**: 871.76 ± 130.76 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: p = 636 Pa · exp(−h / 11.1 km), h = -3500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
-- **latitude**: 42.00 ± 0.00 *(varsayım)* — kaynak: —; gerekçe: Representative point inside the shallow-ice part of Arcadia Planitia (team choice; region from piqueux2019)
-- **elevation**: -3500 ± 400.00 *(varsayım)* — kaynak: —; gerekçe: Approximate; replace with a MOLA MEGDR sample (raster adapter)
+- **Su buzu erişimi**: 0.85 ± 0.15 *(varsayım)* — kaynak: —; gerekçe: Piqueux et al. 2019: ice within ~30 cm of the surface in parts of Arcadia Planitia, "the most tempting target"
+- **Eğim ve iniş güvenliği**: 96.3 ± 3.0 *(simülasyon)* — kaynak: drone survey; çözünürlük: 1 m grid · GSD 6.7 mm/px · 144 photos; adımlar: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.4 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 1.2 % ⊕ threshold 2.7 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
+- **Güneş enerjisi potansiyeli**: 2536 ± 380 *(model)* — kaynak: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); adımlar: Sun position over one Mars year (Mars24), latitude 42.00° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
+- **Sıcaklık**: 195 ± 15 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 102.8 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
+- **Toz ve rüzgâr riski**: 0.50 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
+- **Bilimsel araştırma değeri**: 6.00 ± 1.00 *(varsayım)* — kaynak: —; gerekçe: Ice and recent-climate record; younger, less diverse geology than the crater sites
+- **Ulaşım ve haberleşme**: 872 ± 131 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: p = 636 Pa · exp(−h / 11.1 km), h = -3500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
+- **Enlem (°K)**: 42.0 *(varsayım)* — kaynak: —; gerekçe: Representative point inside the shallow-ice part of Arcadia Planitia (team choice; region from piqueux2019)
+- **Yükseklik, MOLA referansı (m)**: -3500 ± 400 *(varsayım)* — kaynak: —; gerekçe: Approximate; replace with a MOLA MEGDR sample (raster adapter)
 
 *Mawrth Vallis*
 
-- **ice**: 0.15 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: 22° N: no shallow ice expected; abundant hydrated clays as a water source
-- **safeArea**: 43.98 ± 7.36 *(simülasyon)* — kaynak: drone survey; çözünürlük: 1 m grid · GSD 6.8 mm/px · 128 photos; adımlar: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 3.2 % ⊕ threshold 6.6 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
-- **solar**: 3142 ± 471.34 *(model)* — kaynak: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); adımlar: Sun position over one Mars year (Mars24), latitude 22.60° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
-- **temperature**: 205.23 ± 15.00 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 127.4 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
-- **dust**: 0.50 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
-- **science**: 8.00 ± 1.00 *(varsayım)* — kaynak: —; gerekçe: One of the thickest and most diverse clay sequences on Mars; proposed Exploration Zone (ez2015)
-- **pressure**: 796.66 ± 119.50 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: p = 636 Pa · exp(−h / 11.1 km), h = -2500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
-- **latitude**: 22.60 ± 0.00 *(varsayım)* — kaynak: —; gerekçe: Representative point near the candidate landing ellipses (team choice)
-- **elevation**: -2500 ± 400.00 *(varsayım)* — kaynak: —; gerekçe: Approximate; replace with a MOLA MEGDR sample (raster adapter)
+- **Su buzu erişimi**: 0.15 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: 22° N: no shallow ice expected; abundant hydrated clays as a water source
+- **Eğim ve iniş güvenliği**: 44.0 ± 7.4 *(simülasyon)* — kaynak: drone survey; çözünürlük: 1 m grid · GSD 6.8 mm/px · 128 photos; adımlar: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 3.2 % ⊕ threshold 6.6 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
+- **Güneş enerjisi potansiyeli**: 3142 ± 471 *(model)* — kaynak: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); adımlar: Sun position over one Mars year (Mars24), latitude 22.60° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
+- **Sıcaklık**: 205 ± 15 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 127.4 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
+- **Toz ve rüzgâr riski**: 0.50 ± 0.20 *(varsayım)* — kaynak: —; gerekçe: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
+- **Bilimsel araştırma değeri**: 8.00 ± 1.00 *(varsayım)* — kaynak: —; gerekçe: One of the thickest and most diverse clay sequences on Mars; proposed Exploration Zone (ez2015)
+- **Ulaşım ve haberleşme**: 797 ± 119 *(model)* — kaynak: NASA Mars Fact Sheet (NSSDCA); adımlar: p = 636 Pa · exp(−h / 11.1 km), h = -2500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
+- **Enlem (°K)**: 22.6 *(varsayım)* — kaynak: —; gerekçe: Representative point near the candidate landing ellipses (team choice)
+- **Yükseklik, MOLA referansı (m)**: -2500 ± 400 *(varsayım)* — kaynak: —; gerekçe: Approximate; replace with a MOLA MEGDR sample (raster adapter)
 
 ## 4. Keşif uçuşları (Rapier, otonom)
 
@@ -113,9 +115,9 @@ Güzergâh: 80 m × 80 m, 20 m AGL, 4 m/s, bindirme 75 / 60 %.
 
 | Bölge | sonuç | s | Wh | foto | stereo kapsama | GSD mm | σZ mm | güvenli alan % | gerçek (sentetik) % | DEM RMSE mm | tehlikeli kaya |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Jezero Krateri | ✓ complete | 477 | 65.8 | 144 | 95 % | 6.8 | 13.7 | 75.4 ± 7.4 | 75.7 | 13.7 | 62 / 62 |
-| Arcadia Planitia | ✓ complete | 476 | 59.7 | 144 | 95 % | 6.7 | 13.4 | 96.3 ± 3.0 | 96.5 | 13.5 | 7 / 7 |
-| Mawrth Vallis | ✓ complete | 474 | 65.5 | 128 | 95 % | 6.8 | 13.7 | 44.0 ± 7.4 | 44.2 | 13.7 | 59 / 59 |
+| Jezero Krateri | ✓ tamamlandı | 477 | 65.8 | 144 | %95 | 6.8 | 13.7 | 75.4 ± 7.4 | 75.7 | 13.7 | 62 / 62 |
+| Arcadia Planitia | ✓ tamamlandı | 476 | 59.7 | 144 | %95 | 6.7 | 13.4 | 96.3 ± 3.0 | 96.5 | 13.5 | 7 / 7 |
+| Mawrth Vallis | ✓ tamamlandı | 474 | 65.5 | 128 | %95 | 6.8 | 13.7 | 44.0 ± 7.4 | 44.2 | 13.7 | 59 / 59 |
 
 *Dron yalnız yüzeyi ölçer: stereo fotoğraflardan eğim ve kaya. Yer altı buzu, radyasyon ve iklim hiçbir zaman dron ölçümü olarak gösterilmez. DTM yüklenmediyse arazi sentetiktir; "gerçek" sütunu Mars'ı değil yöntemi doğrular.*
 
@@ -137,13 +139,13 @@ Güzergâh: 80 m × 80 m, 20 m AGL, 4 m/s, bindirme 75 / 60 %.
 
 | Ölçüt | ağırlık | yön | Jezero Krateri | Arcadia Planitia |
 |---|---:|---|---:|---:|
-| Su buzu erişimi | 0.220 | benefit | 0.100 | 0.850 |
-| Eğim ve iniş güvenliği | 0.200 | benefit | 75.378 | 96.335 |
-| Güneş enerjisi potansiyeli | 0.140 | benefit | 3232 | 2536 |
-| Sıcaklık | 0.080 | benefit | 206.674 | 194.525 |
-| Toz ve rüzgâr riski | 0.080 | cost | 0.500 | 0.500 |
-| Bilimsel araştırma değeri | 0.180 | benefit | 9.000 | 6.000 |
-| Ulaşım ve haberleşme | 0.100 | benefit | 803.866 | 871.760 |
+| Su buzu erişimi | 0.220 | fayda (yüksek iyi) | 0.100 | 0.850 |
+| Eğim ve iniş güvenliği | 0.200 | fayda (yüksek iyi) | 75.378 | 96.335 |
+| Güneş enerjisi potansiyeli | 0.140 | fayda (yüksek iyi) | 3232 | 2536 |
+| Sıcaklık | 0.080 | fayda (yüksek iyi) | 206.674 | 194.525 |
+| Toz ve rüzgâr riski | 0.080 | maliyet (düşük iyi) | 0.500 | 0.500 |
+| Bilimsel araştırma değeri | 0.180 | fayda (yüksek iyi) | 9.000 | 6.000 |
+| Ulaşım ve haberleşme | 0.100 | fayda (yüksek iyi) | 803.866 | 871.760 |
 | D⁺ | | | 0.1959 | 0.0554 |
 | D⁻ | | | 0.0554 | 0.1959 |
 | **C** | | | **0.220** | **0.780** |
@@ -154,7 +156,7 @@ Adımlar: r = x / √Σx² · v = w r · her ölçütte ideal v⁺ ve en kötü 
 ## 7. Model kontrolleri
 
 - Jezero basınç modeli 804 Pa karşı MEDA sol ortalaması 625–761 Pa (yayın); model Fact Sheet ortalama yarıçap basıncını ve yaklaşık yüksekliği kullanır.
-- Jezero sıcaklık modeli 206.7 K karşı MEDA hava 190.14999999999998–250.14999999999998 K (aralık ortası 220.1 K).
+- Jezero sıcaklık modeli 206.7 K karşı MEDA hava 190.1–250.1 K (aralık ortası 220.1 K).
 - Modeller: p = 636 Pa · exp(−h / 11.1 km); T = ((1 − 0.25)·Ī / (0.95 σ))^¼; Mars24 Güneşi ve Beer–Lambert toz sönümüyle güneşlenme.
 
 ## 8. Varsayımlar ve sınırlar

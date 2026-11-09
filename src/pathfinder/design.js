@@ -2,7 +2,7 @@ import {VEHICLES,registerVehicle,getVehicle} from '../vehicles/presets.js';
 import {ROTORS,registerRotor,getRotor} from '../aero/rotors.js';
 import {defineRotor} from '../aero/rotor.js';
 import {defineBattery} from '../power/battery.js';
-import {FRAME_TYPES} from '../frames/frames.js';
+import {FRAME_TYPES,FRAME_LABELS} from '../frames/frames.js';
 
 /**
  * The scout drone the player designs, and the mission budget.
@@ -63,7 +63,7 @@ export function budget(design){
     {id:'rotorUpgrade',cost:r.cost,label:{en:`Rotor option: ${r.label.en}`,tr:`Rotor seçeneği: ${r.label.tr}`},kind:'upgrade'},
     {id:'batteryUpgrade',cost:b.cost,label:{en:`Battery option: ${b.label.en}`,tr:`Batarya seçeneği: ${b.label.tr}`},kind:'upgrade'},
     {id:'cameraUpgrade',cost:c.cost,label:{en:`Camera option: ${c.label.en}`,tr:`Kamera seçeneği: ${c.label.tr}`},kind:'upgrade'},
-    {id:'frameUpgrade',cost:FRAME_COSTS[design.frame],label:{en:`Frame: ${design.frame}`,tr:`Gövde: ${design.frame}`},kind:'upgrade'}];
+    {id:'frameUpgrade',cost:FRAME_COSTS[design.frame],label:{en:`Frame: ${FRAME_LABELS[design.frame]?.en??design.frame}`,tr:`Gövde: ${FRAME_LABELS[design.frame]?.tr??design.frame}`},kind:'upgrade'}];
   const base=BASE_COSTS.reduce((s,x)=>s+x.cost,0),total=items.reduce((s,x)=>s+x.cost,0);
   return {items,base,total,remaining:BUDGET.total-total,within:total<=BUDGET.total,currency:BUDGET.currency,representative:true};
 }

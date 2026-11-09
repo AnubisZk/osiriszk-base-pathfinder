@@ -1,6 +1,6 @@
 # Mars Base Pathfinder — mission report
 
-*Generated: 2026-11-09T08:33:49.857Z · OsirisZk · costs are representative game values; synthetic terrain and assumptions are labelled*
+*Generated: 2026-11-09T09:15:16.869Z · OsirisZk · costs are representative game values; synthetic terrain and assumptions are labelled*
 
 ## Answer: “Where should humanity establish its first Mars research base, and why?”
 
@@ -8,10 +8,10 @@
 
 **Why** (weighted, normalised advantage over Jezero Crater):
 
-- Water-ice access: 0.85 ± 0.15 *(assumption)* vs 0.10 ± 0.20 *(assumption)* index 0–1 → in favour (0.193)
-- Scientific value: 6.00 ± 1.00 *(assumption)* vs 9.00 ± 1.00 *(assumption)* 1–9 → against (-0.050)
-- Slope and landing safety: 96.33 ± 2.98 *(simulation)* vs 75.38 ± 7.39 *(simulation)* % → in favour (0.034)
-- Solar energy potential: 2536 ± 380.41 *(model)* vs 3232 ± 484.73 *(model)* Wh/m²/sol → against (-0.024)
+- Water-ice access (index 0–1): 0.85 ± 0.15 *(assumption)* vs 0.10 ± 0.20 *(assumption)* → in favour (+0.193)
+- Scientific value (1–9): 6.00 ± 1.00 *(assumption)* vs 9.00 ± 1.00 *(assumption)* → against (-0.050)
+- Slope and landing safety (%): 96.3 ± 3.0 *(simulation)* vs 75.4 ± 7.4 *(simulation)* → in favour (+0.034)
+- Solar energy potential (Wh/m²/sol): 2536 ± 380 *(model)* vs 3232 ± 485 *(model)* → against (-0.024)
 
 **How robust**: the winner stays first while each weight moves within:
 
@@ -19,11 +19,11 @@
 - Slope and landing safety (now 0.20): 0.00 – 1.00
 - Solar energy potential (now 0.14): 0.00 – 0.56; outside it: Jezero Crater
 - Temperature (now 0.08): 0.00 – 0.82; outside it: Jezero Crater
-- Dust and wind risk (now 0.08): 0.00 – 0.99; outside it: Jezero Crater
+- Dust and wind risk (now 0.08): 0.00 – 0.99; beyond it the sites tie (this criterion does not separate them)
 - Scientific value (now 0.18): 0.00 – 0.46; outside it: Jezero Crater
 - Transport and communication (now 0.10): 0.00 – 1.00
 
-Seeded Monte Carlo (2000 draws): random weights 74 %, data within their uncertainty 99 %, both 70 % of draws keep this site first.
+Seeded Monte Carlo (2000 draws each): this site stays first in 74 % of draws with random weights, 99 % with the data varied within their uncertainties, 70 % with both.
 
 **What it rests on**: 3 × User assumption, 1 × Drone simulation, 3 × Model (computed). Assumptions can be edited and NASA data imported; the decision is recomputed.
 
@@ -44,7 +44,7 @@ Seeded Monte Carlo (2000 draws): random weights 74 %, data within their uncertai
 
 ## 2. Scout drone
 
-- Rotor: r50 · battery: b2 · camera: Standard 13 MP colour (Ingenuity class) · frame: carbon
+- Rotor: 0.50 m rotors (standard) · battery: Standard: 6S2P Li-ion (12 cells) · camera: Standard 13 MP colour (Ingenuity class) · frame: Conventional carbon fibre
 - Camera: 4208 × 3120 px, 1.12 µm, f = 3.4 mm, 0.2 kg, 3 W, σpx 0.5 (pixel count of the standard camera from the Ingenuity press kit; the rest assumed)
 - Mass, centre of mass, inertia and drag only. Structural strength is not simulated: finite-element analysis (FEA) and tests are required.
 
@@ -59,53 +59,53 @@ Seeded Monte Carlo (2000 draws): random weights 74 %, data within their uncertai
 | Criterion | Jezero Crater | Arcadia Planitia | Mawrth Vallis |
 |---|---|---|---|
 | Water-ice access (index 0–1, higher better) | 0.10 ± 0.20 *(assumption)* | 0.85 ± 0.15 *(assumption)* | 0.15 ± 0.20 *(assumption)* |
-| Slope and landing safety (%, higher better) | 75.38 ± 7.39 *(simulation)* | 96.33 ± 2.98 *(simulation)* | 43.98 ± 7.36 *(simulation)* |
-| Solar energy potential (Wh/m²/sol, higher better) | 3232 ± 484.73 *(model)* | 2536 ± 380.41 *(model)* | 3142 ± 471.34 *(model)* |
-| Temperature (K, higher better) | 206.67 ± 15.00 *(model)* | 194.52 ± 15.00 *(model)* | 205.23 ± 15.00 *(model)* |
+| Slope and landing safety (%, higher better) | 75.4 ± 7.4 *(simulation)* | 96.3 ± 3.0 *(simulation)* | 44.0 ± 7.4 *(simulation)* |
+| Solar energy potential (Wh/m²/sol, higher better) | 3232 ± 485 *(model)* | 2536 ± 380 *(model)* | 3142 ± 471 *(model)* |
+| Temperature (K, higher better) | 207 ± 15 *(model)* | 195 ± 15 *(model)* | 205 ± 15 *(model)* |
 | Dust and wind risk (τ, lower better) | 0.50 ± 0.20 *(assumption)* | 0.50 ± 0.20 *(assumption)* | 0.50 ± 0.20 *(assumption)* |
 | Scientific value (1–9, higher better) | 9.00 ± 1.00 *(assumption)* | 6.00 ± 1.00 *(assumption)* | 8.00 ± 1.00 *(assumption)* |
-| Transport and communication (Pa, higher better) | 803.87 ± 120.58 *(model)* | 871.76 ± 130.76 *(model)* | 796.66 ± 119.50 *(model)* |
-| latitude | 18.445 *(published)* | 42.000 ± 0.000 *(assumption)* | 22.600 ± 0.000 *(assumption)* |
-| longitude | 77.451 *(published)* | 192.000 ± 0.000 *(assumption)* | 343.500 ± 0.000 *(assumption)* |
-| elevation | -2600 ± 300 *(assumption)* | -3500 ± 400 *(assumption)* | -2500 ± 400 *(assumption)* |
+| Transport and communication (Pa, higher better) | 804 ± 121 *(model)* | 872 ± 131 *(model)* | 797 ± 119 *(model)* |
+| Latitude (°N) | 18.445 *(published)* | 42.000 *(assumption)* | 22.600 *(assumption)* |
+| Longitude (°E) | 77.451 *(published)* | 192.000 *(assumption)* | 343.500 *(assumption)* |
+| Elevation, MOLA datum (m) | -2600 ± 300 *(assumption)* | -3500 ± 400 *(assumption)* | -2500 ± 400 *(assumption)* |
 
 **Provenance of each value**
 
 *Jezero Crater*
 
-- **ice**: 0.10 ± 0.20 *(assumption)* — source: —; rationale: 18° N: near-surface ice is not expected this close to the equator (ez2015, piqueux2019); water would come from hydrated minerals
-- **safeArea**: 75.38 ± 7.39 *(simulation)* — source: drone survey; resolution: 1 m grid · GSD 6.8 mm/px · 144 photos; steps: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 2.8 % ⊕ threshold 6.9 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
-- **solar**: 3232 ± 484.73 *(model)* — source: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); steps: Sun position over one Mars year (Mars24), latitude 18.44° (published) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
-- **temperature**: 206.67 ± 15.00 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 131.0 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
-- **dust**: 0.50 ± 0.20 *(assumption)* — source: —; rationale: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
-- **science**: 9.00 ± 1.00 *(assumption)* — source: —; rationale: Delta and lake sediments with organics potential; Perseverance cached samples; MEDA weather record
-- **pressure**: 803.87 ± 120.58 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: p = 636 Pa · exp(−h / 11.1 km), h = -2600 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
-- **latitude**: 18.44 *(published)* — source: NASA GISS, Mars lander missions (coordinates of Mars landing sites), via Wikipedia "Octavia E. Butler Landing"
-- **elevation**: -2600 ± 300.00 *(assumption)* — source: —; rationale: Approximate; replace with a MOLA MEGDR sample (raster adapter)
+- **Water-ice access**: 0.10 ± 0.20 *(assumption)* — source: —; rationale: 18° N: near-surface ice is not expected this close to the equator (ez2015, piqueux2019); water would come from hydrated minerals
+- **Slope and landing safety**: 75.4 ± 7.4 *(simulation)* — source: drone survey; resolution: 1 m grid · GSD 6.8 mm/px · 144 photos; steps: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 2.8 % ⊕ threshold 6.9 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
+- **Solar energy potential**: 3232 ± 485 *(model)* — source: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); steps: Sun position over one Mars year (Mars24), latitude 18.44° (published) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
+- **Temperature**: 207 ± 15 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 131.0 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
+- **Dust and wind risk**: 0.50 ± 0.20 *(assumption)* — source: —; rationale: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
+- **Scientific value**: 9.00 ± 1.00 *(assumption)* — source: —; rationale: Delta and lake sediments with organics potential; Perseverance cached samples; MEDA weather record
+- **Transport and communication**: 804 ± 121 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: p = 636 Pa · exp(−h / 11.1 km), h = -2600 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
+- **Latitude (°N)**: 18.4 *(published)* — source: NASA GISS, Mars lander missions (coordinates of Mars landing sites), via Wikipedia "Octavia E. Butler Landing"
+- **Elevation, MOLA datum (m)**: -2600 ± 300 *(assumption)* — source: —; rationale: Approximate; replace with a MOLA MEGDR sample (raster adapter)
 
 *Arcadia Planitia*
 
-- **ice**: 0.85 ± 0.15 *(assumption)* — source: —; rationale: Piqueux et al. 2019: ice within ~30 cm of the surface in parts of Arcadia Planitia, "the most tempting target"
-- **safeArea**: 96.33 ± 2.98 *(simulation)* — source: drone survey; resolution: 1 m grid · GSD 6.7 mm/px · 144 photos; steps: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.4 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 1.2 % ⊕ threshold 2.7 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
-- **solar**: 2536 ± 380.41 *(model)* — source: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); steps: Sun position over one Mars year (Mars24), latitude 42.00° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
-- **temperature**: 194.52 ± 15.00 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 102.8 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
-- **dust**: 0.50 ± 0.20 *(assumption)* — source: —; rationale: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
-- **science**: 6.00 ± 1.00 *(assumption)* — source: —; rationale: Ice and recent-climate record; younger, less diverse geology than the crater sites
-- **pressure**: 871.76 ± 130.76 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: p = 636 Pa · exp(−h / 11.1 km), h = -3500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
-- **latitude**: 42.00 ± 0.00 *(assumption)* — source: —; rationale: Representative point inside the shallow-ice part of Arcadia Planitia (team choice; region from piqueux2019)
-- **elevation**: -3500 ± 400.00 *(assumption)* — source: —; rationale: Approximate; replace with a MOLA MEGDR sample (raster adapter)
+- **Water-ice access**: 0.85 ± 0.15 *(assumption)* — source: —; rationale: Piqueux et al. 2019: ice within ~30 cm of the surface in parts of Arcadia Planitia, "the most tempting target"
+- **Slope and landing safety**: 96.3 ± 3.0 *(simulation)* — source: drone survey; resolution: 1 m grid · GSD 6.7 mm/px · 144 photos; steps: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.4 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 1.2 % ⊕ threshold 2.7 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
+- **Solar energy potential**: 2536 ± 380 *(model)* — source: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); steps: Sun position over one Mars year (Mars24), latitude 42.00° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
+- **Temperature**: 195 ± 15 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 102.8 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
+- **Dust and wind risk**: 0.50 ± 0.20 *(assumption)* — source: —; rationale: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
+- **Scientific value**: 6.00 ± 1.00 *(assumption)* — source: —; rationale: Ice and recent-climate record; younger, less diverse geology than the crater sites
+- **Transport and communication**: 872 ± 131 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: p = 636 Pa · exp(−h / 11.1 km), h = -3500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
+- **Latitude (°N)**: 42.0 *(assumption)* — source: —; rationale: Representative point inside the shallow-ice part of Arcadia Planitia (team choice; region from piqueux2019)
+- **Elevation, MOLA datum (m)**: -3500 ± 400 *(assumption)* — source: —; rationale: Approximate; replace with a MOLA MEGDR sample (raster adapter)
 
 *Mawrth Vallis*
 
-- **ice**: 0.15 ± 0.20 *(assumption)* — source: —; rationale: 22° N: no shallow ice expected; abundant hydrated clays as a water source
-- **safeArea**: 43.98 ± 7.36 *(simulation)* — source: drone survey; resolution: 1 m grid · GSD 6.8 mm/px · 128 photos; steps: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 3.2 % ⊕ threshold 6.6 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
-- **solar**: 3142 ± 471.34 *(model)* — source: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); steps: Sun position over one Mars year (Mars24), latitude 22.60° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
-- **temperature**: 205.23 ± 15.00 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 127.4 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
-- **dust**: 0.50 ± 0.20 *(assumption)* — source: —; rationale: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
-- **science**: 8.00 ± 1.00 *(assumption)* — source: —; rationale: One of the thickest and most diverse clay sequences on Mars; proposed Exploration Zone (ez2015)
-- **pressure**: 796.66 ± 119.50 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: p = 636 Pa · exp(−h / 11.1 km), h = -2500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
-- **latitude**: 22.60 ± 0.00 *(assumption)* — source: —; rationale: Representative point near the candidate landing ellipses (team choice)
-- **elevation**: -2500 ± 400.00 *(assumption)* — source: —; rationale: Approximate; replace with a MOLA MEGDR sample (raster adapter)
+- **Water-ice access**: 0.15 ± 0.20 *(assumption)* — source: —; rationale: 22° N: no shallow ice expected; abundant hydrated clays as a water source
+- **Slope and landing safety**: 44.0 ± 7.4 *(simulation)* — source: drone survey; resolution: 1 m grid · GSD 6.8 mm/px · 128 photos; steps: stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm → slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) → uncertainty: sampling 3.2 % ⊕ threshold 6.6 %; Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes
+- **Solar energy potential**: 3142 ± 471 *(model)* — source: Allison & McEwen (2000), Mars24 solar time algorithm (NASA GISS); steps: Sun position over one Mars year (Mars24), latitude 22.60° (assumption) → beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) → mean over 67 sampled sols, 15-min steps; ±15 %: diffuse-light shape and dust season not resolved
+- **Temperature**: 205 ± 15 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) → Ī = 127.4 W/m² from the insolation model; Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)
+- **Dust and wind risk**: 0.50 ± 0.20 *(assumption)* — source: —; rationale: No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported
+- **Scientific value**: 8.00 ± 1.00 *(assumption)* — source: —; rationale: One of the thickest and most diverse clay sequences on Mars; proposed Exploration Zone (ez2015)
+- **Transport and communication**: 797 ± 119 *(model)* — source: NASA Mars Fact Sheet (NSSDCA); steps: p = 636 Pa · exp(−h / 11.1 km), h = -2500 m (assumption); Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)
+- **Latitude (°N)**: 22.6 *(assumption)* — source: —; rationale: Representative point near the candidate landing ellipses (team choice)
+- **Elevation, MOLA datum (m)**: -2500 ± 400 *(assumption)* — source: —; rationale: Approximate; replace with a MOLA MEGDR sample (raster adapter)
 
 ## 4. Survey flights (Rapier, autonomous)
 
@@ -137,13 +137,13 @@ Route: 80 m × 80 m, 20 m AGL, 4 m/s, overlap 75 / 60 %.
 
 | Criterion | weight | direction | Jezero Crater | Arcadia Planitia |
 |---|---:|---|---:|---:|
-| Water-ice access | 0.220 | benefit | 0.100 | 0.850 |
-| Slope and landing safety | 0.200 | benefit | 75.378 | 96.335 |
-| Solar energy potential | 0.140 | benefit | 3232 | 2536 |
-| Temperature | 0.080 | benefit | 206.674 | 194.525 |
-| Dust and wind risk | 0.080 | cost | 0.500 | 0.500 |
-| Scientific value | 0.180 | benefit | 9.000 | 6.000 |
-| Transport and communication | 0.100 | benefit | 803.866 | 871.760 |
+| Water-ice access | 0.220 | benefit (higher better) | 0.100 | 0.850 |
+| Slope and landing safety | 0.200 | benefit (higher better) | 75.378 | 96.335 |
+| Solar energy potential | 0.140 | benefit (higher better) | 3232 | 2536 |
+| Temperature | 0.080 | benefit (higher better) | 206.674 | 194.525 |
+| Dust and wind risk | 0.080 | cost (lower better) | 0.500 | 0.500 |
+| Scientific value | 0.180 | benefit (higher better) | 9.000 | 6.000 |
+| Transport and communication | 0.100 | benefit (higher better) | 803.866 | 871.760 |
 | D⁺ | | | 0.1959 | 0.0554 |
 | D⁻ | | | 0.0554 | 0.1959 |
 | **C** | | | **0.220** | **0.780** |
@@ -154,7 +154,7 @@ Steps: r = x / √Σx² · v = w r · ideal v⁺ and anti-ideal v⁻ per criteri
 ## 7. Model checks
 
 - Jezero pressure model 804 Pa vs MEDA sol-averaged 625–761 Pa (published); the model uses the Fact Sheet mean-radius pressure and an approximate elevation.
-- Jezero temperature model 206.7 K vs MEDA air 190.14999999999998–250.14999999999998 K (mid-range 220.1 K).
+- Jezero temperature model 206.7 K vs MEDA air 190.1–250.1 K (mid-range 220.1 K).
 - Models: p = 636 Pa · exp(−h / 11.1 km); T = ((1 − 0.25)·Ī / (0.95 σ))^¼; insolation from the Mars24 Sun with Beer–Lambert dust attenuation.
 
 ## 8. Assumptions and limitations

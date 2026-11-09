@@ -75,8 +75,8 @@
     "id": "frameUpgrade",
     "cost": 0,
     "label": {
-     "en": "Frame: carbon",
-     "tr": "Gövde: carbon"
+     "en": "Frame: Conventional carbon fibre",
+     "tr": "Gövde: Geleneksel karbon fiber"
     },
     "kind": "upgrade"
    }
@@ -165,8 +165,8 @@
      "id": "frameUpgrade",
      "cost": 0,
      "label": {
-      "en": "Frame: carbon",
-      "tr": "Gövde: carbon"
+      "en": "Frame: Conventional carbon fibre",
+      "tr": "Gövde: Geleneksel karbon fiber"
      },
      "kind": "upgrade"
     }
@@ -6936,7 +6936,8 @@
     2,
     1
    ],
-   "winner": 1
+   "winner": 1,
+   "tie": false
   },
   "ranking": [
    {
@@ -7050,9 +7051,7 @@
      0.99
     ],
     "current": 0.08000000000000002,
-    "switchesTo": [
-     0
-    ]
+    "switchesTo": []
    },
    {
     "criterion": "science",

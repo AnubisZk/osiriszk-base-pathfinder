@@ -1,7 +1,7 @@
 {
-  "name": "osiriszk-mars-explorer",
-  "version": "0.5.3",
-  "description": "OsirisZk: Earth and Mars rotorcraft simulators (design, missions, experiments) on the ZSK flight core (Rapier, 240 Hz fixed step). NASA Space Apps Challenge 2026.",
+  "name": "osiriszk-base-pathfinder",
+  "version": "0.6.0",
+  "description": "OsirisZk Mars Base Pathfinder: where should humanity establish its first Mars research base, and why? A scientific mission-design game on the OsirisZk Earth/Mars rotorcraft simulator (Rapier, 240 Hz fixed step): drone design and budget, autonomous survey flights with photogrammetry, NASA data adapters with provenance, safety screening, TOPSIS/AHP, sensitivity analysis.",
   "type": "module",
   "private": true,
   "main": "src/index.js",
@@ -21,7 +21,9 @@
     "dev:app": "vite app --open",
     "build": "vite build app --outDir ../dist --emptyOutDir --base ./",
     "experiments": "node tools/experiment.mjs all",
-    "model-check": "node tools/model-check.mjs"
+    "model-check": "node tools/model-check.mjs",
+    "pathfinder": "node tools/pathfinder-run.mjs --lang both",
+    "sample-rasters": "node tools/sample-rasters.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.21.0",

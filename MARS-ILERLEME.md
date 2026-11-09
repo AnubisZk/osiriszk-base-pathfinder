@@ -306,6 +306,16 @@ Aşama 2'de eklenecekler: `src/planet/rotor/` (pal elemanı ve momentum teorisi,
   - Daha önce gönderilen küçük bozkır fotoğrafı bunun yerine kaldırıldı.
 - **Gökyüzü:** simülatörün gökyüzü fotoğraftakine zaten yakındı (simülatör #aebfd8, fotoğraf #96a6cb); değiştirilmedi.
 
+### 9 Kasım 2026 · Mars Base Pathfinder (mentorun referans çalışması, ayrı depo)
+
+- **Ne:** "OSIRISZK – MARS BASE PATHFINDER" brief'inin tam uygulaması; simülatörün `v0.5.3-baseline` etiketinden türetilmiş ayrı depo (`osiriszk-base-pathfinder`). Öğrencilerin Space Apps deposuna girmez.
+- **Döngü:** bütçe → dron tasarımı → üç bölge → güzergâh → Rapier ile otonom keşif → fotogrametri → güvenlik elemesi → TOPSIS/AHP → duyarlılık ve Monte Carlo → rapor (EN/TR, Markdown, CSV, JSON).
+- **Veri kökeni:** her değerde tür (NASA, yayın, model, simülasyon, sentetik, varsayım), kaynak, çözünürlük, belirsizlik. Buz asla dron ölçümü olarak gösterilmez.
+- **İçe aktarma:** CSV, JSON, GeoJSON, GeoTIFF (SWIM, MOLA); alan eşleştirme ekranı, veri paketi.
+- **Mevcut koda dokunuş:** yalnız eklemeler (`registerVehicle`, `registerRotor`, `build.js` rotor okuma, giriş kartı, iki sayfalı derleme). Fizik ve eski testler aynı.
+- **Varsayılan sonuç:** Arcadia Planitia (C 0,780), Jezero 0,220; Mawrth güvenli zemin %44 ile elendi. Rastgele ağırlıkla %74, veri belirsizliğiyle %99 birinci.
+- **Testler:** 133 (112 eski + 21 yeni), hepsi geçiyor. Ayrıntı: `docs/PATHFINDER.md`.
+
 ## Açık kararlar (takımdan)
 
 1. **Lisans:** Apache-2.0 öneriliyor; Space Apps varsayılanı bu.

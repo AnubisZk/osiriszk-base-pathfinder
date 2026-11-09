@@ -49,6 +49,9 @@ test('sensitivity: proportional weight sweep, stability interval and the switch 
   const i0=s[0].interval;near(i0[0],.41,1e-9);near(i0[1],1,1e-12);assert.deepEqual(s[0].switchesTo,[0]);
   const X=[[1,4],[3,2],[2,3]],d=['benefit','benefit'];
   assert.equal(topsis(X,sweepWeights(w,0,.40),d).winner,0);assert.equal(topsis(X,sweepWeights(w,0,.41),d).winner,1);
+  // a criterion that does not separate the alternatives: all weight on it is a tie, not a switch
+  const flat=sensitivity([[1,5],[3,5],[2,5]],[.5,.5],['benefit','benefit']);
+  assert.equal(flat[1].winners.at(-1),-1);assert.deepEqual(flat[1].switchesTo,[]);assert.ok(flat[1].ties);
   // the curves are TOPSIS closeness values at each step
   near(s[0].curves[1][50],.590037,1e-6);
 });

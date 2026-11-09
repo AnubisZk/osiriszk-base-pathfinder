@@ -4,8 +4,14 @@ import {PF_SOURCES} from './sources.js';
 import {SAFETY_RULES} from './safety.js';
 import {TEMP_MODEL,P_REF,SCALE_HEIGHT} from './environment.js';
 import {MEDA_PUBLISHED} from '../realdata/nasa.js';
-import {FEA_NOTE} from '../frames/frames.js';
-import {cameraOf} from './design.js';
+import {FEA_NOTE,FRAME_LABELS} from '../frames/frames.js';
+import {cameraOf,ROTOR_OPTIONS,BATTERY_OPTIONS} from './design.js';
+
+/** Flight-end reasons of the mission runner, in Turkish. */
+const REASONS_TR={complete:'tamamlandı','time limit':'süre sınırı','battery depleted in flight':'uçuşta batarya bitti','crash: attitude lost':'kaza: denge kaybı',
+  'cannot take off: maximum thrust below weight':'kalkamaz: en büyük itki ağırlıktan az','did not lift off: motor current (torque) limit':'kalkamadı: motor akım (tork) sınırı','did not lift off':'kalkamadı'};
+/** Labels of the coordinate fields that are not criteria. */
+const FIELD_LABELS={latitude:{en:'Latitude',tr:'Enlem',unit:{en:'°N',tr:'°K'}},longitude:{en:'Longitude',tr:'Boylam',unit:{en:'°E',tr:'°D'}},elevation:{en:'Elevation, MOLA datum',tr:'Yükseklik, MOLA referansı',unit:{en:'m',tr:'m'}}};
 
 /**
  * Scientific report (Markdown) and data exports (CSV, JSON) of a Base Pathfinder mission.
@@ -18,13 +24,20 @@ export function buildPathfinderReport({lang='en',design,budget,route,validation,
   const T=(en,tr)=>lang==='tr'?tr:en,L=o=>o?.[lang]??o?.en??'';
   const f=(v,d=2)=>v==null||!Number.isFinite(v)?'—':Math.abs(v)>=1000?v.toFixed(0):v.toFixed(d);
   const kind=d=>d?L(KINDS[d.kind].short):'—';
-  const cell=(d,dig=2)=>d&&d.value!=null?`${f(d.value,dig)}${d.uncertainty!=null?` ± ${f(d.uncertainty,dig)}`:''} *(${kind(d)})*`:'—';
+  const decs=v=>Math.abs(v)>=100?0:Math.abs(v)>=10?1:2;
+  const cell=(d,dig=null)=>{if(!d||d.value==null)return '—';const k=dig??decs(d.value);return `${d.value.toFixed(k)}${d.uncertainty?` ± ${d.uncertainty.toFixed(k)}`:''} *(${kind(d)})*`;};
+  const fieldLabel=k=>{const c=CRITERIA.find(x=>x.key===k);if(c)return L(c.label);const F=FIELD_LABELS[k];return F?`${L(F)} (${L(F.unit)})`:k;};
+  const dirLabel=dir=>dir==='cost'?T('cost (lower better)','maliyet (düşük iyi)'):T('benefit (higher better)','fayda (yüksek iyi)');
+  const reason=r=>lang==='tr'?(REASONS_TR[r]??r):r;
+  const optLabel=(opts,id)=>L(opts.find(o=>o.id===id)?.label)||id;
+  const P=v=>lang==='tr'?`%${v}`:`${v} %`;
   const byId=Object.fromEntries(sites.map(s=>[s.id,s])),name=id=>L(byId[id]?.label)||id;
   const md=[];
   md.push(`# Mars Base Pathfinder — ${T('mission report','görev raporu')}`,'',
     `*${T('Generated','Oluşturuldu')}: ${generatedAt} · OsirisZk · ${T('costs are representative game values; synthetic terrain and assumptions are labelled','maliyetler temsili oyun değerleridir; sentetik arazi ve varsayımlar etiketlidir')}*`,'');
   // ---- the answer
   md.push(`## ${T('Answer','Cevap')}: “${QUESTION}”`,'');
+  if(lang==='tr')md.push('*(İnsanlık ilk Mars araştırma üssünü nereye kurmalı ve neden?)*','');
   const d=decision;
   if(!d.recommended){
     md.push(T(`**No recommendation.** None of the candidate sites passed the mandatory safety conditions (section 5). A base is not placed where a safe landing has not been shown.`,
@@ -37,12 +50,14 @@ export function buildPathfinderReport({lang='en',design,budget,route,validation,
       md.push(`**${T('Why','Neden')}** (${T('weighted, normalised advantage over','ağırlıklı, normalize üstünlük; karşısında')} ${L(r[1].label)}):`,'');
       for(const e of d.explanation.slice(0,4)){
         const c=CRITERIA[e.criterion],a=win.data[c.key],b=byId[r[1].site].data[c.key];
-        md.push(`- ${L(c.label)}: ${cell(a)} ${T('vs','karşı')} ${cell(b)} ${c.unit} → ${e.advantage>=0?T('in favour','lehine'):T('against','aleyhine')} (${f(e.advantage,3)})`);
+        md.push(`- ${L(c.label)} (${c.unit}): ${cell(a)} ${T('vs','karşı')} ${cell(b)} → ${e.advantage>=0?T('in favour','lehine'):T('against','aleyhine')} (${e.advantage>=0?'+':''}${f(e.advantage,3)})`);
       }
       md.push('');
       md.push(`**${T('How robust','Ne kadar sağlam')}**: ${T('the winner stays first while each weight moves within','her ağırlık şu aralıkta değiştikçe kazanan birinci kalıyor')}:`,'');
-      for(const s of d.sensitivity){const c=CRITERIA[s.criterion];md.push(`- ${L(c.label)} (${T('now','şimdi')} ${f(s.current,2)}): ${s.interval?`${f(s.interval[0],2)} – ${f(s.interval[1],2)}`:T('already not first','zaten birinci değil')}${s.switchesTo.length?`; ${T('outside it','dışında')}: ${s.switchesTo.map(i=>name(d.matrix.sites[i])).join(', ')}`:''}`);}
-      md.push('',`${T('Seeded Monte Carlo','Tohumlu Monte Carlo')} (${d.mc.weights.n} ${T('draws','çekiliş')}): ${T('random weights','rastgele ağırlıklar')} ${(d.mc.weights.shares[d.topsis.winner]*100).toFixed(0)} %, ${T('data within their uncertainty','belirsizlik içindeki veri')} ${(d.mc.data.shares[d.topsis.winner]*100).toFixed(0)} %, ${T('both','ikisi birden')} ${(d.mc.both.shares[d.topsis.winner]*100).toFixed(0)} % ${T('of draws keep this site first','çekilişte bu bölge birinci kalıyor')}.`,'');
+      for(const s of d.sensitivity){const c=CRITERIA[s.criterion];md.push(`- ${L(c.label)} (${T('now','şimdi')} ${f(s.current,2)}): ${s.interval?`${f(s.interval[0],2)} – ${f(s.interval[1],2)}`:T('already not first','zaten birinci değil')}${s.switchesTo.length?`; ${T('outside it','dışında')}: ${s.switchesTo.map(i=>name(d.matrix.sites[i])).join(', ')}`:''}${s.ties&&!s.switchesTo.length?`; ${T('beyond it the sites tie (this criterion does not separate them)','ötesinde bölgeler eşitlenir (bu ölçüt onları ayırmıyor)')}`:''}`);}
+      const sh=m=>P((d.mc[m].shares[d.topsis.winner]*100).toFixed(0));
+      md.push('',T(`Seeded Monte Carlo (${d.mc.weights.n} draws each): this site stays first in ${sh('weights')} of draws with random weights, ${sh('data')} with the data varied within their uncertainties, ${sh('both')} with both.`,
+        `Tohumlu Monte Carlo (her biri ${d.mc.weights.n} çekiliş): bu bölge rastgele ağırlıklarla çekilişlerin ${sh('weights')} kadarında, veriler belirsizlikleri içinde değiştirildiğinde ${sh('data')}, ikisi birden değiştiğinde ${sh('both')} birinci kalıyor.`),'');
     }
     const kinds={};for(const c of CRITERIA){const k=win.data[c.key]?.kind;kinds[k]=(kinds[k]??0)+1;}
     md.push(`**${T('What it rests on','Neye dayanıyor')}**: ${Object.entries(kinds).map(([k,n])=>`${n} × ${L(KINDS[k]?.label)}`).join(', ')}. `+
@@ -59,7 +74,7 @@ export function buildPathfinderReport({lang='en',design,budget,route,validation,
     `*${T('Representative game costs, not real mission estimates.','Temsili oyun maliyetleridir; gerçek görev tahmini değildir.')}*`,'');
   // ---- 2 design
   const cam=cameraOf(design);
-  md.push(`## 2. ${T('Scout drone','Keşif dronu')}`,'',`- ${T('Rotor','Rotor')}: ${design.rotor} · ${T('battery','batarya')}: ${design.battery} · ${T('camera','kamera')}: ${L(cam.label)} · ${T('frame','gövde')}: ${design.frame}`,
+  md.push(`## 2. ${T('Scout drone','Keşif dronu')}`,'',`- ${T('Rotor','Rotor')}: ${optLabel(ROTOR_OPTIONS,design.rotor)} · ${T('battery','batarya')}: ${optLabel(BATTERY_OPTIONS,design.battery)} · ${T('camera','kamera')}: ${L(cam.label)} · ${T('frame','gövde')}: ${L(FRAME_LABELS[design.frame])||design.frame}`,
     `- ${T('Camera','Kamera')}: ${cam.px[0]} × ${cam.px[1]} px, ${(cam.pitch*1e6).toFixed(2)} µm, f = ${(cam.focal*1000).toFixed(1)} mm, ${cam.mass} kg, ${cam.power} W, σpx ${cam.sigmaPx} (${T('pixel count of the standard camera from the Ingenuity press kit; the rest assumed','standart kameranın piksel sayısı Ingenuity basın kitinden; gerisi varsayım')})`,
     `- ${L(FEA_NOTE)}`,'',
     `| ${T('Site','Bölge')} | ${T('mass','kütle')} kg | ρ kg/m³ | T/W | ${T('hover','asılı')} W | ${T('planned energy','planlanan enerji')} Wh | ${T('available','kullanılabilir')} Wh | ${T('range','menzil')} m | ${T('checks','kontroller')} |`,'|---|---:|---:|---:|---:|---:|---:|---:|---|');
@@ -68,12 +83,12 @@ export function buildPathfinderReport({lang='en',design,budget,route,validation,
   // ---- 3 data
   md.push(`## 3. ${T('Candidate sites and their data','Aday bölgeler ve verileri')}`,'',`| ${T('Criterion','Ölçüt')} | ${sites.map(s=>L(s.label)).join(' | ')} |`,`|---|${sites.map(()=>'---').join('|')}|`);
   for(const c of CRITERIA)md.push(`| ${L(c.label)} (${c.unit}, ${c.direction==='cost'?T('lower better','düşük iyi'):T('higher better','yüksek iyi')}) | ${sites.map(s=>cell(s.data[c.key])).join(' | ')} |`);
-  for(const k of ['latitude','longitude','elevation'])md.push(`| ${k} | ${sites.map(s=>cell(s.data[k],k==='elevation'?0:3)).join(' | ')} |`);
+  for(const k of ['latitude','longitude','elevation'])md.push(`| ${fieldLabel(k)} | ${sites.map(s=>cell(s.data[k],k==='elevation'?0:3)).join(' | ')} |`);
   md.push('',`**${T('Provenance of each value','Her değerin kaynağı')}**`,'');
   for(const s of sites){md.push(`*${L(s.label)}*`,'');
     for(const k of [...CRITERIA.map(c=>c.key),'latitude','elevation']){const v=s.data[k];if(!v)continue;
       const src=v.source&&PF_SOURCES[v.source]?PF_SOURCES[v.source].title:v.source??'—';
-      md.push(`- **${k}**: ${cell(v)} — ${T('source','kaynak')}: ${src}${v.resolution?`; ${T('resolution','çözünürlük')}: ${v.resolution}`:''}${v.date?`; ${T('date','tarih')}: ${v.date}`:''}${v.transforms.length?`; ${T('steps','adımlar')}: ${v.transforms.join(' → ')}`:''}${v.rationale?`; ${T('rationale','gerekçe')}: ${v.rationale}`:''}${v.note?`; ${v.note}`:''}`);}
+      md.push(`- **${fieldLabel(k)}**: ${cell(v)} — ${T('source','kaynak')}: ${src}${v.resolution?`; ${T('resolution','çözünürlük')}: ${v.resolution}`:''}${v.date?`; ${T('date','tarih')}: ${v.date}`:''}${v.transforms.length?`; ${T('steps','adımlar')}: ${v.transforms.join(' → ')}`:''}${v.rationale?`; ${T('rationale','gerekçe')}: ${v.rationale}`:''}${v.note?`; ${v.note}`:''}`);}
     md.push('');}
   // ---- 4 surveys
   md.push(`## 4. ${T('Survey flights (Rapier, autonomous)','Keşif uçuşları (Rapier, otonom)')}`,'',
@@ -81,7 +96,7 @@ export function buildPathfinderReport({lang='en',design,budget,route,validation,
     `| ${T('Site','Bölge')} | ${T('result','sonuç')} | s | Wh | ${T('photos','foto')} | ${T('stereo cover','stereo kapsama')} | GSD mm | σZ mm | ${T('safe area','güvenli alan')} % | ${T('truth (synthetic)','gerçek (sentetik)')} % | DEM RMSE mm | ${T('hazard rocks','tehlikeli kaya')} |`,
     '|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|');
   for(const s of sites){const v=s.survey;if(!v){md.push(`| ${L(s.label)} | ${T('not flown','uçulmadı')} |||||||||||`);continue;}const a=v.analysis;
-    md.push(`| ${L(s.label)} | ${v.result.success?'✓':'✗'} ${v.result.reason} | ${f(v.result.flightTime,0)} | ${f(v.result.energyWh,1)} | ${a.photos} | ${f(a.coverage*100,0)} % | ${f(a.gsd*1000,1)} | ${f(a.sigmaZ*1000,1)} | ${a.safeFraction!=null?`${f(a.safeFraction*100,1)} ± ${f(a.safeUncertainty*100,1)}`:'—'} | ${a.truth.safeFraction!=null?f(a.truth.safeFraction*100,1):'—'} | ${f(a.truth.demRmse*1000,1)} | ${a.rocks.hazardDetected} / ${a.truth.hazardRocks} |`);}
+    md.push(`| ${L(s.label)} | ${v.result.success?'✓':'✗'} ${reason(v.result.reason)} | ${f(v.result.flightTime,0)} | ${f(v.result.energyWh,1)} | ${a.photos} | ${P(f(a.coverage*100,0))} | ${f(a.gsd*1000,1)} | ${f(a.sigmaZ*1000,1)} | ${a.safeFraction!=null?`${f(a.safeFraction*100,1)} ± ${f(a.safeUncertainty*100,1)}`:'—'} | ${a.truth.safeFraction!=null?f(a.truth.safeFraction*100,1):'—'} | ${f(a.truth.demRmse*1000,1)} | ${a.rocks.hazardDetected} / ${a.truth.hazardRocks} |`);}
   md.push('',`*${T('The drone measures the surface only: slopes and rocks from stereo photos. Subsurface ice, radiation and climate are never shown as drone measurements. Terrain is synthetic unless a DTM was loaded, so the "truth" column checks the method, not Mars.','Dron yalnız yüzeyi ölçer: stereo fotoğraflardan eğim ve kaya. Yer altı buzu, radyasyon ve iklim hiçbir zaman dron ölçümü olarak gösterilmez. DTM yüklenmediyse arazi sentetiktir; "gerçek" sütunu Mars\'ı değil yöntemi doğrular.')}*`,'');
   // ---- 5 safety
   md.push(`## 5. ${T('Mandatory safety conditions','Zorunlu güvenlik koşulları')}`,'',`| ${T('Rule','Kural')} | ${T('threshold','eşik')} | ${sites.map(s=>L(s.label)).join(' | ')} |`,`|---|---|${sites.map(()=>'---').join('|')}|`);
@@ -91,7 +106,7 @@ export function buildPathfinderReport({lang='en',design,budget,route,validation,
   // ---- 6 TOPSIS
   if(d.topsis){
     md.push(`## 6. ${T('Decision matrix and TOPSIS','Karar matrisi ve TOPSIS')}`,'',`| ${T('Criterion','Ölçüt')} | ${T('weight','ağırlık')} | ${T('direction','yön')} | ${d.matrix.sites.map(name).join(' | ')} |`,`|---|---:|---|${d.matrix.sites.map(()=>'---:').join('|')}|`);
-    CRITERIA.forEach((c,j)=>md.push(`| ${L(c.label)} | ${f(d.weights[j],3)} | ${c.direction} | ${d.matrix.X.map(r=>f(r[j],3)).join(' | ')} |`));
+    CRITERIA.forEach((c,j)=>md.push(`| ${L(c.label)} | ${f(d.weights[j],3)} | ${dirLabel(c.direction)} | ${d.matrix.X.map(r=>f(r[j],3)).join(' | ')} |`));
     md.push(`| D⁺ | | | ${d.topsis.Dplus.map(x=>f(x,4)).join(' | ')} |`,`| D⁻ | | | ${d.topsis.Dminus.map(x=>f(x,4)).join(' | ')} |`,`| **C** | | | ${d.topsis.C.map(x=>`**${f(x,3)}**`).join(' | ')} |`,`| ${T('rank','sıra')} | | | ${d.topsis.rank.join(' | ')} |`,'',
       T('Steps: r = x / √Σx² · v = w r · ideal v⁺ and anti-ideal v⁻ per criterion · D± = √Σ(v − v±)² · C = D⁻/(D⁺ + D⁻).','Adımlar: r = x / √Σx² · v = w r · her ölçütte ideal v⁺ ve en kötü v⁻ · D± = √Σ(v − v±)² · C = D⁻/(D⁺ + D⁻).'),'');
   }
@@ -99,7 +114,7 @@ export function buildPathfinderReport({lang='en',design,budget,route,validation,
   const jz=sites.find(s=>s.id==='jezero');
   md.push(`## 7. ${T('Model checks','Model kontrolleri')}`,'');
   if(jz)md.push(`- ${T('Jezero pressure model','Jezero basınç modeli')} ${f(jz.data.pressure.value,0)} Pa ${T('vs MEDA sol-averaged','karşı MEDA sol ortalaması')} ${MEDA_PUBLISHED.pressureMin.value}–${MEDA_PUBLISHED.pressureMax.value} Pa (${T('published','yayın')}); ${T('the model uses the Fact Sheet mean-radius pressure and an approximate elevation','model Fact Sheet ortalama yarıçap basıncını ve yaklaşık yüksekliği kullanır')}.`,
-    `- ${T('Jezero temperature model','Jezero sıcaklık modeli')} ${f(jz.data.temperature.value,1)} K ${T('vs MEDA air','karşı MEDA hava')} ${MEDA_PUBLISHED.airTemperature.minC+273.15}–${MEDA_PUBLISHED.airTemperature.maxC+273.15} K (${T('mid-range','aralık ortası')} ${f((MEDA_PUBLISHED.airTemperature.minC+MEDA_PUBLISHED.airTemperature.maxC)/2+273.15,1)} K).`);
+    `- ${T('Jezero temperature model','Jezero sıcaklık modeli')} ${f(jz.data.temperature.value,1)} K ${T('vs MEDA air','karşı MEDA hava')} ${f(MEDA_PUBLISHED.airTemperature.minC+273.15,1)}–${f(MEDA_PUBLISHED.airTemperature.maxC+273.15,1)} K (${T('mid-range','aralık ortası')} ${f((MEDA_PUBLISHED.airTemperature.minC+MEDA_PUBLISHED.airTemperature.maxC)/2+273.15,1)} K).`);
   md.push(`- ${T('Models','Modeller')}: p = ${P_REF} Pa · exp(−h / ${SCALE_HEIGHT/1000} km); T = ((1 − ${TEMP_MODEL.albedo})·Ī / (${TEMP_MODEL.emissivity} σ))^¼; ${T('insolation from the Mars24 Sun with Beer–Lambert dust attenuation','Mars24 Güneşi ve Beer–Lambert toz sönümüyle güneşlenme')}.`,'');
   // ---- 8 limits
   md.push(`## 8. ${T('Assumptions and limitations','Varsayımlar ve sınırlar')}`,'',

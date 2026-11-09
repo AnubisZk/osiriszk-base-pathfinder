@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OsirisZk · Mars Base Pathfinder</title>
+  <style>
+    :root{--bg:#0f0b09;--panel:#17110ef2;--panel2:#1f1713;--line:#3a2a22;--text:#f2e8de;--muted:#b9a493;--accent:#ff8a4c;--accent2:#7ef0ff;--ok:#7bd88f;--bad:#ff6b6b;--warn:#ffb36b;--grid:#3a2a2280}
+    *{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:13px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;overflow:hidden}
+    #top{position:fixed;left:0;right:0;top:0;height:42px;display:flex;align-items:center;gap:12px;padding:0 14px;background:#0f0b09;border-bottom:1px solid var(--line);z-index:3}
+    #top h1{font-size:15px;margin:0;white-space:nowrap}#top h1 span{color:var(--accent)}#top small{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#top .sp{flex:1}
+    #top a.home{color:var(--muted);text-decoration:none;white-space:nowrap}#top select{width:auto;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+    #stepper{position:fixed;left:0;top:42px;width:460px;display:flex;flex-wrap:wrap;gap:3px;padding:6px 8px;background:#120d0b;border-bottom:1px solid var(--line);z-index:3}
+    #stepper button{flex:1 1 auto;font:inherit;font-size:12px;background:none;color:var(--muted);border:1px solid transparent;border-radius:6px;padding:4px 6px;cursor:pointer;white-space:nowrap}
+    #stepper button b{color:var(--accent)}#stepper button.on{background:var(--panel2);color:var(--text);border-color:var(--line)}
+    #panel{position:fixed;left:0;top:104px;bottom:0;width:460px;overflow:auto;padding:4px 14px 20px;background:var(--panel);border-right:1px solid var(--line);z-index:2}
+    #panel h2{font-size:17px;margin:10px 0 8px}#panel h3{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin:16px 0 6px}
+    #panel .report h3{text-transform:none;letter-spacing:0;font-size:13.5px}
+    #view{position:fixed;left:460px;right:0;top:42px;bottom:0;width:calc(100% - 460px);height:calc(100% - 42px);display:block;outline:none}
+    #sitetabs{position:fixed;left:470px;top:52px;display:flex;gap:4px;z-index:2}
+    #sitetabs button{font:inherit;background:var(--panel);color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:4px 10px;cursor:pointer}#sitetabs button.on{color:#1a0f08;background:var(--accent);border-color:var(--accent);font-weight:600}
+    #hud{position:fixed;right:10px;bottom:10px;min-width:180px;padding:8px 12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font:12px/1.55 ui-monospace,Consolas,monospace;white-space:pre;z-index:2}
+    table{width:100%;border-collapse:collapse;font-size:12px;margin:4px 0}td,th{padding:3px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:500}
+    td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}tr.sum td{font-weight:700}tr.stale td{opacity:.55}
+    td.cell{cursor:pointer;font-variant-numeric:tabular-nums}td.cell .kind{display:table;margin-top:1px}table.data{font-size:11.5px}td.cell:hover{background:#ffffff0d}
+    .ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}.note{color:var(--muted);font-size:12px}
+    .grid2{display:grid;grid-template-columns:1fr 1.15fr;gap:6px 10px;align-items:center;margin:6px 0}
+    label{color:var(--muted)}select,input{font:inherit;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 6px;width:100%}
+    input[type=range]{padding:0}input[type=checkbox]{width:auto}
+    button.act{background:var(--accent);color:#1a0f08;border:0;border-radius:7px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}
+    button.sec{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:7px;padding:5px 10px;font:inherit;cursor:pointer}
+    button:disabled{opacity:.45;cursor:not-allowed}.btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}.btns label{display:flex;gap:6px;align-items:center}.btns select{width:auto}
+    .nav{display:flex;justify-content:space-between;margin:18px 0 6px}
+    .bar{height:8px;border-radius:6px;background:#ffffff14;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--accent);transition:width .2s}.bar i.over{background:var(--bad)}
+    .kind{display:inline-block;padding:0 5px;border-radius:4px;font-size:10.5px;background:#33251d;color:var(--muted);vertical-align:1px}
+    .k-nasa{background:#14324a;color:#8ec5ff}.k-published{background:#173225;color:var(--ok)}.k-model{background:#2a2a3a;color:#c9c3ff}.k-simulation{background:#103236;color:var(--accent2)}
+    .k-synthetic{background:#35203a;color:#e2a6ff}.k-assumption{background:#3a2516;color:#ffb36b}
+    .msg{margin:6px 0;padding:6px 8px;border-radius:7px;background:#ffffff08;border-left:3px solid var(--warn)}.msg.error{border-color:var(--bad)}.msg .fixes{color:var(--muted);margin-top:3px;font-size:12px}
+    .kv{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin:6px 0}.kv b{text-align:right;font-variant-numeric:tabular-nums}
+    canvas.map{width:100%;display:block;border-radius:8px;cursor:pointer;margin:4px 0}canvas.chart{width:100%;height:160px;display:block;background:#0f0b0966;border-radius:6px;margin:6px 0}canvas.chart.tall{height:200px}
+    .sites{display:grid;gap:4px;margin:6px 0}.site{display:grid;grid-template-columns:auto 1fr;gap:0 8px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;cursor:pointer}
+    .site small{grid-column:2;color:var(--muted)}.site.on{border-color:var(--accent);background:#ff8a4c12}.site b{color:var(--text)}
+    .detail{margin:8px 0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#ffffff06;display:grid;gap:3px}.detail a{color:var(--accent2)}
+    .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.row input{width:120px}.row select{width:auto}.row label{white-space:nowrap}
+    .mapping{margin:8px 0;padding:8px;border:1px dashed var(--line);border-radius:8px;display:grid;gap:6px}.mapping table input,.mapping table select{padding:2px 4px;font-size:12px}
+    .winner{padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#ff8a4c26,#ff8a4c0a);border:1px solid #ff8a4c66}.winner h2{margin:2px 0;font-size:22px}.winner small{color:var(--accent)}
+    .why{display:grid;grid-template-columns:150px 1fr;gap:2px 8px;align-items:center;margin:3px 0}.why small{grid-column:2;color:var(--muted)}
+    .wbar{position:relative;height:10px;background:#ffffff0d;border-radius:5px}.wbar i{position:absolute;top:0;height:100%;border-radius:5px}.wbar i.pos{left:50%;background:var(--ok)}.wbar i.neg{right:50%;background:var(--bad)}
+    .wbar::after{content:'';position:absolute;left:50%;top:-2px;bottom:-2px;border-left:1px solid var(--muted)}
+    .report{font-size:12.5px}.report h2{font-size:16px;color:var(--accent)}.report h3{font-size:13px;color:var(--accent);text-transform:none;letter-spacing:0}.report a{color:var(--accent2);word-break:break-all}
+    table.ahp td{white-space:nowrap}table.ahp select{width:70px}
+    @media (max-width:900px){#panel,#stepper{width:100%}#panel{top:104px;bottom:45vh}#view{left:0;top:55vh;width:100%;height:45vh}#sitetabs{left:10px;top:calc(55vh + 8px)}#top small{display:none}}
+  </style>
+</head>
+<body>
+  <header id="top"></header>
+  <nav id="stepper"></nav>
+  <aside id="panel"></aside>
+  <canvas id="view" tabindex="0"></canvas>
+  <div id="sitetabs"></div>
+  <div id="hud" hidden></div>
+  <script type="module" src="./pathfinder/main.js"></script>
+</body>
+</html>

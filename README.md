@@ -1,3 +1,32 @@
+# OsirisZk · Mars Base Pathfinder
+
+> **Where should humanity establish its first Mars research base, and why?**
+> A decision game on top of the OsirisZk Mars simulator: design a scout drone within a 100 M USD
+> (representative) budget, fly autonomous Rapier surveys over three candidate sites, turn the photos
+> into a landing-safety map, combine that with NASA data, models and labelled assumptions, screen
+> the sites against mandatory safety conditions and rank the rest with TOPSIS (weights by sliders
+> or AHP), with sensitivity analysis and seeded Monte Carlo. The answer comes with every number's
+> source.
+
+```bash
+npm install
+npm run dev:app      # http://localhost:5173/pathfinder.html (also a card on the landing page)
+npm run pathfinder   # headless full loop → reports/pathfinder/report.{en,tr}.md, data.csv, results.csv, mission.json
+npm test             # 133 tests (112 simulator + 21 Pathfinder)
+```
+
+Full technical guide (Turkish): [docs/PATHFINDER.md](docs/PATHFINDER.md). Code: `src/pathfinder/`
+(models, decision maths, adapters), `app/pathfinder/` (interface), `tools/pathfinder-run.mjs`,
+`tools/sample-rasters.mjs`.
+
+**Status of this repository.** A mentor's personal reference implementation derived from the
+OsirisZk simulator at tag `v0.5.3-baseline` (history kept). It is not a NASA Space Apps 2026
+submission. Terrain is synthetic unless a DTM is loaded; ice index, dust, science score and
+elevations are labelled assumptions until NASA rasters (SWIM, MOLA) are imported; all costs are
+representative game values.
+
+---
+
 # OsirisZk · Earth & Mars rotorcraft simulators
 
 Two real-time, physics-based simulators on one core: **Mars Aerial Explorer** for designing Mars
@@ -8,7 +37,7 @@ FPV flight core (Rapier rigid-body physics, fixed 240 Hz step).
 
 ```bash
 npm install
-npm run check        # 112 tests + the 5" core reference trace (must print "AYNI")
+npm run check        # 133 tests + the 5" core reference trace (must print "AYNI")
 npm run dev:app      # landing page → Earth or Mars simulator (English / Türkçe)
 npm run experiments  # all 14 experiments (9 Mars, 5 Earth) → reports/experiments/*.json|csv
 npm run model-check  # model vs published MEDA conditions and terrain-resolution convergence → reports/model-check.md

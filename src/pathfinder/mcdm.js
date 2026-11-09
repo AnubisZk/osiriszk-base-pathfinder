@@ -32,7 +32,9 @@ export function topsis(X,w,dirs){
   const C=Dp.map((d,i)=>d+Dm[i]>0?Dm[i]/(d+Dm[i]):.5);
   const order=C.map((c,i)=>i).sort((a,b)=>C[b]-C[a]||a-b);
   const rank=new Array(m);order.forEach((i,k)=>{rank[i]=k+1;});
-  return {norms,R,V,ideal,anti,Dplus:Dp,Dminus:Dm,C,order,rank,winner:order[0]};
+  // a tie for first (e.g. all weight on a criterion that does not separate the sites) has no winner
+  const tie=order.length>1&&Math.abs(C[order[0]]-C[order[1]])<1e-12;
+  return {norms,R,V,ideal,anti,Dplus:Dp,Dminus:Dm,C,order,rank,winner:order[0],tie};
 }
 
 /** Saaty's random consistency index RI(n), n = 1…10. */
@@ -80,13 +82,13 @@ export function sensitivity(X,w,dirs,{steps=100}={}){
   const base=topsis(X,w,dirs).winner;
   return w.map((wj,j)=>{
     const ts=[],curves=X.map(()=>[]),winners=[];
-    for(let k=0;k<=steps;k++){const t=k/steps,res=topsis(X,sweepWeights(w,j,t),dirs);ts.push(t);res.C.forEach((c,i)=>curves[i].push(c));winners.push(res.winner);}
+    for(let k=0;k<=steps;k++){const t=k/steps,res=topsis(X,sweepWeights(w,j,t),dirs);ts.push(t);res.C.forEach((c,i)=>curves[i].push(c));winners.push(res.tie?-1:res.winner);}
     // contiguous interval around the current weight where the baseline winner stays first
     const k0=Math.round(wj*steps);let lo=k0,hi=k0;
-    if(winners[k0]!==base)return {criterion:j,t:ts,curves,winners,interval:null,current:wj,switchesTo:[...new Set(winners)].filter(x=>x!==base)};
+    const others=()=>[...new Set(winners)].filter(x=>x!==base&&x>=0),ties=winners.includes(-1);
+    if(winners[k0]!==base)return {criterion:j,t:ts,curves,winners,interval:null,current:wj,switchesTo:others(),ties};
     while(lo>0&&winners[lo-1]===base)lo--;while(hi<steps&&winners[hi+1]===base)hi++;
-    return {criterion:j,t:ts,curves,winners,interval:[ts[lo],ts[hi]],current:wj,
-      switchesTo:[...new Set(winners)].filter(x=>x!==base)};
+    return {criterion:j,t:ts,curves,winners,interval:[ts[lo],ts[hi]],current:wj,switchesTo:others(),ties};
   });
 }
 
@@ -105,7 +107,7 @@ export function monteCarlo(X,w,dirs,{U=null,mode='weights',n=2000,seed=2026,nonN
     if(mode!=='data'){const e=Array.from({length:nc},()=>-Math.log(Math.max(1e-12,rand())));const s=e.reduce((a,b)=>a+b,0);ww=e.map(x=>x/s);}
     let XX=X;
     if(mode!=='weights'&&U){XX=X.map((r,i)=>r.map((x,j)=>{const v=x+(U[i][j]??0)*gauss(rand);return nonNegative?.[j]?Math.max(0,v):v;}));}
-    wins[topsis(XX,ww,dirs).winner]++;
+    const r=topsis(XX,ww,dirs);if(!r.tie)wins[r.winner]++;
   }
   return {shares:wins.map(c=>c/n),n,seed,mode};
 }
