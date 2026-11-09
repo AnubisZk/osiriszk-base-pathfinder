@@ -1,0 +1,8 @@
+# Netlify: builds the two-page app (index.html + pathfinder.html) into dist/.
+# Redirects and NASA proxies live in app/public/_redirects (copied to dist/).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
