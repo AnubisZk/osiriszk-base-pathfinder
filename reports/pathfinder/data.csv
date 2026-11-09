@@ -1,0 +1,34 @@
+site,key,value,unit,uncertainty,kind,source,resolution,date,crs,transforms,rationale,note
+jezero,latitude,18.4447,°N,,published,giss,,,,,,
+jezero,longitude,77.4508,°E,,published,giss,,,,,,
+jezero,elevation,-2600,m,300,assumption,,,,,,"Approximate; replace with a MOLA MEGDR sample (raster adapter)",
+jezero,ice,0.1,index,0.2,assumption,,,,,,"18° N: near-surface ice is not expected this close to the equator (ez2015, piqueux2019); water would come from hydrated minerals",
+jezero,dust,0.5,τ,0.2,assumption,,,,,,"No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported",
+jezero,science,9,1–9,1,assumption,,,,,,"Delta and lake sediments with organics potential; Perseverance cached samples; MEDA weather record",
+jezero,solar,3231.503526623831,Wh/m²/sol,484.72552899357464,model,mars24,,,,"Sun position over one Mars year (Mars24), latitude 18.44° (published) > beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) > mean over 67 sampled sols, 15-min steps",,±15 %: diffuse-light shape and dust season not resolved
+jezero,temperature,206.6737385020924,K,15,model,factSheet,,,,"radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) > Ī = 131.0 W/m² from the insolation model",,"Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)"
+jezero,pressure,803.866167969819,Pa,120.57992519547284,model,factSheet,,,,"p = 636 Pa · exp(−h / 11.1 km), h = -2600 m (assumption)",,"Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)"
+jezero,column,215.51371795437507,kg/m²,32.327057693156256,model,factSheet,,,,"column mass = p / g, g = 3.73 m/s²",,"Atmosphere above the site: more mass = more braking for landing and more shielding (indicator, not a dose)"
+jezero,safeArea,75.37804076265616,%,7.389471400658097,simulation,drone survey,1 m grid · GSD 6.8 mm/px · 144 photos,,,"stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm > slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) > uncertainty: sampling 2.8 % ⊕ threshold 6.9 %",,"Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes"
+arcadia,latitude,42,°N,0,assumption,,,,,,"Representative point inside the shallow-ice part of Arcadia Planitia (team choice; region from piqueux2019)",
+arcadia,longitude,192,°E,0,assumption,,,,,,Representative point (team choice),
+arcadia,elevation,-3500,m,400,assumption,,,,,,"Approximate; replace with a MOLA MEGDR sample (raster adapter)",
+arcadia,ice,0.85,index,0.15,assumption,,,,,,"Piqueux et al. 2019: ice within ~30 cm of the surface in parts of Arcadia Planitia, ""the most tempting target""",
+arcadia,dust,0.5,τ,0.2,assumption,,,,,,"No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported",
+arcadia,science,6,1–9,1,assumption,,,,,,"Ice and recent-climate record; younger, less diverse geology than the crater sites",
+arcadia,solar,2536.0872402353066,Wh/m²/sol,380.413086035296,model,mars24,,,,"Sun position over one Mars year (Mars24), latitude 42.00° (assumption) > beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) > mean over 67 sampled sols, 15-min steps",,±15 %: diffuse-light shape and dust season not resolved
+arcadia,temperature,194.52489257476515,K,15,model,factSheet,,,,"radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) > Ī = 102.8 W/m² from the insolation model",,"Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)"
+arcadia,pressure,871.7597576392524,Pa,130.76396364588786,model,factSheet,,,,"p = 636 Pa · exp(−h / 11.1 km), h = -3500 m (assumption)",,"Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)"
+arcadia,column,233.71575271829823,kg/m²,35.05736290774473,model,factSheet,,,,"column mass = p / g, g = 3.73 m/s²",,"Atmosphere above the site: more mass = more braking for landing and more shielding (indicator, not a dose)"
+arcadia,safeArea,96.33464825772519,%,2.9825285667611596,simulation,drone survey,1 m grid · GSD 6.7 mm/px · 144 photos,,,"stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.4 mm > slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) > uncertainty: sampling 1.2 % ⊕ threshold 2.7 %",,"Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes"
+mawrth,latitude,22.6,°N,0,assumption,,,,,,Representative point near the candidate landing ellipses (team choice),
+mawrth,longitude,343.5,°E,0,assumption,,,,,,Representative point (team choice),
+mawrth,elevation,-2500,m,400,assumption,,,,,,"Approximate; replace with a MOLA MEGDR sample (raster adapter)",
+mawrth,ice,0.15,index,0.2,assumption,,,,,,"22° N: no shallow ice expected; abundant hydrated clays as a water source",
+mawrth,dust,0.5,τ,0.2,assumption,,,,,,"No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported",
+mawrth,science,8,1–9,1,assumption,,,,,,"One of the thickest and most diverse clay sequences on Mars; proposed Exploration Zone (ez2015)",
+mawrth,solar,3142.258940622181,Wh/m²/sol,471.3388410933271,model,mars24,,,,"Sun position over one Mars year (Mars24), latitude 22.60° (assumption) > beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption) > mean over 67 sampled sols, 15-min steps",,±15 %: diffuse-light shape and dust season not resolved
+mawrth,temperature,205.2317883654269,K,15,model,factSheet,,,,"radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed) > Ī = 127.4 W/m² from the insolation model",,"Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)"
+mawrth,pressure,796.6566544682095,Pa,119.49849817023141,model,factSheet,,,,"p = 636 Pa · exp(−h / 11.1 km), h = -2500 m (assumption)",,"Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)"
+mawrth,column,213.58087251158432,kg/m²,32.03713087673765,model,factSheet,,,,"column mass = p / g, g = 3.73 m/s²",,"Atmosphere above the site: more mass = more braking for landing and more shielding (indicator, not a dose)"
+mawrth,safeArea,43.98422090729783,%,7.363329972422604,simulation,drone survey,1 m grid · GSD 6.8 mm/px · 128 photos,,,"stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm > slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px) > uncertainty: sampling 3.2 % ⊕ threshold 6.6 %",,"Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes"

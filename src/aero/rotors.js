@@ -50,4 +50,10 @@ export const ROTORS=Object.freeze({
     notes:{all:'assumed typical 5×4.3×3 propeller'},source:null,
   }),
 });
-export const getRotor=id=>{const r=ROTORS[id];if(!r)throw new RangeError(`Unknown rotor '${id}'`);return r;};
+// Derived rotors (scaled copies of a preset, registered at run time); presets stay frozen.
+const DERIVED=new Map();
+export function registerRotor(rotor){
+  if(!rotor?.id||ROTORS[rotor.id])throw new RangeError(`A derived rotor needs a new id (got '${rotor?.id}')`);
+  DERIVED.set(rotor.id,rotor);return rotor.id;
+}
+export const getRotor=id=>{const r=ROTORS[id]??DERIVED.get(id);if(!r)throw new RangeError(`Unknown rotor '${id}'`);return r;};

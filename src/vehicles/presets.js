@@ -107,5 +107,12 @@ export const VEHICLES=Object.freeze({
   }),
 });
 export const VEHICLE_ORDER=Object.freeze(['ingenuity-like','osiris-mars-quad','msh-hexa','fpv5']);
-export const getVehicle=id=>{const v=VEHICLES[id];if(!v)throw new RangeError(`Unknown vehicle '${id}'`);return v;};
+// Derived vehicles (e.g. a Base Pathfinder design: preset + player's rotor, battery and camera)
+// are registered here at run time; the presets above stay frozen and unchanged.
+const DERIVED=new Map();
+export function registerVehicle(spec){
+  if(!spec?.id||VEHICLES[spec.id])throw new RangeError(`A derived vehicle needs a new id (got '${spec?.id}')`);
+  DERIVED.set(spec.id,Object.freeze(spec));return spec.id;
+}
+export const getVehicle=id=>{const v=VEHICLES[id]??DERIVED.get(id);if(!v)throw new RangeError(`Unknown vehicle '${id}'`);return v;};
 export {RPM};

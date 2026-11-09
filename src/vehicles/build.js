@@ -40,7 +40,7 @@ function assemble(v,type,payload,misc){
   mb.box('battery','battery',b.mass,v.batteryCenter,[side,side*.8,side]);
   for(const m of frame.mounts){
     // rotor blades + hub, treated as two thin blades: I_axis = m R²/3, I_transverse ≈ m R²/6
-    const R=ROTORS[v.rotor].radius,mr=v.rotorMass,ia=mr*R*R/3,it=mr*R*R/6;
+    const R=getRotor(v.rotor).radius,mr=v.rotorMass,ia=mr*R*R/3,it=mr*R*R/6;
     mb.add('rotors','rotor',mr,m,[[it,0,0],[0,ia,0],[0,0,it]]);
   }
   if(payload>0)mb.box('payload','added payload',payload,[0,-v.layout.body[1]/2,0],[.08,.05,.08]);

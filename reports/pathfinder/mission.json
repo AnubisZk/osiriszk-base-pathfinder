@@ -1,0 +1,7109 @@
+{
+ "question": "Where should humanity establish its first Mars research base, and why?",
+ "design": {
+  "rotor": "r50",
+  "battery": "b2",
+  "camera": "standard",
+  "frame": "carbon"
+ },
+ "budget": {
+  "items": [
+   {
+    "id": "drone",
+    "cost": 25,
+    "label": {
+     "en": "Mars scout drone (airframe, motors, avionics)",
+     "tr": "Mars keşif dronu (gövde, motorlar, aviyonik)"
+    },
+    "kind": "base"
+   },
+   {
+    "id": "camera",
+    "cost": 10,
+    "label": {
+     "en": "Camera (standard)",
+     "tr": "Kamera (standart)"
+    },
+    "kind": "base"
+   },
+   {
+    "id": "energy",
+    "cost": 15,
+    "label": {
+     "en": "Energy system (standard battery + solar panel)",
+     "tr": "Enerji sistemi (standart batarya + güneş paneli)"
+    },
+    "kind": "base"
+   },
+   {
+    "id": "infrastructure",
+    "cost": 20,
+    "label": {
+     "en": "Mission infrastructure (landing platform share, relay, operations)",
+     "tr": "Görev altyapısı (iniş platformu payı, röle, operasyon)"
+    },
+    "kind": "base"
+   },
+   {
+    "id": "rotorUpgrade",
+    "cost": 0,
+    "label": {
+     "en": "Rotor option: 0.50 m rotors (standard)",
+     "tr": "Rotor seçeneği: 0,50 m rotor (standart)"
+    },
+    "kind": "upgrade"
+   },
+   {
+    "id": "batteryUpgrade",
+    "cost": 0,
+    "label": {
+     "en": "Battery option: Standard: 6S2P Li-ion (12 cells)",
+     "tr": "Batarya seçeneği: Standart: 6S2P Li-iyon (12 hücre)"
+    },
+    "kind": "upgrade"
+   },
+   {
+    "id": "cameraUpgrade",
+    "cost": 0,
+    "label": {
+     "en": "Camera option: Standard 13 MP colour (Ingenuity class)",
+     "tr": "Kamera seçeneği: Standart 13 MP renkli (Ingenuity sınıfı)"
+    },
+    "kind": "upgrade"
+   },
+   {
+    "id": "frameUpgrade",
+    "cost": 0,
+    "label": {
+     "en": "Frame: carbon",
+     "tr": "Gövde: carbon"
+    },
+    "kind": "upgrade"
+   }
+  ],
+  "base": 70,
+  "total": 70,
+  "remaining": 30,
+  "within": true,
+  "currency": "M USD",
+  "representative": true
+ },
+ "route": {
+  "area": 80,
+  "altitude": 20,
+  "speed": 4,
+  "sideOverlap": 0.6,
+  "forwardOverlap": 0.75
+ },
+ "validation": {
+  "budget": {
+   "items": [
+    {
+     "id": "drone",
+     "cost": 25,
+     "label": {
+      "en": "Mars scout drone (airframe, motors, avionics)",
+      "tr": "Mars keşif dronu (gövde, motorlar, aviyonik)"
+     },
+     "kind": "base"
+    },
+    {
+     "id": "camera",
+     "cost": 10,
+     "label": {
+      "en": "Camera (standard)",
+      "tr": "Kamera (standart)"
+     },
+     "kind": "base"
+    },
+    {
+     "id": "energy",
+     "cost": 15,
+     "label": {
+      "en": "Energy system (standard battery + solar panel)",
+      "tr": "Enerji sistemi (standart batarya + güneş paneli)"
+     },
+     "kind": "base"
+    },
+    {
+     "id": "infrastructure",
+     "cost": 20,
+     "label": {
+      "en": "Mission infrastructure (landing platform share, relay, operations)",
+      "tr": "Görev altyapısı (iniş platformu payı, röle, operasyon)"
+     },
+     "kind": "base"
+    },
+    {
+     "id": "rotorUpgrade",
+     "cost": 0,
+     "label": {
+      "en": "Rotor option: 0.50 m rotors (standard)",
+      "tr": "Rotor seçeneği: 0,50 m rotor (standart)"
+     },
+     "kind": "upgrade"
+    },
+    {
+     "id": "batteryUpgrade",
+     "cost": 0,
+     "label": {
+      "en": "Battery option: Standard: 6S2P Li-ion (12 cells)",
+      "tr": "Batarya seçeneği: Standart: 6S2P Li-iyon (12 hücre)"
+     },
+     "kind": "upgrade"
+    },
+    {
+     "id": "cameraUpgrade",
+     "cost": 0,
+     "label": {
+      "en": "Camera option: Standard 13 MP colour (Ingenuity class)",
+      "tr": "Kamera seçeneği: Standart 13 MP renkli (Ingenuity sınıfı)"
+     },
+     "kind": "upgrade"
+    },
+    {
+     "id": "frameUpgrade",
+     "cost": 0,
+     "label": {
+      "en": "Frame: carbon",
+      "tr": "Gövde: carbon"
+     },
+     "kind": "upgrade"
+    }
+   ],
+   "base": 70,
+   "total": 70,
+   "remaining": 30,
+   "within": true,
+   "currency": "M USD",
+   "representative": true
+  },
+  "global": [],
+  "perSite": [
+   {
+    "site": "jezero",
+    "label": {
+     "en": "Jezero Crater",
+     "tr": "Jezero Krateri"
+    },
+    "mass": 2.983259076009783,
+    "weight": 11.067891171996294,
+    "maxThrust": 16.338822291259163,
+    "thrustToWeight": 1.4762362619357199,
+    "canHover": true,
+    "density": 0.018548375554493388,
+    "hoverPower": 497.51883770415196,
+    "cruisePower": 485.98086743537453,
+    "energyWh": 66.17324744685354,
+    "availableWh": 82.61997629444294,
+    "margin": 16.446728847589398,
+    "flightTime": 484.1176045807952,
+    "range": 2448.0956728161473,
+    "routeLength": 913.1370849898476,
+    "plan": {
+     "area": 80,
+     "altitude": 20,
+     "speed": 4,
+     "sideOverlap": 0.6,
+     "forwardOverlap": 0.75,
+     "swath": 27.723294117647065,
+     "footprintAlong": 20.555294117647062,
+     "spacing": 10,
+     "plannedSpacing": 11.089317647058827,
+     "photoSpacing": 5.1388235294117655,
+     "lines": 9,
+     "waypoints": [
+      {
+       "x": -40,
+       "z": -40,
+       "action": "pass",
+       "name": "L1a"
+      },
+      {
+       "x": -40,
+       "z": 40,
+       "action": "pass",
+       "name": "L1b"
+      },
+      {
+       "x": -30,
+       "z": 40,
+       "action": "pass",
+       "name": "L2a"
+      },
+      {
+       "x": -30,
+       "z": -40,
+       "action": "pass",
+       "name": "L2b"
+      },
+      {
+       "x": -20,
+       "z": -40,
+       "action": "pass",
+       "name": "L3a"
+      },
+      {
+       "x": -20,
+       "z": 40,
+       "action": "pass",
+       "name": "L3b"
+      },
+      {
+       "x": -10,
+       "z": 40,
+       "action": "pass",
+       "name": "L4a"
+      },
+      {
+       "x": -10,
+       "z": -40,
+       "action": "pass",
+       "name": "L4b"
+      },
+      {
+       "x": 0,
+       "z": -40,
+       "action": "pass",
+       "name": "L5a"
+      },
+      {
+       "x": 0,
+       "z": 40,
+       "action": "pass",
+       "name": "L5b"
+      },
+      {
+       "x": 10,
+       "z": 40,
+       "action": "pass",
+       "name": "L6a"
+      },
+      {
+       "x": 10,
+       "z": -40,
+       "action": "pass",
+       "name": "L6b"
+      },
+      {
+       "x": 20,
+       "z": -40,
+       "action": "pass",
+       "name": "L7a"
+      },
+      {
+       "x": 20,
+       "z": 40,
+       "action": "pass",
+       "name": "L7b"
+      },
+      {
+       "x": 30,
+       "z": 40,
+       "action": "pass",
+       "name": "L8a"
+      },
+      {
+       "x": 30,
+       "z": -40,
+       "action": "pass",
+       "name": "L8b"
+      },
+      {
+       "x": 40,
+       "z": -40,
+       "action": "pass",
+       "name": "L9a"
+      },
+      {
+       "x": 40,
+       "z": 40,
+       "action": "pass",
+       "name": "L9b"
+      }
+     ],
+     "distance": 913.1370849898476,
+     "lineLength": 720,
+     "gsd": 0.006588235294117648,
+     "exposure": 0.001,
+     "blurPx": 0.6071428571428571,
+     "expectedPhotos": 144,
+     "baseHeightRatio": 0.2569411764705883,
+     "warnings": []
+    },
+    "checks": [],
+    "ok": true
+   },
+   {
+    "site": "arcadia",
+    "label": {
+     "en": "Arcadia Planitia",
+     "tr": "Arcadia Planitia"
+    },
+    "mass": 2.983259076009783,
+    "weight": 11.067891171996294,
+    "maxThrust": 19.004414142593145,
+    "thrustToWeight": 1.7170763469989339,
+    "canHover": true,
+    "density": 0.021254087343873275,
+    "hoverPower": 450.2882682186529,
+    "cruisePower": 438.44560172886656,
+    "energyWh": 59.80249535877813,
+    "availableWh": 82.61997629444294,
+    "margin": 22.817480935664804,
+    "flightTime": 484.1176045807952,
+    "range": 2713.512586165027,
+    "routeLength": 913.1370849898476,
+    "plan": {
+     "area": 80,
+     "altitude": 20,
+     "speed": 4,
+     "sideOverlap": 0.6,
+     "forwardOverlap": 0.75,
+     "swath": 27.723294117647065,
+     "footprintAlong": 20.555294117647062,
+     "spacing": 10,
+     "plannedSpacing": 11.089317647058827,
+     "photoSpacing": 5.1388235294117655,
+     "lines": 9,
+     "waypoints": [
+      {
+       "x": -40,
+       "z": -40,
+       "action": "pass",
+       "name": "L1a"
+      },
+      {
+       "x": -40,
+       "z": 40,
+       "action": "pass",
+       "name": "L1b"
+      },
+      {
+       "x": -30,
+       "z": 40,
+       "action": "pass",
+       "name": "L2a"
+      },
+      {
+       "x": -30,
+       "z": -40,
+       "action": "pass",
+       "name": "L2b"
+      },
+      {
+       "x": -20,
+       "z": -40,
+       "action": "pass",
+       "name": "L3a"
+      },
+      {
+       "x": -20,
+       "z": 40,
+       "action": "pass",
+       "name": "L3b"
+      },
+      {
+       "x": -10,
+       "z": 40,
+       "action": "pass",
+       "name": "L4a"
+      },
+      {
+       "x": -10,
+       "z": -40,
+       "action": "pass",
+       "name": "L4b"
+      },
+      {
+       "x": 0,
+       "z": -40,
+       "action": "pass",
+       "name": "L5a"
+      },
+      {
+       "x": 0,
+       "z": 40,
+       "action": "pass",
+       "name": "L5b"
+      },
+      {
+       "x": 10,
+       "z": 40,
+       "action": "pass",
+       "name": "L6a"
+      },
+      {
+       "x": 10,
+       "z": -40,
+       "action": "pass",
+       "name": "L6b"
+      },
+      {
+       "x": 20,
+       "z": -40,
+       "action": "pass",
+       "name": "L7a"
+      },
+      {
+       "x": 20,
+       "z": 40,
+       "action": "pass",
+       "name": "L7b"
+      },
+      {
+       "x": 30,
+       "z": 40,
+       "action": "pass",
+       "name": "L8a"
+      },
+      {
+       "x": 30,
+       "z": -40,
+       "action": "pass",
+       "name": "L8b"
+      },
+      {
+       "x": 40,
+       "z": -40,
+       "action": "pass",
+       "name": "L9a"
+      },
+      {
+       "x": 40,
+       "z": 40,
+       "action": "pass",
+       "name": "L9b"
+      }
+     ],
+     "distance": 913.1370849898476,
+     "lineLength": 720,
+     "gsd": 0.006588235294117648,
+     "exposure": 0.001,
+     "blurPx": 0.6071428571428571,
+     "expectedPhotos": 144,
+     "baseHeightRatio": 0.2569411764705883,
+     "warnings": []
+    },
+    "checks": [],
+    "ok": true
+   },
+   {
+    "site": "mawrth",
+    "label": {
+     "en": "Mawrth Vallis",
+     "tr": "Mawrth Vallis"
+    },
+    "mass": 2.983259076009783,
+    "weight": 11.067891171996294,
+    "maxThrust": 16.30808194209131,
+    "thrustToWeight": 1.4734588268588706,
+    "canHover": true,
+    "density": 0.0184997065696202,
+    "hoverPower": 496.0433852291767,
+    "cruisePower": 484.57136316467813,
+    "energyWh": 65.97901478571355,
+    "availableWh": 82.61997629444294,
+    "margin": 16.64096150872939,
+    "flightTime": 484.1176045807952,
+    "range": 2455.2166080760694,
+    "routeLength": 913.1370849898476,
+    "plan": {
+     "area": 80,
+     "altitude": 20,
+     "speed": 4,
+     "sideOverlap": 0.6,
+     "forwardOverlap": 0.75,
+     "swath": 27.723294117647065,
+     "footprintAlong": 20.555294117647062,
+     "spacing": 10,
+     "plannedSpacing": 11.089317647058827,
+     "photoSpacing": 5.1388235294117655,
+     "lines": 9,
+     "waypoints": [
+      {
+       "x": -40,
+       "z": -40,
+       "action": "pass",
+       "name": "L1a"
+      },
+      {
+       "x": -40,
+       "z": 40,
+       "action": "pass",
+       "name": "L1b"
+      },
+      {
+       "x": -30,
+       "z": 40,
+       "action": "pass",
+       "name": "L2a"
+      },
+      {
+       "x": -30,
+       "z": -40,
+       "action": "pass",
+       "name": "L2b"
+      },
+      {
+       "x": -20,
+       "z": -40,
+       "action": "pass",
+       "name": "L3a"
+      },
+      {
+       "x": -20,
+       "z": 40,
+       "action": "pass",
+       "name": "L3b"
+      },
+      {
+       "x": -10,
+       "z": 40,
+       "action": "pass",
+       "name": "L4a"
+      },
+      {
+       "x": -10,
+       "z": -40,
+       "action": "pass",
+       "name": "L4b"
+      },
+      {
+       "x": 0,
+       "z": -40,
+       "action": "pass",
+       "name": "L5a"
+      },
+      {
+       "x": 0,
+       "z": 40,
+       "action": "pass",
+       "name": "L5b"
+      },
+      {
+       "x": 10,
+       "z": 40,
+       "action": "pass",
+       "name": "L6a"
+      },
+      {
+       "x": 10,
+       "z": -40,
+       "action": "pass",
+       "name": "L6b"
+      },
+      {
+       "x": 20,
+       "z": -40,
+       "action": "pass",
+       "name": "L7a"
+      },
+      {
+       "x": 20,
+       "z": 40,
+       "action": "pass",
+       "name": "L7b"
+      },
+      {
+       "x": 30,
+       "z": 40,
+       "action": "pass",
+       "name": "L8a"
+      },
+      {
+       "x": 30,
+       "z": -40,
+       "action": "pass",
+       "name": "L8b"
+      },
+      {
+       "x": 40,
+       "z": -40,
+       "action": "pass",
+       "name": "L9a"
+      },
+      {
+       "x": 40,
+       "z": 40,
+       "action": "pass",
+       "name": "L9b"
+      }
+     ],
+     "distance": 913.1370849898476,
+     "lineLength": 720,
+     "gsd": 0.006588235294117648,
+     "exposure": 0.001,
+     "blurPx": 0.6071428571428571,
+     "expectedPhotos": 144,
+     "baseHeightRatio": 0.2569411764705883,
+     "warnings": []
+    },
+    "checks": [],
+    "ok": true
+   }
+  ],
+  "ok": true
+ },
+ "sites": [
+  {
+   "id": "jezero",
+   "label": {
+    "en": "Jezero Crater",
+    "tr": "Jezero Krateri"
+   },
+   "summary": {
+    "en": "Ancient lake and river delta; Perseverance landing site and sample cache",
+    "tr": "Eski göl ve nehir deltası; Perseverance iniş yeri ve numune deposu"
+   },
+   "data": {
+    "latitude": {
+     "value": 18.4447,
+     "unit": "°N",
+     "kind": "published",
+     "source": "giss",
+     "resolution": null,
+     "date": null,
+     "uncertainty": null,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "longitude": {
+     "value": 77.4508,
+     "unit": "°E",
+     "kind": "published",
+     "source": "giss",
+     "resolution": null,
+     "date": null,
+     "uncertainty": null,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "elevation": {
+     "value": -2600,
+     "unit": "m",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 300,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Approximate; replace with a MOLA MEGDR sample (raster adapter)",
+     "measuredByDrone": false
+    },
+    "ice": {
+     "value": 0.1,
+     "unit": "index",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0.2,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "18° N: near-surface ice is not expected this close to the equator (ez2015, piqueux2019); water would come from hydrated minerals",
+     "measuredByDrone": false
+    },
+    "dust": {
+     "value": 0.5,
+     "unit": "τ",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0.2,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported",
+     "measuredByDrone": false
+    },
+    "science": {
+     "value": 9,
+     "unit": "1–9",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 1,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Delta and lake sediments with organics potential; Perseverance cached samples; MEDA weather record",
+     "measuredByDrone": false
+    },
+    "solar": {
+     "value": 3231.503526623831,
+     "unit": "Wh/m²/sol",
+     "kind": "model",
+     "source": "mars24",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 484.72552899357464,
+     "crs": null,
+     "transforms": [
+      "Sun position over one Mars year (Mars24), latitude 18.44° (published)",
+      "beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption)",
+      "mean over 67 sampled sols, 15-min steps"
+     ],
+     "note": "±15 %: diffuse-light shape and dust season not resolved",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "temperature": {
+     "value": 206.6737385020924,
+     "unit": "K",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 15,
+     "crs": null,
+     "transforms": [
+      "radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed)",
+      "Ī = 131.0 W/m² from the insolation model"
+     ],
+     "note": "Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "pressure": {
+     "value": 803.866167969819,
+     "unit": "Pa",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 120.57992519547284,
+     "crs": null,
+     "transforms": [
+      "p = 636 Pa · exp(−h / 11.1 km), h = -2600 m (assumption)"
+     ],
+     "note": "Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "column": {
+     "value": 215.51371795437507,
+     "unit": "kg/m²",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 32.327057693156256,
+     "crs": null,
+     "transforms": [
+      "column mass = p / g, g = 3.73 m/s²"
+     ],
+     "note": "Atmosphere above the site: more mass = more braking for landing and more shielding (indicator, not a dose)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "safeArea": {
+     "value": 75.37804076265616,
+     "unit": "%",
+     "kind": "simulation",
+     "source": "drone survey",
+     "resolution": "1 m grid · GSD 6.8 mm/px · 144 photos",
+     "date": null,
+     "uncertainty": 7.389471400658097,
+     "crs": null,
+     "transforms": [
+      "stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm",
+      "slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px)",
+      "uncertainty: sampling 2.8 % ⊕ threshold 6.9 %"
+     ],
+     "note": "Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes",
+     "rationale": null,
+     "measuredByDrone": true
+    }
+   },
+   "terrain": {
+    "relief": 5,
+    "craterDensity": 60,
+    "rockAbundance": 0.08
+   },
+   "checks": [
+    "meda"
+   ],
+   "seed": 16107,
+   "survey": {
+    "site": "jezero",
+    "result": {
+     "success": true,
+     "reason": "complete",
+     "flightTime": 476.9374999996484,
+     "energyWh": 65.77840689625005,
+     "distance": 1121.1031700801902,
+     "observations": 0,
+     "requiredObservations": 0,
+     "maxTilt": 17.797876512623535,
+     "hoverRateRms": null,
+     "tiltRms": 10.975765540056564,
+     "positionErrorRms": null,
+     "socEnd": 0.47657099136074166,
+     "mass": 2.983259076009783
+    },
+    "photos": [
+     {
+      "t": 28.216666666665386,
+      "x": -40.55544662475586,
+      "z": -40.55412673950195,
+      "agl": 19.903038455614944,
+      "tilt": 14.800969845525827,
+      "gsd": 0.006556295020673159,
+      "across": 27.588889446992653,
+      "along": 20.455640464500256,
+      "line": 0
+     },
+     {
+      "t": 32.02916666666519,
+      "x": -40.020843505859375,
+      "z": -35.437828063964844,
+      "agl": 22.04912475324073,
+      "tilt": 14.791022011053103,
+      "gsd": 0.007263241095185182,
+      "across": 30.563718528539248,
+      "along": 22.66131221697777,
+      "line": 0
+     },
+     {
+      "t": 33.449999999999655,
+      "x": -39.70355987548828,
+      "z": -30.303903579711914,
+      "agl": 21.70145596844412,
+      "tilt": 14.719383317062166,
+      "gsd": 0.007148714907252181,
+      "across": 30.08179232971718,
+      "along": 22.303990510626807,
+      "line": 0
+     },
+     {
+      "t": 34.55833333333387,
+      "x": -39.50365447998047,
+      "z": -25.16104507446289,
+      "agl": 21.296395417163815,
+      "tilt": 5.578835355774834,
+      "gsd": 0.007015283196242199,
+      "across": 29.520311689787174,
+      "along": 21.887683572275662,
+      "line": 0
+     },
+     {
+      "t": 35.595833333334696,
+      "x": -39.378082275390625,
+      "z": -20.01706314086914,
+      "agl": 20.56290488511683,
+      "tilt": 0.7282285893642593,
+      "gsd": 0.006773662785685545,
+      "across": 28.503573002164774,
+      "along": 21.1338278913389,
+      "line": 0
+     },
+     {
+      "t": 36.66250000000221,
+      "x": -39.30034637451172,
+      "z": -14.864559173583984,
+      "agl": 19.979531395575943,
+      "tilt": 0.9637535756446368,
+      "gsd": 0.006581492695013253,
+      "across": 27.694921260615768,
+      "along": 20.53425720844135,
+      "line": 0
+     },
+     {
+      "t": 37.77083333333643,
+      "x": -39.25602722167969,
+      "z": -9.721811294555664,
+      "agl": 19.825064790619177,
+      "tilt": 0.45627640085697985,
+      "gsd": 0.006530609578086318,
+      "across": 27.480805104587226,
+      "along": 20.375501883629312,
+      "line": 0
+     },
+     {
+      "t": 38.91666666667067,
+      "x": -39.24063491821289,
+      "z": -4.568546295166016,
+      "agl": 19.959051872212054,
+      "tilt": 0.3649250516261944,
+      "gsd": 0.006574746499081619,
+      "across": 27.666533268135453,
+      "along": 20.51320907713465,
+      "line": 0
+     },
+     {
+      "t": 40.08750000000494,
+      "x": -39.25260925292969,
+      "z": 0.573885440826416,
+      "agl": 19.971231101358306,
+      "tilt": 0.6072635615397738,
+      "gsd": 0.006578758480447443,
+      "across": 27.683415685722842,
+      "along": 20.525726458996022,
+      "line": 0
+     },
+     {
+      "t": 41.27916666667255,
+      "x": -39.29025650024414,
+      "z": 5.713898658752441,
+      "agl": 20.113448783632908,
+      "tilt": 0.6336646501813777,
+      "gsd": 0.0066256066581379,
+      "across": 27.880552817444283,
+      "along": 20.671892773390248,
+      "line": 0
+     },
+     {
+      "t": 42.49166666667352,
+      "x": -39.351776123046875,
+      "z": 10.854726791381836,
+      "agl": 20.017290360919002,
+      "tilt": 0.6951718739483935,
+      "gsd": 0.006593930942420378,
+      "across": 27.747261405704954,
+      "along": 20.57306454035158,
+      "line": 0
+     },
+     {
+      "t": 43.72500000000783,
+      "x": -39.43152618408203,
+      "z": 16.004501342773438,
+      "agl": 19.936336884705515,
+      "tilt": 0.9311427548469171,
+      "gsd": 0.0065672639149618175,
+      "across": 27.63504655415933,
+      "along": 20.489863414680872,
+      "line": 0
+     },
+     {
+      "t": 44.970833333342156,
+      "x": -39.52669906616211,
+      "z": 21.15119743347168,
+      "agl": 19.882342938877724,
+      "tilt": 1.1693865532050207,
+      "gsd": 0.006549477673983251,
+      "across": 27.56020205212152,
+      "along": 20.434370342827744,
+      "line": 0
+     },
+     {
+      "t": 46.22500000000982,
+      "x": -39.633785247802734,
+      "z": 26.299165725708008,
+      "agl": 19.97871480837765,
+      "tilt": 0.24462769788313138,
+      "gsd": 0.006581223701583226,
+      "across": 27.693789336262217,
+      "along": 20.533417948939668,
+      "line": 0
+     },
+     {
+      "t": 47.537500000010866,
+      "x": -39.7542839050293,
+      "z": 31.448650360107422,
+      "agl": 19.993410928664396,
+      "tilt": 7.55507610720469,
+      "gsd": 0.006586064776501213,
+      "across": 27.71416057951711,
+      "along": 20.548522102683787,
+      "line": 0
+     },
+     {
+      "t": 49.20000000001219,
+      "x": -39.887939453125,
+      "z": 36.58619689941406,
+      "agl": 19.944536371661183,
+      "tilt": 10.440090478471474,
+      "gsd": 0.006569964922429567,
+      "across": 27.64641239358362,
+      "along": 20.49829055798025,
+      "line": 0
+     },
+     {
+      "t": 77.49583333334502,
+      "x": -29.142976760864258,
+      "z": 40.146461486816406,
+      "agl": 19.885023935793114,
+      "tilt": 13.692663868624196,
+      "gsd": 0.006550360825908321,
+      "across": 27.563918355422217,
+      "along": 20.437125776833962,
+      "line": 1
+     },
+     {
+      "t": 81.4041666666748,
+      "x": -28.843259811401367,
+      "z": 35.007102966308594,
+      "agl": 19.995119319197812,
+      "tilt": 14.872710215036493,
+      "gsd": 0.006586627540441633,
+      "across": 27.716528690178393,
+      "along": 20.550277926177895,
+      "line": 1
+     },
+     {
+      "t": 82.77083333334022,
+      "x": -28.987783432006836,
+      "z": 29.86200523376465,
+      "agl": 20.065131237497116,
+      "tilt": 13.867074933671692,
+      "gsd": 0.0066096902899990505,
+      "across": 27.81357674031601,
+      "along": 20.62223370479704,
+      "line": 1
+     },
+     {
+      "t": 83.85833333333923,
+      "x": -29.14674186706543,
+      "z": 24.712648391723633,
+      "agl": 19.801227136015413,
+      "tilt": 3.9860317331486326,
+      "gsd": 0.006522757174216842,
+      "across": 27.447762189104477,
+      "along": 20.35100238355655,
+      "line": 1
+     },
+     {
+      "t": 84.90000000000495,
+      "x": -29.294391632080078,
+      "z": 19.5640811920166,
+      "agl": 20.0705914842374,
+      "tilt": 0.6646209614533508,
+      "gsd": 0.006611488959513497,
+      "across": 27.8211455416328,
+      "along": 20.627845553682114,
+      "line": 1
+     },
+     {
+      "t": 85.97083333333731,
+      "x": -29.42180061340332,
+      "z": 14.421485900878906,
+      "agl": 20.04037669921044,
+      "tilt": 0.8413448455985795,
+      "gsd": 0.006601535853857557,
+      "across": 27.779262873032604,
+      "along": 20.59679186403558,
+      "line": 1
+     },
+     {
+      "t": 87.0833333333363,
+      "x": -29.530920028686523,
+      "z": 9.276121139526367,
+      "agl": 19.686914033750785,
+      "tilt": 0.652748621272095,
+      "gsd": 0.0064851010934708474,
+      "across": 27.28930540132533,
+      "along": 20.233515411629046,
+      "line": 1
+     },
+     {
+      "t": 88.23333333333525,
+      "x": -29.624025344848633,
+      "z": 4.121676445007324,
+      "agl": 20.294282530102084,
+      "tilt": 0.2089407914924009,
+      "gsd": 0.0066851754216806876,
+      "across": 28.131218174432334,
+      "along": 20.857747315643746,
+      "line": 1
+     },
+     {
+      "t": 89.41250000000085,
+      "x": -29.701278686523438,
+      "z": -1.0314937829971313,
+      "agl": 20.134020845398883,
+      "tilt": 0.5198966649268214,
+      "gsd": 0.006632383337307868,
+      "across": 27.90906908339151,
+      "along": 20.69303601240055,
+      "line": 1
+     },
+     {
+      "t": 90.61249999999976,
+      "x": -29.76740837097168,
+      "z": -6.180738925933838,
+      "agl": 19.87455045317387,
+      "tilt": 0.6566289534630289,
+      "gsd": 0.0065469107375161,
+      "across": 27.54940038346775,
+      "along": 20.42636150105023,
+      "line": 1
+     },
+     {
+      "t": 91.82916666666532,
+      "x": -29.824827194213867,
+      "z": -11.325024604797363,
+      "agl": 19.894223151088777,
+      "tilt": 0.9756447820303479,
+      "gsd": 0.006553391155652774,
+      "across": 27.576669982986875,
+      "along": 20.44658040563666,
+      "line": 1
+     },
+     {
+      "t": 93.05833333333086,
+      "x": -29.872879028320312,
+      "z": -16.464603424072266,
+      "agl": 20.13502475638913,
+      "tilt": 1.0432676072699134,
+      "gsd": 0.006632714037398773,
+      "across": 27.910460669374036,
+      "along": 20.694067796684173,
+      "line": 1
+     },
+     {
+      "t": 94.2999999999964,
+      "x": -29.91248893737793,
+      "z": -21.61316680908203,
+      "agl": 19.985266779734207,
+      "tilt": 0.900200390993549,
+      "gsd": 0.006583381998030093,
+      "across": 27.70287144771063,
+      "along": 20.54015183385389,
+      "line": 1
+     },
+     {
+      "t": 95.55416666666193,
+      "x": -29.94669532775879,
+      "z": -26.759708404541016,
+      "agl": 19.815404483214138,
+      "tilt": 0.6925099561394673,
+      "gsd": 0.006527427359176423,
+      "across": 27.46741432741439,
+      "along": 20.36557336063044,
+      "line": 1
+     },
+     {
+      "t": 96.88333333332739,
+      "x": -29.975805282592773,
+      "z": -31.903194427490234,
+      "agl": 19.974210762031785,
+      "tilt": 8.726334412564132,
+      "gsd": 0.006579740015728118,
+      "across": 27.687545986183924,
+      "along": 20.52878884907173,
+      "line": 1
+     },
+     {
+      "t": 98.62916666665913,
+      "x": -29.997692108154297,
+      "z": -37.048622131347656,
+      "agl": 20.048829224491172,
+      "tilt": 9.401943689822465,
+      "gsd": 0.006604320215126505,
+      "across": 27.79097946525233,
+      "along": 20.605479071194697,
+      "line": 1
+     },
+     {
+      "t": 126.7374999999669,
+      "x": -19.15525245666504,
+      "z": -40.17609405517578,
+      "agl": 20.00975817973696,
+      "tilt": 13.673971165496905,
+      "gsd": 0.006591449753325117,
+      "across": 27.736820561992094,
+      "along": 20.565323230374364,
+      "line": 2
+     },
+     {
+      "t": 130.64999999996334,
+      "x": -19.116331100463867,
+      "z": -35.030433654785156,
+      "agl": 21.646642131921087,
+      "tilt": 14.772721586352452,
+      "gsd": 0.00713065858463283,
+      "across": 30.00581132413495,
+      "along": 22.24765478405443,
+      "line": 2
+     },
+     {
+      "t": 132.08333333329537,
+      "x": -19.218961715698242,
+      "z": -29.87812042236328,
+      "agl": 21.884170617508698,
+      "tilt": 14.730316993394624,
+      "gsd": 0.00720890326223816,
+      "across": 30.33506492749818,
+      "along": 22.49177817818306,
+      "line": 2
+     },
+     {
+      "t": 133.19583333329436,
+      "x": -19.319271087646484,
+      "z": -24.723308563232422,
+      "agl": 21.528283982401287,
+      "tilt": 5.593825883405494,
+      "gsd": 0.00709167001773219,
+      "across": 29.841747434617055,
+      "along": 22.126010455324433,
+      "line": 2
+     },
+     {
+      "t": 134.23333333329342,
+      "x": -19.408864974975586,
+      "z": -19.57991600036621,
+      "agl": 20.886635969909882,
+      "tilt": 0.4256064435002759,
+      "gsd": 0.006880303613617374,
+      "across": 28.95231760610191,
+      "along": 21.466547274486206,
+      "line": 2
+     },
+     {
+      "t": 135.29583333329245,
+      "x": -19.49053382873535,
+      "z": -14.441571235656738,
+      "agl": 20.89995821872803,
+      "tilt": 0.9658435806396282,
+      "gsd": 0.00688469211911041,
+      "across": 28.97078443721661,
+      "along": 21.480239411624485,
+      "line": 2
+     },
+     {
+      "t": 136.40416666662477,
+      "x": -19.564746856689453,
+      "z": -9.2877197265625,
+      "agl": 20.47395891320394,
+      "tilt": 0.4789362266613624,
+      "gsd": 0.00674436293611424,
+      "across": 28.380279235168725,
+      "along": 21.04241236067643,
+      "line": 2
+     },
+     {
+      "t": 137.54999999995707,
+      "x": -19.63155174255371,
+      "z": -4.134352207183838,
+      "agl": 20.879252238178847,
+      "tilt": 0.08801268067464518,
+      "gsd": 0.0068778713255177384,
+      "across": 28.942082537778646,
+      "along": 21.458958535615345,
+      "line": 2
+     },
+     {
+      "t": 138.724999999956,
+      "x": -19.691822052001953,
+      "z": 1.018081784248352,
+      "agl": 20.83611617966445,
+      "tilt": 0.3463480808471989,
+      "gsd": 0.006863661800360055,
+      "across": 28.882288855915114,
+      "along": 21.414624817123375,
+      "line": 2
+     },
+     {
+      "t": 139.9249999999549,
+      "x": -19.746170043945312,
+      "z": 6.1706414222717285,
+      "agl": 20.165214982778643,
+      "tilt": 0.6161876115778,
+      "gsd": 0.006642659053150613,
+      "across": 27.95230929565778,
+      "along": 20.725096245829913,
+      "line": 2
+     },
+     {
+      "t": 141.14166666662047,
+      "x": -19.79544448852539,
+      "z": 11.309666633605957,
+      "agl": 19.952377927595716,
+      "tilt": 1.0730294030948753,
+      "gsd": 0.006572548023208002,
+      "across": 27.65728208165927,
+      "along": 20.506349832408965,
+      "line": 2
+     },
+     {
+      "t": 142.37083333328601,
+      "x": -19.840593338012695,
+      "z": 16.45657730102539,
+      "agl": 19.962499700631025,
+      "tilt": 1.1743404728670637,
+      "gsd": 0.0065758822543255145,
+      "across": 27.671312526201767,
+      "along": 20.516752633495607,
+      "line": 2
+     },
+     {
+      "t": 143.6083333332849,
+      "x": -19.881879806518555,
+      "z": 21.601699829101562,
+      "agl": 20.00348968056574,
+      "tilt": 1.0529618889402477,
+      "gsd": 0.006589384835951067,
+      "across": 27.728131389682094,
+      "along": 20.55888068816733,
+      "line": 2
+     },
+     {
+      "t": 144.85833333328375,
+      "x": -19.919828414916992,
+      "z": 26.750228881835938,
+      "agl": 20.002393284368797,
+      "tilt": 0.627790926676518,
+      "gsd": 0.006589023670145016,
+      "across": 27.72661160397023,
+      "along": 20.557753850852453,
+      "line": 2
+     },
+     {
+      "t": 146.1874999999492,
+      "x": -19.955015182495117,
+      "z": 31.89945411682129,
+      "agl": 19.966833140223667,
+      "tilt": 7.532523185174842,
+      "gsd": 0.006577309740308973,
+      "across": 27.677319387220162,
+      "along": 20.521206389764,
+      "line": 2
+     },
+     {
+      "t": 147.92083333328097,
+      "x": -19.98676300048828,
+      "z": 37.03990173339844,
+      "agl": 20.092147927020314,
+      "tilt": 10.020042816033637,
+      "gsd": 0.006618589905371398,
+      "across": 27.851026321802845,
+      "along": 20.650000504758765,
+      "line": 2
+     },
+     {
+      "t": 175.82499999992226,
+      "x": -9.185746192932129,
+      "z": 40.19850158691406,
+      "agl": 19.928281986267926,
+      "tilt": 13.640608330232226,
+      "gsd": 0.006564610536652965,
+      "across": 27.623881138235678,
+      "along": 20.48158487435725,
+      "line": 3
+     },
+     {
+      "t": 179.77499999991866,
+      "x": -8.900885581970215,
+      "z": 35.056549072265625,
+      "agl": 19.676939525843604,
+      "tilt": 14.856868441280824,
+      "gsd": 0.00648181537321907,
+      "across": 27.27547909050585,
+      "along": 20.2232639644435,
+      "line": 3
+     },
+     {
+      "t": 181.17083333325073,
+      "x": -9.042863845825195,
+      "z": 29.911035537719727,
+      "agl": 19.977629680932914,
+      "tilt": 14.6929268647792,
+      "gsd": 0.006580866247836725,
+      "across": 27.69228517089694,
+      "along": 20.532302693250585,
+      "line": 3
+     },
+     {
+      "t": 182.27083333324973,
+      "x": -9.195462226867676,
+      "z": 24.770925521850586,
+      "agl": 20.232225468628968,
+      "tilt": 5.225051425990444,
+      "gsd": 0.006664733095548367,
+      "across": 28.045196866067528,
+      "along": 20.793967258110907,
+      "line": 3
+     },
+     {
+      "t": 183.30416666658212,
+      "x": -9.336871147155762,
+      "z": 19.626005172729492,
+      "agl": 20.025507085541495,
+      "tilt": 1.2934371785015413,
+      "gsd": 0.0065966376281783754,
+      "across": 27.758651139374606,
+      "along": 20.581509399916534,
+      "line": 3
+     },
+     {
+      "t": 184.37083333324782,
+      "x": -9.461363792419434,
+      "z": 14.473227500915527,
+      "agl": 20.140505764968804,
+      "tilt": 1.2109482088387,
+      "gsd": 0.006634519546107372,
+      "across": 27.918058250019822,
+      "along": 20.699700983855,
+      "line": 3
+     },
+     {
+      "t": 185.47916666658014,
+      "x": -9.566791534423828,
+      "z": 9.330166816711426,
+      "agl": 20.098019065554425,
+      "tilt": 0.6404869848882915,
+      "gsd": 0.006620523927476752,
+      "across": 27.859164686822176,
+      "along": 20.65603465372747,
+      "line": 3
+     },
+     {
+      "t": 186.62499999991243,
+      "x": -9.654385566711426,
+      "z": 4.190816402435303,
+      "agl": 20.213620825228965,
+      "tilt": 0.2099321828846105,
+      "gsd": 0.006658604507134248,
+      "across": 28.01940776602092,
+      "along": 20.774846062258856,
+      "line": 3
+     },
+     {
+      "t": 187.80416666657803,
+      "x": -9.727507591247559,
+      "z": -0.9619024395942688,
+      "agl": 19.980796642825535,
+      "tilt": 0.5099494819585747,
+      "gsd": 0.00658190948234253,
+      "across": 27.696675101697366,
+      "along": 20.535557584908695,
+      "line": 3
+     },
+     {
+      "t": 189.00416666657694,
+      "x": -9.789945602416992,
+      "z": -6.10787296295166,
+      "agl": 20.00403171940631,
+      "tilt": 0.726670707143688,
+      "gsd": 0.0065895633899220795,
+      "across": 27.728882744792113,
+      "along": 20.55943777655689,
+      "line": 3
+     },
+     {
+      "t": 190.2208333332425,
+      "x": -9.843027114868164,
+      "z": -11.250950813293457,
+      "agl": 20.106208287333725,
+      "tilt": 0.9032504205281643,
+      "gsd": 0.00662322155347464,
+      "across": 27.870516297021286,
+      "along": 20.664451246840876,
+      "line": 3
+     },
+     {
+      "t": 191.4541666665747,
+      "x": -9.888022422790527,
+      "z": -16.406522750854492,
+      "agl": 20.01143081846634,
+      "tilt": 1.0748005771287932,
+      "gsd": 0.006592000740200678,
+      "across": 27.739139114764452,
+      "along": 20.567042309426117,
+      "line": 3
+     },
+     {
+      "t": 192.69583333324024,
+      "x": -9.925200462341309,
+      "z": -21.554500579833984,
+      "agl": 20.052818724305347,
+      "tilt": 1.0577769938933015,
+      "gsd": 0.006605634403300586,
+      "across": 27.796509569088865,
+      "along": 20.609579338297827,
+      "line": 3
+     },
+     {
+      "t": 193.9458333332391,
+      "x": -9.955926895141602,
+      "z": -26.694826126098633,
+      "agl": 20.008612152852873,
+      "tilt": 0.45742124501142445,
+      "gsd": 0.00659107223858683,
+      "across": 27.73523197997338,
+      "along": 20.56414538439091,
+      "line": 3
+     },
+     {
+      "t": 195.2708333332379,
+      "x": -9.98083209991455,
+      "z": -31.839006423950195,
+      "agl": 20.03620979869192,
+      "tilt": 7.517216997636419,
+      "gsd": 0.006600163227804399,
+      "across": 27.773486862600908,
+      "along": 20.592509270749723,
+      "line": 3
+     },
+     {
+      "t": 196.987499999903,
+      "x": -9.99937915802002,
+      "z": -36.98540115356445,
+      "agl": 19.93340520747996,
+      "tilt": 10.61458203056228,
+      "gsd": 0.006566298185993399,
+      "across": 27.630982766660228,
+      "along": 20.48685034029941,
+      "line": 3
+     },
+     {
+      "t": 225.46666666654377,
+      "x": 0.9153324961662292,
+      "z": -40.04420852661133,
+      "agl": 20.00840820236408,
+      "tilt": 13.752303731625771,
+      "gsd": 0.006591005054896404,
+      "across": 27.73494927100407,
+      "along": 20.563935771276782,
+      "line": 4
+     },
+     {
+      "t": 229.75833333320654,
+      "x": 1.0204488039016724,
+      "z": -32.725807189941406,
+      "agl": 24.97889199233001,
+      "tilt": 14.999621624914647,
+      "gsd": 0.008228340891591062,
+      "across": 34.624858471815195,
+      "along": 25.672423581764118,
+      "line": 4
+     },
+     {
+      "t": 231.06666666653868,
+      "x": 0.8989708423614502,
+      "z": -27.570823669433594,
+      "agl": 24.127530166655482,
+      "tilt": 13.788251228860126,
+      "gsd": 0.007947892290192396,
+      "across": 33.4447307571296,
+      "along": 24.797423945400276,
+      "line": 4
+     },
+     {
+      "t": 232.1416666665377,
+      "x": 0.778910756111145,
+      "z": -22.433135986328125,
+      "agl": 23.460931008009666,
+      "tilt": 3.457279507918775,
+      "gsd": 0.00772830668499142,
+      "across": 32.5207145304439,
+      "along": 24.112316857173234,
+      "line": 4
+     },
+     {
+      "t": 233.18333333320342,
+      "x": 0.6698006391525269,
+      "z": -17.275930404663086,
+      "agl": 22.989807550441757,
+      "tilt": 1.1232932360973091,
+      "gsd": 0.007573113075439638,
+      "across": 31.86765982145,
+      "along": 23.628112795371674,
+      "line": 4
+     },
+     {
+      "t": 234.25833333320244,
+      "x": 0.5690103769302368,
+      "z": -12.131352424621582,
+      "agl": 23.028051249698986,
+      "tilt": 0.7341363539613475,
+      "gsd": 0.007585710999900843,
+      "across": 31.920671887582753,
+      "along": 23.667418319690633,
+      "line": 4
+     },
+     {
+      "t": 235.3749999998681,
+      "x": 0.47779127955436707,
+      "z": -6.979377269744873,
+      "agl": 23.301125208588232,
+      "tilt": 0.42906913050713663,
+      "gsd": 0.0076756647745937715,
+      "across": 32.29919737149059,
+      "along": 23.94807409673257,
+      "line": 4
+     },
+     {
+      "t": 236.5291666665337,
+      "x": 0.3965972661972046,
+      "z": -1.8242493867874146,
+      "agl": 23.44642985511062,
+      "tilt": 0.402618819308688,
+      "gsd": 0.007723529834624676,
+      "across": 32.50061354410064,
+      "along": 24.09741308402899,
+      "line": 4
+     },
+     {
+      "t": 237.7083333331993,
+      "x": 0.32455992698669434,
+      "z": 3.320727825164795,
+      "agl": 23.69915795091038,
+      "tilt": 0.40756151790140904,
+      "gsd": 0.0078067814426528315,
+      "across": 32.85093631068312,
+      "along": 24.357158101076838,
+      "line": 4
+     },
+     {
+      "t": 238.91249999986488,
+      "x": 0.2608390748500824,
+      "z": 8.473861694335938,
+      "agl": 24.111400625043085,
+      "tilt": 0.7748869286838566,
+      "gsd": 0.007942579029425958,
+      "across": 33.42237255582444,
+      "along": 24.780846571808993,
+      "line": 4
+     },
+     {
+      "t": 240.1333333331971,
+      "x": 0.20410703122615814,
+      "z": 13.62630844116211,
+      "agl": 23.305873894723675,
+      "tilt": 0.90456991084947,
+      "gsd": 0.0076772290476736825,
+      "across": 32.30577983261085,
+      "along": 23.95295462874189,
+      "line": 4
+     },
+     {
+      "t": 241.3666666665293,
+      "x": 0.1532139778137207,
+      "z": 18.774803161621094,
+      "agl": 22.76541647731239,
+      "tilt": 1.003385217467278,
+      "gsd": 0.007499196016055847,
+      "across": 31.556616835563005,
+      "along": 23.397491570094243,
+      "line": 4
+     },
+     {
+      "t": 242.6124999998615,
+      "x": 0.10738130658864975,
+      "z": 23.92900276184082,
+      "agl": 22.36698204393547,
+      "tilt": 1.0897265555484579,
+      "gsd": 0.007367947026237567,
+      "across": 31.004321086407685,
+      "along": 22.98799472186121,
+      "line": 4
+     },
+     {
+      "t": 243.87499999986036,
+      "x": 0.06628861278295517,
+      "z": 29.067842483520508,
+      "agl": 21.443494197869327,
+      "tilt": 4.291399334337468,
+      "gsd": 0.0070637392651804855,
+      "across": 29.724214827879482,
+      "along": 22.038866507363114,
+      "line": 4
+     },
+     {
+      "t": 245.31666666652572,
+      "x": 0.029444176703691483,
+      "z": 34.214805603027344,
+      "agl": 20.15245356044237,
+      "tilt": 9.596227471243363,
+      "gsd": 0.006638455290498664,
+      "across": 27.93461986241838,
+      "along": 20.711980506355832,
+      "line": 4
+     },
+     {
+      "t": 247.57083333319034,
+      "x": -0.00034556895843707025,
+      "z": 39.35724639892578,
+      "agl": 19.966599526470848,
+      "tilt": 12.01070893616658,
+      "gsd": 0.006577232785190398,
+      "across": 27.676995560081195,
+      "along": 20.520966289794043,
+      "line": 4
+     },
+     {
+      "t": 274.358333333166,
+      "x": 10.85451602935791,
+      "z": 40.10260772705078,
+      "agl": 20.114708909344852,
+      "tilt": 13.678388151708067,
+      "gsd": 0.006626021758372422,
+      "across": 27.882299559231157,
+      "along": 20.67318788612196,
+      "line": 5
+     },
+     {
+      "t": 278.27916666649577,
+      "x": 11.184874534606934,
+      "z": 34.9719352722168,
+      "agl": 20.016097073708764,
+      "tilt": 14.857452176090478,
+      "gsd": 0.006593537859574652,
+      "across": 27.74560731309014,
+      "along": 20.57183812187292,
+      "line": 5
+     },
+     {
+      "t": 279.67499999982783,
+      "x": 11.060528755187988,
+      "z": 29.82304573059082,
+      "agl": 20.046407877614254,
+      "tilt": 14.792737969831538,
+      "gsd": 0.006603522594978813,
+      "across": 27.78762307967085,
+      "along": 20.6029904963339,
+      "line": 5
+     },
+     {
+      "t": 280.7791666664935,
+      "x": 10.899056434631348,
+      "z": 24.685832977294922,
+      "agl": 20.097054592379994,
+      "tilt": 5.39462892458877,
+      "gsd": 0.0066202062186663515,
+      "across": 27.85782776814801,
+      "along": 20.65504340223902,
+      "line": 5
+     },
+     {
+      "t": 281.8208333331592,
+      "x": 10.739737510681152,
+      "z": 19.53116798400879,
+      "agl": 20.130305939047943,
+      "tilt": 0.2437480258872034,
+      "gsd": 0.006631159603451088,
+      "across": 27.90391961132218,
+      "along": 20.689217962767398,
+      "line": 5
+     },
+     {
+      "t": 282.88333333315825,
+      "x": 10.59936809539795,
+      "z": 14.389917373657227,
+      "agl": 19.84108398872888,
+      "tilt": 0.856933530329736,
+      "gsd": 0.006535886490404808,
+      "across": 27.503010351623434,
+      "along": 20.391965850063002,
+      "line": 5
+     },
+     {
+      "t": 283.9874999998239,
+      "x": 10.477928161621094,
+      "z": 9.24474811553955,
+      "agl": 19.84257595530936,
+      "tilt": 0.9462976729701608,
+      "gsd": 0.006536377961748966,
+      "across": 27.505078463039652,
+      "along": 20.393499240656777,
+      "line": 5
+     },
+     {
+      "t": 285.1333333331562,
+      "x": 10.376493453979492,
+      "z": 4.092911243438721,
+      "agl": 20.247521164223862,
+      "tilt": 0.21359706505429568,
+      "gsd": 0.0066697716776266845,
+      "across": 28.066399219453093,
+      "along": 20.809687634195257,
+      "line": 5
+     },
+     {
+      "t": 286.30833333315513,
+      "x": 10.294262886047363,
+      "z": -1.046617031097412,
+      "agl": 20.052700380729032,
+      "tilt": 0.5502763432381869,
+      "gsd": 0.00660559541953427,
+      "across": 27.79634552540021,
+      "along": 20.609457708946923,
+      "line": 5
+     },
+     {
+      "t": 287.50833333315404,
+      "x": 10.22498607635498,
+      "z": -6.197813510894775,
+      "agl": 19.959313862432793,
+      "tilt": 0.6974287158125235,
+      "gsd": 0.006574832801742568,
+      "across": 27.666896429732727,
+      "along": 20.513478341436812,
+      "line": 5
+     },
+     {
+      "t": 288.7249999998196,
+      "x": 10.1660795211792,
+      "z": -11.343928337097168,
+      "agl": 19.96547092773364,
+      "tilt": 0.9981849773861182,
+      "gsd": 0.00657686101148873,
+      "across": 27.675431136344574,
+      "along": 20.51980635584484,
+      "line": 5
+     },
+     {
+      "t": 289.95416666648515,
+      "x": 10.117508888244629,
+      "z": -16.489086151123047,
+      "agl": 20.09975859250661,
+      "tilt": 0.9598026347959505,
+      "gsd": 0.006621096948119826,
+      "across": 27.861575957688228,
+      "along": 20.657822478133856,
+      "line": 5
+     },
+     {
+      "t": 291.1958333331507,
+      "x": 10.07744026184082,
+      "z": -21.636707305908203,
+      "agl": 19.94875991922991,
+      "tilt": 0.9905357708232596,
+      "gsd": 0.006571356208687501,
+      "across": 27.652266926157004,
+      "along": 20.502631371105004,
+      "line": 5
+     },
+     {
+      "t": 292.4499999998162,
+      "x": 10.044224739074707,
+      "z": -26.78788185119629,
+      "agl": 20.006162700959475,
+      "tilt": 0.609129937364226,
+      "gsd": 0.006590265360316063,
+      "across": 27.731836636209994,
+      "along": 20.56162792418612,
+      "line": 5
+     },
+     {
+      "t": 293.7791666664817,
+      "x": 10.017574310302734,
+      "z": -31.9335994720459,
+      "agl": 19.97578159344935,
+      "tilt": 8.339267274811064,
+      "gsd": 0.006580257466077434,
+      "across": 27.689723417253845,
+      "along": 20.530403294161594,
+      "line": 5
+     },
+     {
+      "t": 295.5166666664801,
+      "x": 9.998988151550293,
+      "z": -37.07500076293945,
+      "agl": 20.16404965930538,
+      "tilt": 10.092536869420881,
+      "gsd": 0.0066422751818888326,
+      "across": 27.950693965388208,
+      "along": 20.72389856749316,
+      "line": 5
+     },
+     {
+      "t": 323.39166666645474,
+      "x": 20.835041046142578,
+      "z": -40.1280632019043,
+      "agl": 20.05457003067055,
+      "tilt": 13.642132031661355,
+      "gsd": 0.006606211304220888,
+      "across": 27.798937168161498,
+      "along": 20.611379269169174,
+      "line": 6
+     },
+     {
+      "t": 327.20833333311793,
+      "x": 20.955177307128906,
+      "z": -34.986968994140625,
+      "agl": 22.679430285409754,
+      "tilt": 14.861392955487029,
+      "gsd": 0.007470871152840861,
+      "across": 31.437425811154345,
+      "along": 23.30911799686349,
+      "line": 6
+     },
+     {
+      "t": 328.66666666644994,
+      "x": 20.847152709960938,
+      "z": -29.833017349243164,
+      "agl": 22.721064999003364,
+      "tilt": 14.807603830862535,
+      "gsd": 0.007484586117318756,
+      "across": 31.49513838167733,
+      "along": 23.35190868603452,
+      "line": 6
+     },
+     {
+      "t": 329.78749999978226,
+      "x": 20.731863021850586,
+      "z": -24.685993194580078,
+      "agl": 22.88355584711199,
+      "tilt": 6.155562984254786,
+      "gsd": 0.007538112514342774,
+      "across": 31.720377460354392,
+      "along": 23.518911044749455,
+      "line": 6
+     },
+     {
+      "t": 330.8249999997813,
+      "x": 20.62569808959961,
+      "z": -19.54307746887207,
+      "agl": 22.88476940504458,
+      "tilt": 0.3483881753145384,
+      "gsd": 0.007538512274602921,
+      "across": 31.722059651529094,
+      "along": 23.520158296761117,
+      "line": 6
+     },
+     {
+      "t": 331.88749999978035,
+      "x": 20.529531478881836,
+      "z": -14.394970893859863,
+      "agl": 22.12843211956478,
+      "tilt": 0.9404737492044163,
+      "gsd": 0.007289365874680164,
+      "across": 30.673651600654132,
+      "along": 22.742821529002114,
+      "line": 6
+     },
+     {
+      "t": 332.991666666446,
+      "x": 20.443222045898438,
+      "z": -9.248912811279297,
+      "agl": 21.17981581311736,
+      "tilt": 0.5227487101991303,
+      "gsd": 0.006976880503144544,
+      "across": 29.35871315723224,
+      "along": 21.767867169810977,
+      "line": 6
+     },
+     {
+      "t": 334.13333333311164,
+      "x": 20.367334365844727,
+      "z": -4.10442590713501,
+      "agl": 20.782527418948167,
+      "tilt": 0.10696711802271759,
+      "gsd": 0.006846009032124103,
+      "across": 28.808006007178225,
+      "along": 21.359548180227204,
+      "line": 6
+     },
+     {
+      "t": 335.3041666664439,
+      "x": 20.300506591796875,
+      "z": 1.0361599922180176,
+      "agl": 20.823063635456425,
+      "tilt": 0.3666481261185511,
+      "gsd": 0.006859362138738588,
+      "across": 28.86419587981198,
+      "along": 21.401209872864396,
+      "line": 6
+     },
+     {
+      "t": 336.49999999977615,
+      "x": 20.242000579833984,
+      "z": 6.182707786560059,
+      "agl": 20.751509256308008,
+      "tilt": 0.6780163011175223,
+      "gsd": 0.006835791284430875,
+      "across": 28.765009724885118,
+      "along": 21.327668807424327,
+      "line": 6
+     },
+     {
+      "t": 337.7166666664417,
+      "x": 20.19066619873047,
+      "z": 11.337929725646973,
+      "agl": 20.673972943037704,
+      "tilt": 0.8732322858165971,
+      "gsd": 0.006810249910647714,
+      "across": 28.657531624005586,
+      "along": 21.247979721220872,
+      "line": 6
+     },
+     {
+      "t": 338.94583333310726,
+      "x": 20.144672393798828,
+      "z": 16.485626220703125,
+      "agl": 20.455718839963897,
+      "tilt": 0.9710935990245095,
+      "gsd": 0.006738354441399873,
+      "across": 28.354995489410665,
+      "along": 21.023665857167604,
+      "line": 6
+     },
+     {
+      "t": 340.1874999997728,
+      "x": 20.10409164428711,
+      "z": 21.635944366455078,
+      "agl": 20.654774151882737,
+      "tilt": 1.0643617326309702,
+      "gsd": 0.006803925602973137,
+      "across": 28.630918937310966,
+      "along": 21.228247881276193,
+      "line": 6
+     },
+     {
+      "t": 341.43749999977166,
+      "x": 20.067970275878906,
+      "z": 26.778045654296875,
+      "agl": 20.88286431728541,
+      "tilt": 0.6624785722913619,
+      "gsd": 0.006879061186870489,
+      "across": 28.947089474351017,
+      "along": 21.462670903035928,
+      "line": 6
+     },
+     {
+      "t": 342.7666666664371,
+      "x": 20.035924911499023,
+      "z": 31.927249908447266,
+      "agl": 20.378634516501496,
+      "tilt": 7.815965897202039,
+      "gsd": 0.0067129619583769645,
+      "across": 28.248143920850268,
+      "along": 20.944441310136128,
+      "line": 6
+     },
+     {
+      "t": 344.49166666643555,
+      "x": 20.00857162475586,
+      "z": 37.06800079345703,
+      "agl": 20.100752617817722,
+      "tilt": 10.75218619890222,
+      "gsd": 0.006621424391751721,
+      "across": 27.862953840491244,
+      "along": 20.65884410226537,
+      "line": 6
+     },
+     {
+      "t": 372.4791666664101,
+      "x": 30.842199325561523,
+      "z": 40.159053802490234,
+      "agl": 20.06161334596722,
+      "tilt": 13.674971657125537,
+      "gsd": 0.006608531455142144,
+      "across": 27.808700363238145,
+      "along": 20.61861814004349,
+      "line": 7
+     },
+     {
+      "t": 376.4208333330732,
+      "x": 31.092966079711914,
+      "z": 35.0167121887207,
+      "agl": 19.704132404437143,
+      "tilt": 14.826087524056272,
+      "gsd": 0.006490773027344001,
+      "across": 27.313172899063556,
+      "along": 20.251211845313282,
+      "line": 7
+     },
+     {
+      "t": 377.8416666664052,
+      "x": 30.953245162963867,
+      "z": 29.86967658996582,
+      "agl": 19.925558023303783,
+      "tilt": 14.664341290557516,
+      "gsd": 0.0065637132312059525,
+      "across": 27.62010527691465,
+      "along": 20.478785281362573,
+      "line": 7
+     },
+     {
+      "t": 378.9416666664042,
+      "x": 30.80567741394043,
+      "z": 24.728389739990234,
+      "agl": 19.96930410246664,
+      "tilt": 4.863086022546038,
+      "gsd": 0.006578123704341953,
+      "across": 27.68074454787094,
+      "along": 20.523745957546893,
+      "line": 7
+     },
+     {
+      "t": 379.9749999997366,
+      "x": 30.669677734375,
+      "z": 19.587787628173828,
+      "agl": 19.90580531682676,
+      "tilt": 0.7610320458259047,
+      "gsd": 0.00655720645730764,
+      "across": 27.59272477235055,
+      "along": 20.458484146799837,
+      "line": 7
+     },
+     {
+      "t": 381.0416666664023,
+      "x": 30.549793243408203,
+      "z": 14.431365013122559,
+      "agl": 20.03419862545185,
+      "tilt": 1.2575304928657072,
+      "gsd": 0.006599500723678257,
+      "across": 27.770699045238107,
+      "along": 20.590442257876166,
+      "line": 7
+     },
+     {
+      "t": 382.14999999973463,
+      "x": 30.447662353515625,
+      "z": 9.291404724121094,
+      "agl": 20.003720611894767,
+      "tilt": 0.603288290025364,
+      "gsd": 0.006589460907447689,
+      "across": 27.728451498539876,
+      "along": 20.55911803123679,
+      "line": 7
+     },
+     {
+      "t": 383.2958333330669,
+      "x": 30.361806869506836,
+      "z": 4.146930694580078,
+      "agl": 20.226577547367505,
+      "tilt": 0.13554547431732564,
+      "gsd": 0.0066628726038387084,
+      "across": 28.037367916953286,
+      "along": 20.788162523976773,
+      "line": 7
+     },
+     {
+      "t": 384.47083333306585,
+      "x": 30.28861427307129,
+      "z": -0.9928579330444336,
+      "agl": 19.742407557952042,
+      "tilt": 0.462562406754863,
+      "gsd": 0.006503381313207732,
+      "across": 27.36622856597814,
+      "along": 20.290549697208125,
+      "line": 7
+     },
+     {
+      "t": 385.67083333306476,
+      "x": 30.225189208984375,
+      "z": -6.143629550933838,
+      "agl": 20.120576441434086,
+      "tilt": 0.819429697603818,
+      "gsd": 0.0066279545924724055,
+      "across": 27.890432925123882,
+      "along": 20.679218328513905,
+      "line": 7
+     },
+     {
+      "t": 386.8874999997303,
+      "x": 30.17176628112793,
+      "z": -11.295897483825684,
+      "agl": 19.94308336168878,
+      "tilt": 0.8281185450195869,
+      "gsd": 0.0065694862838504234,
+      "across": 27.64439828244258,
+      "along": 20.496797205613323,
+      "line": 7
+     },
+     {
+      "t": 388.1166666663959,
+      "x": 30.12556266784668,
+      "z": -16.437063217163086,
+      "agl": 19.865244361444127,
+      "tilt": 0.9711226543227174,
+      "gsd": 0.00654384520141689,
+      "across": 27.536500607562274,
+      "along": 20.416797028420696,
+      "line": 7
+     },
+     {
+      "t": 389.3583333330614,
+      "x": 30.086416244506836,
+      "z": -21.578834533691406,
+      "agl": 19.997376666785872,
+      "tilt": 1.0704899765579587,
+      "gsd": 0.006587371137294171,
+      "across": 27.71965774573387,
+      "along": 20.552597948357814,
+      "line": 7
+     },
+     {
+      "t": 390.61249999972694,
+      "x": 30.052785873413086,
+      "z": -26.73016929626465,
+      "agl": 19.89795075541825,
+      "tilt": 0.5035232988315267,
+      "gsd": 0.006554619072373071,
+      "across": 27.581837056545886,
+      "along": 20.450411505803984,
+      "line": 7
+     },
+     {
+      "t": 391.9416666663924,
+      "x": 30.024791717529297,
+      "z": -31.879526138305664,
+      "agl": 20.103007108069722,
+      "tilt": 7.558783279134519,
+      "gsd": 0.006622167047364145,
+      "across": 27.866078935308323,
+      "along": 20.66116118777613,
+      "line": 7
+     },
+     {
+      "t": 393.66249999972416,
+      "x": 30.003135681152344,
+      "z": -37.020408630371094,
+      "agl": 19.901652984504004,
+      "tilt": 10.711152972799294,
+      "gsd": 0.006555838630189555,
+      "across": 27.586968955837648,
+      "along": 20.454216526191413,
+      "line": 7
+     },
+     {
+      "t": 421.9749999996984,
+      "x": 40.896114349365234,
+      "z": -40.053096771240234,
+      "agl": 20.101588473780158,
+      "tilt": 13.726240489695693,
+      "gsd": 0.006621699732539347,
+      "across": 27.864112474525573,
+      "along": 20.659703165522764,
+      "line": 8
+     },
+     {
+      "t": 426.1166666663613,
+      "x": 41.02613830566406,
+      "z": -33.30590057373047,
+      "agl": 24.22209912690583,
+      "tilt": 14.999957169470976,
+      "gsd": 0.007979044418274862,
+      "across": 33.57581891210063,
+      "along": 24.894618585017575,
+      "line": 8
+     },
+     {
+      "t": 427.4624999996934,
+      "x": 40.90694808959961,
+      "z": -28.156387329101562,
+      "agl": 23.017434727033926,
+      "tilt": 14.333560243443292,
+      "gsd": 0.007582213792434706,
+      "across": 31.905955638565246,
+      "along": 23.656507032396284,
+      "line": 8
+     },
+     {
+      "t": 428.54999999969243,
+      "x": 40.78478240966797,
+      "z": -23.018875122070312,
+      "agl": 22.473753389463475,
+      "tilt": 4.312102321408507,
+      "gsd": 0.007403118763587969,
+      "across": 31.152323757178177,
+      "along": 23.097730542394466,
+      "line": 8
+     },
+     {
+      "t": 429.5874999996915,
+      "x": 40.674102783203125,
+      "z": -17.874868392944336,
+      "agl": 21.75099428007746,
+      "tilt": 1.1371575657826032,
+      "gsd": 0.00716503340990787,
+      "across": 30.15046058889232,
+      "along": 22.354904238912557,
+      "line": 8
+     },
+     {
+      "t": 430.65833333302385,
+      "x": 40.571048736572266,
+      "z": -12.730144500732422,
+      "agl": 21.169041566219157,
+      "tilt": 0.7499639286040223,
+      "gsd": 0.006973331339460429,
+      "across": 29.343778276449488,
+      "along": 21.75679377911654,
+      "line": 8
+     },
+     {
+      "t": 431.77083333302284,
+      "x": 40.47771072387695,
+      "z": -7.578906059265137,
+      "agl": 20.723665181246375,
+      "tilt": 0.4785454134114926,
+      "gsd": 0.0068266191185282175,
+      "across": 28.726413250766743,
+      "along": 21.299051649808042,
+      "line": 8
+     },
+     {
+      "t": 432.9208333330218,
+      "x": 40.39565658569336,
+      "z": -2.4271225929260254,
+      "agl": 20.18969851785468,
+      "tilt": 0.27669226501224264,
+      "gsd": 0.0066507242176462485,
+      "across": 27.986247507855413,
+      "along": 20.750259559056296,
+      "line": 8
+     },
+     {
+      "t": 434.0999999996874,
+      "x": 40.32243728637695,
+      "z": 2.728898048400879,
+      "agl": 20.259565511001263,
+      "tilt": 0.37283935807624685,
+      "gsd": 0.0066737392271533575,
+      "across": 28.08309466786133,
+      "along": 20.82206638871848,
+      "line": 8
+     },
+     {
+      "t": 435.2999999996863,
+      "x": 40.25836944580078,
+      "z": 7.873331069946289,
+      "agl": 20.59640479453835,
+      "tilt": 0.7491494512648391,
+      "gsd": 0.006784698049965575,
+      "across": 28.55000939425514,
+      "along": 21.168257915892596,
+      "line": 8
+     },
+     {
+      "t": 436.51666666635185,
+      "x": 40.202293395996094,
+      "z": 13.01480484008789,
+      "agl": 20.802408754747816,
+      "tilt": 0.8943196950726982,
+      "gsd": 0.006852558178034576,
+      "across": 28.835564813169494,
+      "along": 21.379981515467875,
+      "line": 8
+     },
+     {
+      "t": 437.74999999968406,
+      "x": 40.15154266357422,
+      "z": 18.168811798095703,
+      "agl": 21.145281315212625,
+      "tilt": 0.9932215508798641,
+      "gsd": 0.006965504433246512,
+      "across": 29.310842655101325,
+      "along": 21.73237383172912,
+      "line": 8
+     },
+     {
+      "t": 438.9916666663496,
+      "x": 40.10607147216797,
+      "z": 23.310184478759766,
+      "agl": 20.964340204098413,
+      "tilt": 1.0814276038272879,
+      "gsd": 0.006905900302526537,
+      "across": 29.060028473031668,
+      "along": 21.546408943882795,
+      "line": 8
+     },
+     {
+      "t": 440.2499999996818,
+      "x": 40.066768646240234,
+      "z": 28.45562744140625,
+      "agl": 20.96664195992189,
+      "tilt": 3.388862691075957,
+      "gsd": 0.006906658527974271,
+      "across": 29.063219085715733,
+      "along": 21.548774607279725,
+      "line": 8
+     },
+     {
+      "t": 441.6541666663472,
+      "x": 40.031028747558594,
+      "z": 33.59980010986328,
+      "agl": 20.314580585633614,
+      "tilt": 8.986892106264754,
+      "gsd": 0.006691861839973427,
+      "across": 28.15935462260818,
+      "along": 20.878608940717093,
+      "line": 8
+     },
+     {
+      "t": 443.7041666663453,
+      "x": 40.00200653076172,
+      "z": 38.741886138916016,
+      "agl": 19.885727791523653,
+      "tilt": 11.427373570660599,
+      "gsd": 0.006550592684266616,
+      "across": 27.56489401539392,
+      "along": 20.437849174911843,
+      "line": 8
+     }
+    ],
+    "rejected": {
+     "tilt": 286,
+     "height": 0
+    },
+    "trackColumns": [
+     "t",
+     "x",
+     "y",
+     "z",
+     "roll",
+     "pitch",
+     "yaw",
+     "rpm",
+     "soc",
+     "power",
+     "agl"
+    ],
+    "analysis": {
+     "photos": 144,
+     "coverage": 0.950625,
+     "stereoCells": 6084,
+     "cells": 6400,
+     "flightHeight": 20.667439240376964,
+     "gsd": 0.006808097632124177,
+     "base": 5.1388235294117655,
+     "sigmaZ": 0.013690482203675433,
+     "sigmaSlope": 0.5546420817980762,
+     "params": {
+      "cell": 1,
+      "slopeLimit": 10,
+      "hazardRock": 0.5,
+      "detectPixels": 3,
+      "correlationLength": 5
+     },
+     "safeFraction": 0.7537804076265615,
+     "safeUncertainty": 0.07389471400658097,
+     "samplingError": 0.027615895340914496,
+     "thresholdError": 0.06854043392504931,
+     "meanSlope": 7.078912275108184,
+     "p95Slope": 14.95147309790528,
+     "rocks": {
+      "detected": 1589,
+      "hazardDetected": 62,
+      "smallestDetectable": 0.02042429289637253,
+      "abundanceMeasured": 0.015069431814488212
+     },
+     "truth": {
+      "safeFraction": 0.7572320841551611,
+      "meanSlope": 7.0400442503936915,
+      "p95Slope": 14.976276134154086,
+      "hazardRocks": 62,
+      "abundance": 0.015069431814488212,
+      "demRmse": 0.013671491801145625
+     }
+    },
+    "plan": {
+     "area": 80,
+     "altitude": 20,
+     "speed": 4,
+     "sideOverlap": 0.6,
+     "forwardOverlap": 0.75,
+     "swath": 27.723294117647065,
+     "footprintAlong": 20.555294117647062,
+     "spacing": 10,
+     "plannedSpacing": 11.089317647058827,
+     "photoSpacing": 5.1388235294117655,
+     "lines": 9,
+     "waypoints": [
+      {
+       "x": -40,
+       "z": -40,
+       "action": "pass",
+       "name": "L1a"
+      },
+      {
+       "x": -40,
+       "z": 40,
+       "action": "pass",
+       "name": "L1b"
+      },
+      {
+       "x": -30,
+       "z": 40,
+       "action": "pass",
+       "name": "L2a"
+      },
+      {
+       "x": -30,
+       "z": -40,
+       "action": "pass",
+       "name": "L2b"
+      },
+      {
+       "x": -20,
+       "z": -40,
+       "action": "pass",
+       "name": "L3a"
+      },
+      {
+       "x": -20,
+       "z": 40,
+       "action": "pass",
+       "name": "L3b"
+      },
+      {
+       "x": -10,
+       "z": 40,
+       "action": "pass",
+       "name": "L4a"
+      },
+      {
+       "x": -10,
+       "z": -40,
+       "action": "pass",
+       "name": "L4b"
+      },
+      {
+       "x": 0,
+       "z": -40,
+       "action": "pass",
+       "name": "L5a"
+      },
+      {
+       "x": 0,
+       "z": 40,
+       "action": "pass",
+       "name": "L5b"
+      },
+      {
+       "x": 10,
+       "z": 40,
+       "action": "pass",
+       "name": "L6a"
+      },
+      {
+       "x": 10,
+       "z": -40,
+       "action": "pass",
+       "name": "L6b"
+      },
+      {
+       "x": 20,
+       "z": -40,
+       "action": "pass",
+       "name": "L7a"
+      },
+      {
+       "x": 20,
+       "z": 40,
+       "action": "pass",
+       "name": "L7b"
+      },
+      {
+       "x": 30,
+       "z": 40,
+       "action": "pass",
+       "name": "L8a"
+      },
+      {
+       "x": 30,
+       "z": -40,
+       "action": "pass",
+       "name": "L8b"
+      },
+      {
+       "x": 40,
+       "z": -40,
+       "action": "pass",
+       "name": "L9a"
+      },
+      {
+       "x": 40,
+       "z": 40,
+       "action": "pass",
+       "name": "L9b"
+      }
+     ],
+     "distance": 913.1370849898476,
+     "lineLength": 720,
+     "gsd": 0.006588235294117648,
+     "exposure": 0.001,
+     "blurPx": 0.6071428571428571,
+     "expectedPhotos": 144,
+     "baseHeightRatio": 0.2569411764705883,
+     "warnings": []
+    },
+    "atmosphere": {
+     "overrides": {
+      "surfacePressure": 803.866167969819,
+      "surfaceTemperature": 226.6737385020924
+     },
+     "density": 0.018548375554493388,
+     "temperature": 226.6737385020924,
+     "pressure": 803.866167969819
+    },
+    "budget": {
+     "routeLength": 913.1370849898476,
+     "cruiseTime": 228.2842712474619,
+     "hoverTime": 37.333333333333336,
+     "spinupTime": 0,
+     "flightTime": 265.6176045807952,
+     "hoverPower": 497.5255982009859,
+     "cruisePower": 485.987247862457,
+     "energyWh": 35.97709269815115,
+     "usableWh": 97.19997211110933,
+     "availableWh": 82.61997629444294,
+     "margin": 46.64288359629179,
+     "feasible": true,
+     "canHover": true,
+     "solar": {
+      "flights": 3,
+      "sols": 3,
+      "flyToday": true,
+      "harvestWh": 185.3197184305793,
+      "nightWh": 94.93999585049716,
+      "minSoC": 0.5523155356184498,
+      "survived": true
+     }
+    },
+    "spec": {
+     "vehicle": "pf-r50-b2-standard",
+     "frame": "carbon",
+     "payload": 0,
+     "profile": "mars-brief",
+     "overrides": {
+      "surfacePressure": 803.866167969819,
+      "surfaceTemperature": 226.6737385020924
+     },
+     "siteElevation": 0,
+     "date": 1794677284926.5674,
+     "site": {
+      "lat": 18.4447,
+      "lonEast": 77.4508
+     },
+     "seed": 16107,
+     "wind": {
+      "level": "calm",
+      "direction": 225
+     },
+     "cruiseAltitude": 20,
+     "speed": 4,
+     "reserve": 0.15,
+     "returnHome": true,
+     "control": "autonomous",
+     "timeLimit": 528,
+     "opticalDepth": 0.5,
+     "solarSols": 3
+    },
+    "terrainLabel": {
+     "en": "Procedural terrain — illustrative, NOT NASA data",
+     "tr": "Prosedürel arazi — temsilî, NASA verisi DEĞİL"
+    },
+    "procedural": true
+   }
+  },
+  {
+   "id": "arcadia",
+   "label": {
+    "en": "Arcadia Planitia",
+    "tr": "Arcadia Planitia"
+   },
+   "summary": {
+    "en": "Smooth northern plains with shallow water ice",
+    "tr": "Sığ su buzu içeren düz kuzey ovası"
+   },
+   "data": {
+    "latitude": {
+     "value": 42,
+     "unit": "°N",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Representative point inside the shallow-ice part of Arcadia Planitia (team choice; region from piqueux2019)",
+     "measuredByDrone": false
+    },
+    "longitude": {
+     "value": 192,
+     "unit": "°E",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Representative point (team choice)",
+     "measuredByDrone": false
+    },
+    "elevation": {
+     "value": -3500,
+     "unit": "m",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 400,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Approximate; replace with a MOLA MEGDR sample (raster adapter)",
+     "measuredByDrone": false
+    },
+    "ice": {
+     "value": 0.85,
+     "unit": "index",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0.15,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Piqueux et al. 2019: ice within ~30 cm of the surface in parts of Arcadia Planitia, \"the most tempting target\"",
+     "measuredByDrone": false
+    },
+    "dust": {
+     "value": 0.5,
+     "unit": "τ",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0.2,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported",
+     "measuredByDrone": false
+    },
+    "science": {
+     "value": 6,
+     "unit": "1–9",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 1,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Ice and recent-climate record; younger, less diverse geology than the crater sites",
+     "measuredByDrone": false
+    },
+    "solar": {
+     "value": 2536.0872402353066,
+     "unit": "Wh/m²/sol",
+     "kind": "model",
+     "source": "mars24",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 380.413086035296,
+     "crs": null,
+     "transforms": [
+      "Sun position over one Mars year (Mars24), latitude 42.00° (assumption)",
+      "beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption)",
+      "mean over 67 sampled sols, 15-min steps"
+     ],
+     "note": "±15 %: diffuse-light shape and dust season not resolved",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "temperature": {
+     "value": 194.52489257476515,
+     "unit": "K",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 15,
+     "crs": null,
+     "transforms": [
+      "radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed)",
+      "Ī = 102.8 W/m² from the insolation model"
+     ],
+     "note": "Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "pressure": {
+     "value": 871.7597576392524,
+     "unit": "Pa",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 130.76396364588786,
+     "crs": null,
+     "transforms": [
+      "p = 636 Pa · exp(−h / 11.1 km), h = -3500 m (assumption)"
+     ],
+     "note": "Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "column": {
+     "value": 233.71575271829823,
+     "unit": "kg/m²",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 35.05736290774473,
+     "crs": null,
+     "transforms": [
+      "column mass = p / g, g = 3.73 m/s²"
+     ],
+     "note": "Atmosphere above the site: more mass = more braking for landing and more shielding (indicator, not a dose)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "safeArea": {
+     "value": 96.33464825772519,
+     "unit": "%",
+     "kind": "simulation",
+     "source": "drone survey",
+     "resolution": "1 m grid · GSD 6.7 mm/px · 144 photos",
+     "date": null,
+     "uncertainty": 2.9825285667611596,
+     "crs": null,
+     "transforms": [
+      "stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.4 mm",
+      "slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px)",
+      "uncertainty: sampling 1.2 % ⊕ threshold 2.7 %"
+     ],
+     "note": "Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes",
+     "rationale": null,
+     "measuredByDrone": true
+    }
+   },
+   "terrain": {
+    "relief": 2.5,
+    "craterDensity": 30,
+    "rockAbundance": 0.03
+   },
+   "seed": 54109,
+   "survey": {
+    "site": "arcadia",
+    "result": {
+     "success": true,
+     "reason": "complete",
+     "flightTime": 476.324999999649,
+     "energyWh": 59.70834856300283,
+     "distance": 1120.0240964748666,
+     "observations": 0,
+     "requiredObservations": 0,
+     "maxTilt": 30.129053294537876,
+     "hoverRateRms": null,
+     "tiltRms": 10.968936222116167,
+     "positionErrorRms": null,
+     "socEnd": 0.537230035555435,
+     "mass": 2.983259076009783
+    },
+    "photos": [
+     {
+      "t": 28.204166666665387,
+      "x": -40.56517028808594,
+      "z": -40.56623840332031,
+      "agl": 19.99123777948921,
+      "tilt": 14.809729029356268,
+      "gsd": 0.006585348915596446,
+      "across": 27.71114823682985,
+      "along": 20.546288616660917,
+      "line": 0
+     },
+     {
+      "t": 32.10833333333192,
+      "x": -40.31535339355469,
+      "z": -35.427486419677734,
+      "agl": 19.99345670859319,
+      "tilt": 14.899095794180088,
+      "gsd": 0.0065860798569483455,
+      "across": 27.71422403803864,
+      "along": 20.54856915367884,
+      "line": 0
+     },
+     {
+      "t": 33.479166666666345,
+      "x": -39.979549407958984,
+      "z": -30.28952407836914,
+      "agl": 19.99881694652108,
+      "tilt": 14.398482708900213,
+      "gsd": 0.006587845582383416,
+      "across": 27.721654210669417,
+      "along": 20.55407821703626,
+      "line": 0
+     },
+     {
+      "t": 34.57500000000055,
+      "x": -39.724761962890625,
+      "z": -25.13774299621582,
+      "agl": 20.059667949980454,
+      "tilt": 4.845115573775391,
+      "gsd": 0.006607890618817092,
+      "across": 27.80600372398232,
+      "along": 20.616618730709327,
+      "line": 0
+     },
+     {
+      "t": 35.612500000001376,
+      "x": -39.539756774902344,
+      "z": -19.99777603149414,
+      "agl": 20.17223308991552,
+      "tilt": 0.9429964153667778,
+      "gsd": 0.006644970900207466,
+      "across": 27.962037548073017,
+      "along": 20.732309208647294,
+      "line": 0
+     },
+     {
+      "t": 36.68333333333556,
+      "x": -39.409793853759766,
+      "z": -14.845317840576172,
+      "agl": 20.019659004572922,
+      "tilt": 1.0695825701300057,
+      "gsd": 0.0065947112015063755,
+      "across": 27.750544735938828,
+      "along": 20.57549894869989,
+      "line": 0
+     },
+     {
+      "t": 37.79583333333645,
+      "x": -39.32505416870117,
+      "z": -9.701299667358398,
+      "agl": 19.99037212787086,
+      "tilt": 0.5835880255458239,
+      "gsd": 0.006585063759769225,
+      "across": 27.709948301108902,
+      "along": 20.545398930479983,
+      "line": 0
+     },
+     {
+      "t": 38.94583333333736,
+      "x": -39.28054428100586,
+      "z": -4.548344135284424,
+      "agl": 20.088752570300763,
+      "tilt": 0.46907060156299657,
+      "gsd": 0.006617471434922605,
+      "across": 27.846319798154322,
+      "along": 20.64651087695853,
+      "line": 0
+     },
+     {
+      "t": 40.12500000000497,
+      "x": -39.27279281616211,
+      "z": 0.607170045375824,
+      "agl": 20.040193128822526,
+      "tilt": 0.640542045381643,
+      "gsd": 0.006601475383612127,
+      "across": 27.779008414239833,
+      "along": 20.59660319686984,
+      "line": 0
+     },
+     {
+      "t": 41.32500000000592,
+      "x": -39.29602813720703,
+      "z": 5.754817008972168,
+      "agl": 20.079944746328778,
+      "tilt": 0.8504491070271031,
+      "gsd": 0.006614570034084774,
+      "across": 27.834110703428735,
+      "along": 20.637458506344498,
+      "line": 0
+     },
+     {
+      "t": 42.54166666667356,
+      "x": -39.344337463378906,
+      "z": 10.900054931640625,
+      "agl": 19.97509696184546,
+      "tilt": 1.0144914666940223,
+      "gsd": 0.006580031940372623,
+      "across": 27.688774405087997,
+      "along": 20.529699653962584,
+      "line": 0
+     },
+     {
+      "t": 43.7708333333412,
+      "x": -39.415489196777344,
+      "z": 16.038707733154297,
+      "agl": 20.052473697491177,
+      "tilt": 0.964433393018399,
+      "gsd": 0.006605520747408859,
+      "across": 27.79603130509648,
+      "along": 20.609224731915642,
+      "line": 0
+     },
+     {
+      "t": 45.016666666675526,
+      "x": -39.50692367553711,
+      "z": 21.188690185546875,
+      "agl": 19.94009359908929,
+      "tilt": 1.1383368626102046,
+      "gsd": 0.0065685014208764735,
+      "across": 27.6402539790482,
+      "along": 20.4937244331346,
+      "line": 0
+     },
+     {
+      "t": 46.27083333334319,
+      "x": -39.614418029785156,
+      "z": 26.33125114440918,
+      "agl": 19.974128061037337,
+      "tilt": 0.27654433872060624,
+      "gsd": 0.006579712773047594,
+      "across": 27.68743134898428,
+      "along": 20.528703851908496,
+      "line": 0
+     },
+     {
+      "t": 47.583333333344235,
+      "x": -39.73938751220703,
+      "z": 31.470170974731445,
+      "agl": 19.992191536502716,
+      "tilt": 7.352616882143398,
+      "gsd": 0.0065856630943773664,
+      "across": 27.71247030113996,
+      "along": 20.547268854457382,
+      "line": 0
+     },
+     {
+      "t": 49.24583333334556,
+      "x": -39.8784065246582,
+      "z": 36.607177734375,
+      "agl": 19.987333515606366,
+      "tilt": 10.615160211300143,
+      "gsd": 0.006584062805140922,
+      "across": 27.705736284032998,
+      "along": 20.542275952039677,
+      "line": 0
+     },
+     {
+      "t": 77.41666666667842,
+      "x": -29.16312026977539,
+      "z": 40.10909652709961,
+      "agl": 20.076056962609556,
+      "tilt": 13.650650008927826,
+      "gsd": 0.006613289352389031,
+      "across": 27.828721594853043,
+      "along": 20.63346277945378,
+      "line": 1
+     },
+     {
+      "t": 81.31250000000821,
+      "x": -28.868738174438477,
+      "z": 34.96738052368164,
+      "agl": 20.202633399180982,
+      "tilt": 14.862129213918447,
+      "gsd": 0.006654985119730207,
+      "across": 28.00417738382471,
+      "along": 20.763553573558248,
+      "line": 1
+     },
+     {
+      "t": 82.69166666667363,
+      "x": -29.01416015625,
+      "z": 29.81890296936035,
+      "agl": 20.147288175561552,
+      "tilt": 14.209728368277855,
+      "gsd": 0.006636753751949688,
+      "across": 27.927459788204292,
+      "along": 20.70667170608303,
+      "line": 1
+     },
+     {
+      "t": 83.7833333333393,
+      "x": -29.16953468322754,
+      "z": 24.679128646850586,
+      "agl": 19.96173105221835,
+      "tilt": 4.464892588279623,
+      "gsd": 0.006575629052495457,
+      "across": 27.670247052900887,
+      "along": 20.51596264378583,
+      "line": 1
+     },
+     {
+      "t": 84.82500000000502,
+      "x": -29.31266975402832,
+      "z": 19.52720069885254,
+      "agl": 19.99689147820779,
+      "tilt": 0.6833478639284584,
+      "gsd": 0.006587211310468449,
+      "across": 27.718985194451236,
+      "along": 20.552099288661562,
+      "line": 1
+     },
+     {
+      "t": 85.89583333333738,
+      "x": -29.437530517578125,
+      "z": 14.3767671585083,
+      "agl": 20.17277534025177,
+      "tilt": 1.1289125929692103,
+      "gsd": 0.006645149523847643,
+      "across": 27.962789196350883,
+      "along": 20.73286651440465,
+      "line": 1
+     },
+     {
+      "t": 87.00833333333637,
+      "x": -29.54238510131836,
+      "z": 9.2372465133667,
+      "agl": 20.157801661566044,
+      "tilt": 0.27214919328278386,
+      "gsd": 0.006640217017927638,
+      "across": 27.942033211439504,
+      "along": 20.717477095934235,
+      "line": 1
+     },
+     {
+      "t": 88.15833333333532,
+      "x": -29.631572723388672,
+      "z": 4.088435649871826,
+      "agl": 20.016030211931884,
+      "tilt": 0.26933461783299906,
+      "gsd": 0.006593515834518739,
+      "across": 27.745514631654856,
+      "along": 20.571769403698468,
+      "line": 1
+     },
+     {
+      "t": 89.33750000000092,
+      "x": -29.70754051208496,
+      "z": -1.0650326013565063,
+      "agl": 20.117225152380808,
+      "tilt": 0.5646929501429342,
+      "gsd": 0.006626850638431326,
+      "across": 27.88578748651902,
+      "along": 20.67577399190574,
+      "line": 1
+     },
+     {
+      "t": 90.53749999999982,
+      "x": -29.772445678710938,
+      "z": -6.211427211761475,
+      "agl": 20.01115053128694,
+      "tilt": 0.8444020152542135,
+      "gsd": 0.006591908410306287,
+      "across": 27.73875059056886,
+      "along": 20.566754240155618,
+      "line": 1
+     },
+     {
+      "t": 91.75416666666538,
+      "x": -29.827999114990234,
+      "z": -11.357477188110352,
+      "agl": 20.027583763433704,
+      "tilt": 1.0008637818751294,
+      "gsd": 0.006597321710307574,
+      "across": 27.761529756974273,
+      "along": 20.583643736159633,
+      "line": 1
+     },
+     {
+      "t": 92.98333333333093,
+      "x": -29.875104904174805,
+      "z": -16.499069213867188,
+      "agl": 20.01813972952745,
+      "tilt": 1.0374808451619717,
+      "gsd": 0.0065942107344325734,
+      "across": 27.748438770492267,
+      "along": 20.57393749142963,
+      "line": 1
+     },
+     {
+      "t": 94.22499999999647,
+      "x": -29.914587020874023,
+      "z": -21.643081665039062,
+      "agl": 19.945206859073703,
+      "tilt": 1.082679404833815,
+      "gsd": 0.006570185788871338,
+      "across": 27.647341799570594,
+      "along": 20.49897966127858,
+      "line": 1
+     },
+     {
+      "t": 95.479166666662,
+      "x": -29.948503494262695,
+      "z": -26.794679641723633,
+      "agl": 20.010428656675497,
+      "tilt": 0.7696497976304169,
+      "gsd": 0.006591670616316635,
+      "across": 27.7377499534604,
+      "along": 20.566012322907902,
+      "line": 1
+     },
+     {
+      "t": 96.81249999999412,
+      "x": -29.97640609741211,
+      "z": -31.947839736938477,
+      "agl": 20.00228801261621,
+      "tilt": 7.686441588201089,
+      "gsd": 0.006588988992391222,
+      "across": 27.726465679982265,
+      "along": 20.557645656260615,
+      "line": 1
+     },
+     {
+      "t": 98.54166666665921,
+      "x": -29.997867584228516,
+      "z": -37.0908317565918,
+      "agl": 19.981878484090664,
+      "tilt": 10.73861633355753,
+      "gsd": 0.006582265853582808,
+      "across": 27.698174711876458,
+      "along": 20.536669463178363,
+      "line": 1
+     },
+     {
+      "t": 126.49583333330045,
+      "x": -19.16034507751465,
+      "z": -40.08116912841797,
+      "agl": 20.06454615399317,
+      "tilt": 13.641669389121933,
+      "gsd": 0.006609497556609516,
+      "across": 27.812765718212844,
+      "along": 20.62163237662169,
+      "line": 2
+     },
+     {
+      "t": 130.3958333332969,
+      "x": -18.922910690307617,
+      "z": -34.93893814086914,
+      "agl": 20.429362052848916,
+      "tilt": 14.850124310394818,
+      "gsd": 0.006729672205644349,
+      "across": 28.318460641351425,
+      "along": 20.99657728161037,
+      "line": 2
+     },
+     {
+      "t": 131.79166666662897,
+      "x": -19.061126708984375,
+      "z": -29.787641525268555,
+      "agl": 20.463645102260223,
+      "tilt": 14.5224069846364,
+      "gsd": 0.006740965445450427,
+      "across": 28.3659825944554,
+      "along": 21.031812189805333,
+      "line": 2
+     },
+     {
+      "t": 132.89166666662797,
+      "x": -19.203126907348633,
+      "z": -24.640644073486328,
+      "agl": 20.297854689162424,
+      "tilt": 5.013452848691612,
+      "gsd": 0.006686352132900564,
+      "across": 28.136169775245577,
+      "along": 20.86141865464976,
+      "line": 2
+     },
+     {
+      "t": 133.92916666662703,
+      "x": -19.333171844482422,
+      "z": -19.50107765197754,
+      "agl": 20.07244252018849,
+      "tilt": 0.5640911832907435,
+      "gsd": 0.00661209871253268,
+      "across": 27.823711382337518,
+      "along": 20.62974798310196,
+      "line": 2
+     },
+     {
+      "t": 134.99583333329272,
+      "x": -19.44723892211914,
+      "z": -14.357462882995605,
+      "agl": 20.147430927501325,
+      "tilt": 1.0591902786414804,
+      "gsd": 0.006636800776118085,
+      "across": 27.927657665904903,
+      "along": 20.706818421488425,
+      "line": 2
+     },
+     {
+      "t": 136.1083333332917,
+      "x": -19.54530143737793,
+      "z": -9.203986167907715,
+      "agl": 20.05202521926149,
+      "tilt": 0.41155343551323137,
+      "gsd": 0.006605373013403785,
+      "across": 27.795409640403133,
+      "along": 20.608763801819816,
+      "line": 2
+     },
+     {
+      "t": 137.254166666624,
+      "x": -19.629690170288086,
+      "z": -4.061427116394043,
+      "agl": 20.078489283207574,
+      "tilt": 0.17230849365634393,
+      "gsd": 0.0066140905874095554,
+      "across": 27.832093191819407,
+      "along": 20.635962632717813,
+      "line": 2
+     },
+     {
+      "t": 138.4333333332896,
+      "x": -19.701753616333008,
+      "z": 1.0938607454299927,
+      "agl": 20.0868915499662,
+      "tilt": 0.4510273949428709,
+      "gsd": 0.006616858392930043,
+      "across": 27.843740117449624,
+      "along": 20.644598185941735,
+      "line": 2
+     },
+     {
+      "t": 139.63749999995517,
+      "x": -19.763843536376953,
+      "z": 6.248620986938477,
+      "agl": 19.99225827696219,
+      "tilt": 0.8758069194082491,
+      "gsd": 0.0065856850794698985,
+      "across": 27.712562814409335,
+      "along": 20.547337447946084,
+      "line": 2
+     },
+     {
+      "t": 140.85416666662073,
+      "x": -19.818065643310547,
+      "z": 11.388751983642578,
+      "agl": 20.00451749024259,
+      "tilt": 1.0891524343027146,
+      "gsd": 0.006589723408550501,
+      "across": 27.72955610318051,
+      "along": 20.559937034677567,
+      "line": 2
+     },
+     {
+      "t": 142.08333333328628,
+      "x": -19.865123748779297,
+      "z": 16.533252716064453,
+      "agl": 20.022419860006384,
+      "tilt": 1.0913429862178958,
+      "gsd": 0.00659562065976681,
+      "across": 27.754371736298737,
+      "along": 20.578336458472446,
+      "line": 2
+     },
+     {
+      "t": 143.3249999999518,
+      "x": -19.905868530273438,
+      "z": 21.683910369873047,
+      "agl": 20.01477961345158,
+      "tilt": 1.1689838658861742,
+      "gsd": 0.006593103872666404,
+      "across": 27.74378109618023,
+      "along": 20.57048408271918,
+      "line": 2
+     },
+     {
+      "t": 144.57499999995068,
+      "x": -19.940746307373047,
+      "z": 26.826194763183594,
+      "agl": 20.01115479567904,
+      "tilt": 0.601261727861844,
+      "gsd": 0.006591909815047215,
+      "across": 27.73875650171868,
+      "along": 20.566758622947308,
+      "line": 2
+     },
+     {
+      "t": 145.90416666661613,
+      "x": -19.970773696899414,
+      "z": 31.97135353088379,
+      "agl": 19.92054448534671,
+      "tilt": 7.900486659794415,
+      "gsd": 0.006562061712820094,
+      "across": 27.613155687546953,
+      "along": 20.473632543998693,
+      "line": 2
+     },
+     {
+      "t": 147.64166666661455,
+      "x": -19.995298385620117,
+      "z": 37.11062240600586,
+      "agl": 19.944736479831697,
+      "tilt": 10.362760175452895,
+      "gsd": 0.006570030840415148,
+      "across": 27.646689776466943,
+      "along": 20.498496222095262,
+      "line": 2
+     },
+     {
+      "t": 175.57916666658915,
+      "x": -9.164388656616211,
+      "z": 40.10580062866211,
+      "agl": 19.99032950952624,
+      "tilt": 13.643690252332583,
+      "gsd": 0.006585049720785115,
+      "across": 27.70988922506377,
+      "along": 20.54535512884956,
+      "line": 3
+     },
+     {
+      "t": 179.4791666665856,
+      "x": -8.860955238342285,
+      "z": 34.9672966003418,
+      "agl": 19.999648259794018,
+      "tilt": 14.84840501845215,
+      "gsd": 0.006588119426755677,
+      "across": 27.72280654778789,
+      "along": 20.554932611477714,
+      "line": 3
+     },
+     {
+      "t": 180.86666666658434,
+      "x": -9.004694938659668,
+      "z": 29.82073974609375,
+      "agl": 20.02015196555853,
+      "tilt": 14.59484760696927,
+      "gsd": 0.006594873588654576,
+      "across": 27.751228061058455,
+      "along": 20.576005596602275,
+      "line": 3
+     },
+     {
+      "t": 181.96666666658334,
+      "x": -9.160237312316895,
+      "z": 24.679929733276367,
+      "agl": 20.125435349361222,
+      "tilt": 5.285249839701415,
+      "gsd": 0.006629555173907227,
+      "across": 27.897168171801614,
+      "along": 20.68421214259055,
+      "line": 3
+     },
+     {
+      "t": 183.0041666665824,
+      "x": -9.304146766662598,
+      "z": 19.53974151611328,
+      "agl": 20.14314689300097,
+      "tilt": 1.0477343135724597,
+      "gsd": 0.006635389564753263,
+      "across": 27.92171928848173,
+      "along": 20.70241544203018,
+      "line": 3
+     },
+     {
+      "t": 184.07499999991475,
+      "x": -9.430264472961426,
+      "z": 14.386162757873535,
+      "agl": 20.029324708379466,
+      "tilt": 0.7138881381685201,
+      "gsd": 0.0065978951980544135,
+      "across": 27.76394299341297,
+      "along": 20.58543301792977,
+      "line": 3
+     },
+     {
+      "t": 185.18333333324708,
+      "x": -9.537988662719727,
+      "z": 9.245348930358887,
+      "agl": 20.09990723027354,
+      "tilt": 0.45778318136284724,
+      "gsd": 0.006621145911148932,
+      "across": 27.861781994114708,
+      "along": 20.65797524278467,
+      "line": 3
+     },
+     {
+      "t": 186.32916666657937,
+      "x": -9.628992080688477,
+      "z": 4.105318546295166,
+      "agl": 20.31918336918603,
+      "tilt": 0.22390159708440116,
+      "gsd": 0.006693378051025987,
+      "across": 28.16573483871736,
+      "along": 20.883339519201083,
+      "line": 3
+     },
+     {
+      "t": 187.5041666665783,
+      "x": -9.706375122070312,
+      "z": -1.0371311902999878,
+      "agl": 20.425495758401507,
+      "tilt": 0.4526440235339293,
+      "gsd": 0.006728398602767556,
+      "across": 28.313101320445877,
+      "along": 20.992603640634776,
+      "line": 3
+     },
+     {
+      "t": 188.7041666665772,
+      "x": -9.77170467376709,
+      "z": -6.186567306518555,
+      "agl": 20.502362263830122,
+      "tilt": 0.7894982085371793,
+      "gsd": 0.006753719333967571,
+      "across": 28.419650957335538,
+      "along": 21.07160432197882,
+      "line": 3
+     },
+     {
+      "t": 189.92083333324277,
+      "x": -9.827007293701172,
+      "z": -11.330531120300293,
+      "agl": 20.354091076868603,
+      "tilt": 0.9912139108063786,
+      "gsd": 0.00670487706061554,
+      "across": 28.214122671070196,
+      "along": 20.91921642912049,
+      "line": 3
+     },
+     {
+      "t": 191.14999999990832,
+      "x": -9.874276161193848,
+      "z": -16.471364974975586,
+      "agl": 20.28108198591669,
+      "tilt": 1.0619853176414171,
+      "gsd": 0.0066808270071254975,
+      "across": 28.112920045984097,
+      "along": 20.844180262231557,
+      "line": 3
+     },
+     {
+      "t": 192.39166666657385,
+      "x": -9.914521217346191,
+      "z": -21.61714744567871,
+      "agl": 20.44421407115317,
+      "tilt": 1.1342547130337444,
+      "gsd": 0.006734564635203398,
+      "across": 28.3390479849359,
+      "along": 21.011841661834602,
+      "line": 3
+     },
+     {
+      "t": 193.64583333323938,
+      "x": -9.948470115661621,
+      "z": -26.77223777770996,
+      "agl": 20.565150530166083,
+      "tilt": 0.5990689450450191,
+      "gsd": 0.006774402527584122,
+      "across": 28.506685836073988,
+      "along": 21.136135886062462,
+      "line": 3
+     },
+     {
+      "t": 194.97499999990484,
+      "x": -9.976591110229492,
+      "z": -31.916475296020508,
+      "agl": 20.465204883446038,
+      "tilt": 7.695541543944015,
+      "gsd": 0.0067414792557234015,
+      "across": 28.368144708084074,
+      "along": 21.033415277857014,
+      "line": 3
+     },
+     {
+      "t": 196.69999999990327,
+      "x": -9.998035430908203,
+      "z": -37.057838439941406,
+      "agl": 20.010576346936165,
+      "tilt": 10.683660312755359,
+      "gsd": 0.0065917192672260315,
+      "across": 27.737954676487142,
+      "along": 20.56616411374522,
+      "line": 3
+     },
+     {
+      "t": 224.77083333321107,
+      "x": 0.8544589281082153,
+      "z": -40.08009719848633,
+      "agl": 19.978519831232695,
+      "tilt": 13.66760928125526,
+      "gsd": 0.00658115947381783,
+      "across": 27.69351906582543,
+      "along": 20.53321755831163,
+      "line": 4
+     },
+     {
+      "t": 228.80416666654074,
+      "x": 0.6559920907020569,
+      "z": -34.9407958984375,
+      "agl": 21.790817519604786,
+      "tilt": 14.957704552608986,
+      "gsd": 0.007178151653516872,
+      "across": 30.205662157998997,
+      "along": 22.395833158972643,
+      "line": 4
+     },
+     {
+      "t": 230.2124999998728,
+      "x": 0.5747190117835999,
+      "z": -29.795387268066406,
+      "agl": 21.95495317557521,
+      "tilt": 14.617997486233886,
+      "gsd": 0.007232219869601247,
+      "across": 30.433181211282047,
+      "along": 22.56452599315589,
+      "line": 4
+     },
+     {
+      "t": 231.31666666653845,
+      "x": 0.5289578437805176,
+      "z": -24.646013259887695,
+      "agl": 21.89213127463996,
+      "tilt": 5.218650857021796,
+      "gsd": 0.0072115255963519885,
+      "across": 30.346099709449167,
+      "along": 22.499959860618205,
+      "line": 4
+     },
+     {
+      "t": 232.3541666665375,
+      "x": 0.49356386065483093,
+      "z": -19.506717681884766,
+      "agl": 22.02478027628832,
+      "tilt": 0.44027454436734725,
+      "gsd": 0.007255221738071447,
+      "across": 30.52997307380465,
+      "along": 22.636291822782916,
+      "line": 4
+     },
+     {
+      "t": 233.4208333332032,
+      "x": 0.4577033817768097,
+      "z": -14.362817764282227,
+      "agl": 21.912435503083373,
+      "tilt": 0.8799084276154762,
+      "gsd": 0.007218214048074523,
+      "across": 30.374244714297596,
+      "along": 22.520827829992516,
+      "line": 4
+     },
+     {
+      "t": 234.5333333332022,
+      "x": 0.4193669557571411,
+      "z": -9.205245018005371,
+      "agl": 21.62151291132796,
+      "tilt": 0.3276566903728427,
+      "gsd": 0.0071223807237315645,
+      "across": 29.970978085462427,
+      "along": 22.221827858042484,
+      "line": 4
+     },
+     {
+      "t": 235.67916666653448,
+      "x": 0.3792310357093811,
+      "z": -4.063274383544922,
+      "agl": 21.207858288502806,
+      "tilt": 0.32044876037321346,
+      "gsd": 0.006986118024447984,
+      "across": 29.397584646877117,
+      "along": 21.79668823627771,
+      "line": 4
+     },
+     {
+      "t": 236.85416666653342,
+      "x": 0.33753544092178345,
+      "z": 1.0826797485351562,
+      "agl": 21.001800512321402,
+      "tilt": 0.41700307893397465,
+      "gsd": 0.006918240168764698,
+      "across": 29.11195463016185,
+      "along": 21.58490932654586,
+      "line": 4
+     },
+     {
+      "t": 238.05416666653232,
+      "x": 0.29469776153564453,
+      "z": 6.234163284301758,
+      "agl": 21.138814883016803,
+      "tilt": 0.8097046725683311,
+      "gsd": 0.006963374314405536,
+      "across": 29.301879115018497,
+      "along": 21.725727860945273,
+      "line": 4
+     },
+     {
+      "t": 239.27083333319788,
+      "x": 0.2511863708496094,
+      "z": 11.381839752197266,
+      "agl": 21.125014186095207,
+      "tilt": 0.9490164145361927,
+      "gsd": 0.006958828202478421,
+      "across": 29.2827490760292,
+      "along": 21.71154399173268,
+      "line": 4
+     },
+     {
+      "t": 240.49999999986343,
+      "x": 0.2072032243013382,
+      "z": 16.523418426513672,
+      "agl": 21.020438393316983,
+      "tilt": 1.0490657921069046,
+      "gsd": 0.006924379706033831,
+      "across": 29.137789802990362,
+      "along": 21.604064682825552,
+      "line": 4
+     },
+     {
+      "t": 241.74166666652897,
+      "x": 0.16269895434379578,
+      "z": 21.668672561645508,
+      "agl": 20.910118142253612,
+      "tilt": 1.141399875078387,
+      "gsd": 0.006888038917448249,
+      "across": 28.984867764622237,
+      "along": 21.49068142243854,
+      "line": 4
+     },
+     {
+      "t": 242.9958333331945,
+      "x": 0.11766345798969269,
+      "z": 26.823678970336914,
+      "agl": 20.95373724613203,
+      "tilt": 0.6607691986832316,
+      "gsd": 0.006902407563431728,
+      "across": 29.045331026920714,
+      "along": 21.535511597906993,
+      "line": 4
+     },
+     {
+      "t": 244.32499999985995,
+      "x": 0.07241979986429214,
+      "z": 31.96278190612793,
+      "agl": 20.506296257898057,
+      "tilt": 7.751758658751097,
+      "gsd": 0.006755015237895832,
+      "across": 28.42510412106566,
+      "along": 21.075647542234996,
+      "line": 4
+     },
+     {
+      "t": 246.0583333331917,
+      "x": 0.02648821286857128,
+      "z": 37.108699798583984,
+      "agl": 20.078951468741217,
+      "tilt": 10.700104263118034,
+      "gsd": 0.006614242836761813,
+      "across": 27.83273385709371,
+      "along": 20.63643765069686,
+      "line": 4
+     },
+     {
+      "t": 274.06249999983294,
+      "x": 10.844698905944824,
+      "z": 40.1050910949707,
+      "agl": 19.930401068079824,
+      "tilt": 13.662840368062339,
+      "gsd": 0.006565308587132178,
+      "across": 27.62681853465221,
+      "along": 20.483762791852396,
+      "line": 5
+     },
+     {
+      "t": 277.95416666649606,
+      "x": 11.121208190917969,
+      "z": 34.966163635253906,
+      "agl": 20.06336881406868,
+      "tilt": 14.83073076492307,
+      "gsd": 0.006609109726987332,
+      "across": 27.81113373116269,
+      "along": 20.620422348200474,
+      "line": 5
+     },
+     {
+      "t": 279.3541666664948,
+      "x": 10.978423118591309,
+      "z": 29.81932830810547,
+      "agl": 19.965864148639017,
+      "tilt": 14.668593221416268,
+      "gsd": 0.006576990543081089,
+      "across": 27.675976205285224,
+      "along": 20.520210494413,
+      "line": 5
+     },
+     {
+      "t": 280.45833333316045,
+      "x": 10.827340126037598,
+      "z": 24.667600631713867,
+      "agl": 19.97877388818621,
+      "tilt": 5.2297752707640806,
+      "gsd": 0.006581243163167223,
+      "across": 27.693871230607677,
+      "along": 20.533478669081738,
+      "line": 5
+     },
+     {
+      "t": 281.4958333331595,
+      "x": 10.688434600830078,
+      "z": 19.52552032470703,
+      "agl": 20.0144260588291,
+      "tilt": 1.0368925777925386,
+      "gsd": 0.006592987407614293,
+      "across": 27.74329101124094,
+      "along": 20.57012071175659,
+      "line": 5
+     },
+     {
+      "t": 282.56666666649187,
+      "x": 10.566438674926758,
+      "z": 14.368640899658203,
+      "agl": 20.007638576727608,
+      "tilt": 0.7571695978224222,
+      "gsd": 0.0065907515311573305,
+      "across": 27.733882443110048,
+      "along": 20.563144777210873,
+      "line": 5
+     },
+     {
+      "t": 283.6749999998242,
+      "x": 10.462339401245117,
+      "z": 9.228378295898438,
+      "agl": 20.130691356372633,
+      "tilt": 0.4079614090649627,
+      "gsd": 0.006631286564452162,
+      "across": 27.9044538632147,
+      "along": 20.68961408109075,
+      "line": 5
+     },
+     {
+      "t": 284.8208333331565,
+      "x": 10.373815536499023,
+      "z": 4.086447238922119,
+      "agl": 20.046314527320547,
+      "tilt": 0.3000727839037581,
+      "gsd": 0.006603491844293828,
+      "across": 27.78749368078843,
+      "along": 20.602894554196745,
+      "line": 5
+     },
+     {
+      "t": 285.9958333331554,
+      "x": 10.298027992248535,
+      "z": -1.0585532188415527,
+      "agl": 20.073787871540716,
+      "tilt": 0.438994840593437,
+      "gsd": 0.006612541887095766,
+      "across": 27.825576260898984,
+      "along": 20.631130687738793,
+      "line": 5
+     },
+     {
+      "t": 287.1958333331543,
+      "x": 10.233576774597168,
+      "z": -6.20910120010376,
+      "agl": 20.405824399511914,
+      "tilt": 0.8016454280163609,
+      "gsd": 0.006721918625721572,
+      "across": 28.285833577036378,
+      "along": 20.972386112251307,
+      "line": 5
+     },
+     {
+      "t": 288.4124999998199,
+      "x": 10.178510665893555,
+      "z": -11.355122566223145,
+      "agl": 20.59060994846517,
+      "tilt": 0.9841026387338841,
+      "gsd": 0.006782789159494409,
+      "across": 28.541976783152474,
+      "along": 21.162302177622557,
+      "line": 5
+     },
+     {
+      "t": 289.64166666648543,
+      "x": 10.131035804748535,
+      "z": -16.497501373291016,
+      "agl": 20.567670140944287,
+      "tilt": 1.055665704295733,
+      "gsd": 0.006775232517016942,
+      "across": 28.510178431607294,
+      "along": 21.13872545309286,
+      "line": 5
+     },
+     {
+      "t": 290.883333333151,
+      "x": 10.09023380279541,
+      "z": -21.644262313842773,
+      "agl": 20.463312297600574,
+      "tilt": 1.131515414608139,
+      "gsd": 0.00674085581568019,
+      "across": 28.36552127238224,
+      "along": 21.031470144922192,
+      "line": 5
+     },
+     {
+      "t": 292.1374999998165,
+      "x": 10.05555248260498,
+      "z": -26.79984474182129,
+      "agl": 20.542111455137675,
+      "tilt": 0.6494395822296417,
+      "gsd": 0.006766813185221823,
+      "across": 28.474749883413434,
+      "along": 21.11245713789209,
+      "line": 5
+     },
+     {
+      "t": 293.46666666648196,
+      "x": 10.026386260986328,
+      "z": -31.941164016723633,
+      "agl": 20.267796182257868,
+      "tilt": 7.718377623998297,
+      "gsd": 0.00667645050709671,
+      "across": 28.094503733862958,
+      "along": 20.83052558214174,
+      "line": 5
+     },
+     {
+      "t": 295.19583333314705,
+      "x": 10.003246307373047,
+      "z": -37.084739685058594,
+      "agl": 20.068476069312645,
+      "tilt": 10.694993736383157,
+      "gsd": 0.0066107921169500485,
+      "across": 27.818213228125806,
+      "along": 20.62567140488415,
+      "line": 5
+     },
+     {
+      "t": 323.06666666645503,
+      "x": 20.814542770385742,
+      "z": -40.154945373535156,
+      "agl": 19.966312700019824,
+      "tilt": 13.61151016984234,
+      "gsd": 0.006577138301183002,
+      "across": 27.676597971378072,
+      "along": 20.520671499690966,
+      "line": 6
+     },
+     {
+      "t": 327.00416666645145,
+      "x": 20.963376998901367,
+      "z": -35.006961822509766,
+      "agl": 20.540660748967948,
+      "tilt": 14.872317874501995,
+      "gsd": 0.006766335305542383,
+      "across": 28.472738965722353,
+      "along": 21.11096615329224,
+      "line": 6
+     },
+     {
+      "t": 328.3999999997835,
+      "x": 20.838218688964844,
+      "z": -29.85776138305664,
+      "agl": 20.720827111072506,
+      "tilt": 14.52408643703469,
+      "gsd": 0.0068256842248238855,
+      "across": 28.72247921805891,
+      "along": 21.296134781450522,
+      "line": 6
+     },
+     {
+      "t": 329.4999999997825,
+      "x": 20.71712303161621,
+      "z": -24.710693359375,
+      "agl": 20.715194997907854,
+      "tilt": 5.011898327176659,
+      "gsd": 0.006823828940487294,
+      "across": 28.714672181570535,
+      "along": 21.290346294320358,
+      "line": 6
+     },
+     {
+      "t": 330.5374999997816,
+      "x": 20.607603073120117,
+      "z": -19.57233428955078,
+      "agl": 20.804503543514034,
+      "tilt": 0.52490501671648,
+      "gsd": 0.0068532482260987414,
+      "across": 28.838468535423505,
+      "along": 21.382134465428074,
+      "line": 6
+     },
+     {
+      "t": 331.60416666644727,
+      "x": 20.51088523864746,
+      "z": -14.433573722839355,
+      "agl": 21.033777892188866,
+      "tilt": 0.882115930013111,
+      "gsd": 0.00692877389389751,
+      "across": 29.156280545520723,
+      "along": 21.61777454896023,
+      "line": 6
+     },
+     {
+      "t": 332.71666666644626,
+      "x": 20.426462173461914,
+      "z": -9.280434608459473,
+      "agl": 21.570536807687024,
+      "tilt": 0.34244185946001127,
+      "gsd": 0.007105588595473373,
+      "across": 29.900316809751956,
+      "along": 22.169436417876927,
+      "line": 6
+     },
+     {
+      "t": 333.86249999977855,
+      "x": 20.35300636291504,
+      "z": -4.14187479019165,
+      "agl": 21.365575010700006,
+      "tilt": 0.38225410007777416,
+      "gsd": 0.007038071768230591,
+      "across": 29.616206000714328,
+      "along": 21.958783916879444,
+      "line": 6
+     },
+     {
+      "t": 335.0374999997775,
+      "x": 20.288562774658203,
+      "z": 1.0017873048782349,
+      "agl": 21.356319374959117,
+      "tilt": 0.4355841747130763,
+      "gsd": 0.00703502285292771,
+      "across": 29.603376165119805,
+      "along": 21.949271301134456,
+      "line": 6
+     },
+     {
+      "t": 336.2374999997764,
+      "x": 20.232421875,
+      "z": 6.151426792144775,
+      "agl": 21.31299981586888,
+      "tilt": 0.81863617257813,
+      "gsd": 0.007020752880521514,
+      "across": 29.543328121234534,
+      "along": 21.904748987227126,
+      "line": 6
+     },
+     {
+      "t": 337.45416666644195,
+      "x": 20.18280029296875,
+      "z": 11.297969818115234,
+      "agl": 21.068877722597822,
+      "tilt": 0.9516468398839775,
+      "gsd": 0.0069403361909734,
+      "across": 29.204934691616074,
+      "along": 21.653848915837013,
+      "line": 6
+     },
+     {
+      "t": 338.6833333331075,
+      "x": 20.139123916625977,
+      "z": 16.43861961364746,
+      "agl": 20.691825730693886,
+      "tilt": 1.0519298925247282,
+      "gsd": 0.006816130828934457,
+      "across": 28.682278528156196,
+      "along": 21.26632818627551,
+      "line": 6
+     },
+     {
+      "t": 339.92499999977304,
+      "x": 20.100074768066406,
+      "z": 21.58319854736328,
+      "agl": 20.430251476723058,
+      "tilt": 1.1434109782715962,
+      "gsd": 0.006729965192332302,
+      "across": 28.31969352933433,
+      "along": 20.997491400076782,
+      "line": 6
+     },
+     {
+      "t": 341.17916666643856,
+      "x": 20.065322875976562,
+      "z": 26.737960815429688,
+      "agl": 20.090285397931055,
+      "tilt": 0.3760117970634075,
+      "gsd": 0.006617976366377289,
+      "across": 27.848444549715637,
+      "along": 20.648086263097145,
+      "line": 6
+     },
+     {
+      "t": 342.50416666643736,
+      "x": 20.03427505493164,
+      "z": 31.87782096862793,
+      "agl": 19.91486926538631,
+      "tilt": 8.033242835673143,
+      "gsd": 0.006560192228597845,
+      "across": 27.605288897939733,
+      "along": 20.467799753225275,
+      "line": 6
+     },
+     {
+      "t": 344.2291666664358,
+      "x": 20.008180618286133,
+      "z": 37.02256774902344,
+      "agl": 20.099793663988656,
+      "tilt": 10.47552608629811,
+      "gsd": 0.0066211085010786175,
+      "across": 27.861624572538823,
+      "along": 20.657858523365284,
+      "line": 6
+     },
+     {
+      "t": 372.11249999974376,
+      "x": 30.816762924194336,
+      "z": 40.13996887207031,
+      "agl": 19.95320463273359,
+      "tilt": 13.618372845151471,
+      "gsd": 0.00657282034960636,
+      "across": 27.658428031143565,
+      "along": 20.507199490771846,
+      "line": 7
+     },
+     {
+      "t": 376.0249999997402,
+      "x": 31.085996627807617,
+      "z": 35.006004333496094,
+      "agl": 20.102396878404914,
+      "tilt": 14.852948674027989,
+      "gsd": 0.006621966030533385,
+      "across": 27.86523305648448,
+      "along": 20.66053401526416,
+      "line": 7
+     },
+     {
+      "t": 377.4166666664056,
+      "x": 30.945667266845703,
+      "z": 29.857128143310547,
+      "agl": 20.161161220934254,
+      "tilt": 14.50067011383059,
+      "gsd": 0.006641323696307756,
+      "across": 27.946690114063035,
+      "along": 20.720929932480196,
+      "line": 7
+     },
+     {
+      "t": 378.5166666664046,
+      "x": 30.797517776489258,
+      "z": 24.70504379272461,
+      "agl": 20.52158888700828,
+      "tilt": 4.948413350522836,
+      "gsd": 0.006760052809838023,
+      "across": 28.4463022237984,
+      "along": 21.091364766694632,
+      "line": 7
+     },
+     {
+      "t": 379.55416666640366,
+      "x": 30.662097930908203,
+      "z": 19.56694793701172,
+      "agl": 20.96815552233542,
+      "tilt": 0.6019017017479086,
+      "gsd": 0.006907157113239903,
+      "across": 29.065317132513517,
+      "along": 21.5503301933085,
+      "line": 7
+     },
+     {
+      "t": 380.624999999736,
+      "x": 30.54340171813965,
+      "z": 14.412262916564941,
+      "agl": 21.369019041120712,
+      "tilt": 0.8710788143975192,
+      "gsd": 0.007039206272369177,
+      "across": 29.620979994129495,
+      "along": 21.96232356979183,
+      "line": 7
+     },
+     {
+      "t": 381.737499999735,
+      "x": 30.442218780517578,
+      "z": 9.262523651123047,
+      "agl": 21.48512421771419,
+      "tilt": 0.33594927710950684,
+      "gsd": 0.007077452683482322,
+      "across": 29.781920892093616,
+      "along": 22.08165237246485,
+      "line": 7
+     },
+     {
+      "t": 382.88749999973396,
+      "x": 30.356201171875,
+      "z": 4.1061248779296875,
+      "agl": 21.480019569243503,
+      "tilt": 0.4023246624363246,
+      "gsd": 0.00707577115222139,
+      "across": 29.77484500854761,
+      "along": 22.076405994930738,
+      "line": 7
+     },
+     {
+      "t": 384.0624999997329,
+      "x": 30.282854080200195,
+      "z": -1.0374664068222046,
+      "agl": 21.49128142479518,
+      "tilt": 0.4230647499230144,
+      "gsd": 0.00707948093993253,
+      "across": 29.79045579523609,
+      "along": 22.087980532589498,
+      "line": 7
+     },
+     {
+      "t": 385.2624999997318,
+      "x": 30.2210750579834,
+      "z": -6.185535907745361,
+      "agl": 21.503603494271477,
+      "tilt": 0.8126407113790102,
+      "gsd": 0.0070835399745835465,
+      "across": 29.807536213047566,
+      "along": 22.100644720700664,
+      "line": 7
+     },
+     {
+      "t": 386.47916666639736,
+      "x": 30.168310165405273,
+      "z": -11.32988452911377,
+      "agl": 21.44723075201833,
+      "tilt": 0.9852204330949654,
+      "gsd": 0.007064970130076628,
+      "across": 29.72939430736245,
+      "along": 22.04270680583908,
+      "line": 7
+     },
+     {
+      "t": 387.7083333330629,
+      "x": 30.12290382385254,
+      "z": -16.47087860107422,
+      "agl": 21.388287227548926,
+      "tilt": 1.0570540953035081,
+      "gsd": 0.007045553439663177,
+      "across": 29.64768887410265,
+      "along": 21.982126731749112,
+      "line": 7
+     },
+     {
+      "t": 388.94999999972845,
+      "x": 30.08418083190918,
+      "z": -21.616382598876953,
+      "agl": 21.19284103143918,
+      "tilt": 1.1344099453021392,
+      "gsd": 0.006981171163297614,
+      "across": 29.376768255156357,
+      "along": 21.781254029488554,
+      "line": 7
+     },
+     {
+      "t": 390.204166666394,
+      "x": 30.05097770690918,
+      "z": -26.771196365356445,
+      "agl": 20.83458564817301,
+      "tilt": 0.5898799369593006,
+      "gsd": 0.006863157625280522,
+      "across": 28.880167287180438,
+      "along": 21.41305179087523,
+      "line": 7
+     },
+     {
+      "t": 391.53333333305943,
+      "x": 30.023784637451172,
+      "z": -31.91538429260254,
+      "agl": 20.46864235145997,
+      "tilt": 7.693095568571678,
+      "gsd": 0.006742611598127991,
+      "across": 28.372909604922587,
+      "along": 21.036948186159332,
+      "line": 7
+     },
+     {
+      "t": 393.25833333305786,
+      "x": 30.002628326416016,
+      "z": -37.05710220336914,
+      "agl": 20.0286053357319,
+      "tilt": 10.683374471664111,
+      "gsd": 0.006597658228241097,
+      "across": 27.76294582443854,
+      "along": 20.584693672112223,
+      "line": 7
+     },
+     {
+      "t": 421.1333333330325,
+      "x": 40.816585540771484,
+      "z": -40.147579193115234,
+      "agl": 19.99616625446681,
+      "tilt": 13.614842920604474,
+      "gsd": 0.006586972413236127,
+      "across": 27.717979914897622,
+      "along": 20.551353929296717,
+      "line": 8
+     },
+     {
+      "t": 425.0624999996956,
+      "x": 41.12144088745117,
+      "z": -35.01313781738281,
+      "agl": 19.902418557185957,
+      "tilt": 14.864296809438157,
+      "gsd": 0.006556090818837728,
+      "across": 27.58803016566916,
+      "along": 20.455003354773712,
+      "line": 8
+     },
+     {
+      "t": 426.44999999969434,
+      "x": 40.984161376953125,
+      "z": -29.85894775390625,
+      "agl": 20.124121627896432,
+      "tilt": 14.370046711077354,
+      "gsd": 0.006629122418601178,
+      "across": 27.89534713747376,
+      "along": 20.68286194603568,
+      "line": 8
+     },
+     {
+      "t": 427.5458333330267,
+      "x": 40.828433990478516,
+      "z": -24.71341323852539,
+      "agl": 20.55514759237054,
+      "tilt": 4.749783583002044,
+      "gsd": 0.006771107442192648,
+      "across": 28.492820116746667,
+      "along": 21.125855219641064,
+      "line": 8
+     },
+     {
+      "t": 428.58333333302573,
+      "x": 40.682010650634766,
+      "z": -19.575563430786133,
+      "agl": 20.90196003348084,
+      "tilt": 0.6123301841999078,
+      "gsd": 0.006885351540440748,
+      "across": 28.97355928217467,
+      "along": 21.482296806175135,
+      "line": 8
+     },
+     {
+      "t": 429.6541666663581,
+      "x": 40.553977966308594,
+      "z": -14.42210578918457,
+      "agl": 21.304065507982482,
+      "tilt": 0.8943475831513341,
+      "gsd": 0.00701780981439423,
+      "across": 29.530943698970923,
+      "along": 21.89556662091,
+      "line": 8
+     },
+     {
+      "t": 430.7666666663571,
+      "x": 40.44594192504883,
+      "z": -9.27411937713623,
+      "agl": 21.26124770766504,
+      "tilt": 0.36896348362636977,
+      "gsd": 0.007003705127230837,
+      "across": 29.471591175387363,
+      "along": 21.851559996960212,
+      "line": 8
+     },
+     {
+      "t": 431.91666666635604,
+      "x": 40.35466384887695,
+      "z": -4.121276378631592,
+      "agl": 21.210597734892108,
+      "tilt": 0.41299472682022426,
+      "gsd": 0.0069870204303174015,
+      "across": 29.401381970775624,
+      "along": 21.799503742590293,
+      "line": 8
+     },
+     {
+      "t": 433.09166666635497,
+      "x": 40.27810287475586,
+      "z": 1.0190067291259766,
+      "agl": 21.446302984762482,
+      "tilt": 0.45893192419171175,
+      "gsd": 0.007064664512627642,
+      "across": 29.72810826913712,
+      "along": 22.041753279398247,
+      "line": 8
+     },
+     {
+      "t": 434.2916666663539,
+      "x": 40.2135124206543,
+      "z": 6.166269779205322,
+      "agl": 21.499523317164492,
+      "tilt": 0.8273342274263715,
+      "gsd": 0.007082195916242422,
+      "across": 29.801880415548112,
+      "along": 22.096451258676357,
+      "line": 8
+     },
+     {
+      "t": 435.50833333301944,
+      "x": 40.15916442871094,
+      "z": 11.311010360717773,
+      "agl": 21.603558790092322,
+      "tilt": 0.9566751131489549,
+      "gsd": 0.007116466424971588,
+      "across": 29.946090716280448,
+      "along": 22.20337524591136,
+      "line": 8
+     },
+     {
+      "t": 436.737499999685,
+      "x": 40.11386489868164,
+      "z": 16.45018196105957,
+      "agl": 21.340507222757722,
+      "tilt": 1.0557665883978837,
+      "gsd": 0.007029814143967251,
+      "across": 29.58145791781419,
+      "along": 21.933020129177823,
+      "line": 8
+     },
+     {
+      "t": 437.9791666663505,
+      "x": 40.07624816894531,
+      "z": 21.59364891052246,
+      "agl": 20.9837998770566,
+      "tilt": 1.1465988783092025,
+      "gsd": 0.0069123105477362935,
+      "across": 29.087002784874322,
+      "along": 21.566408908937234,
+      "line": 8
+     },
+     {
+      "t": 439.23333333301605,
+      "x": 40.04482650756836,
+      "z": 26.747533798217773,
+      "agl": 20.652186345124772,
+      "tilt": 0.531316434715166,
+      "gsd": 0.0068030731489822785,
+      "across": 28.62733181091743,
+      "along": 21.225588224824712,
+      "line": 8
+     },
+     {
+      "t": 440.5624999996815,
+      "x": 40.01907730102539,
+      "z": 31.894678115844727,
+      "agl": 20.22128090761676,
+      "tilt": 7.681833077499076,
+      "gsd": 0.006661127828391404,
+      "across": 28.030025901871028,
+      "along": 20.78271882458118,
+      "line": 8
+     },
+     {
+      "t": 442.28749999967994,
+      "x": 40.00030517578125,
+      "z": 37.042518615722656,
+      "agl": 19.974192984938437,
+      "tilt": 10.67576160858004,
+      "gsd": 0.006579734159744427,
+      "across": 27.68752134420455,
+      "along": 20.528770578402614,
+      "line": 8
+     }
+    ],
+    "rejected": {
+     "tilt": 0,
+     "height": 0
+    },
+    "trackColumns": [
+     "t",
+     "x",
+     "y",
+     "z",
+     "roll",
+     "pitch",
+     "yaw",
+     "rpm",
+     "soc",
+     "power",
+     "agl"
+    ],
+    "analysis": {
+     "photos": 144,
+     "coverage": 0.950625,
+     "stereoCells": 6084,
+     "cells": 6400,
+     "flightHeight": 20.471318376457692,
+     "gsd": 0.006743493112244888,
+     "base": 5.1388235294117655,
+     "sigmaZ": 0.013431887053535076,
+     "sigmaSlope": 0.5441662605372191,
+     "params": {
+      "cell": 1,
+      "slopeLimit": 10,
+      "hazardRock": 0.5,
+      "detectPixels": 3,
+      "correlationLength": 5
+     },
+     "safeFraction": 0.9633464825772519,
+     "safeUncertainty": 0.029825285667611598,
+     "samplingError": 0.012045490473338794,
+     "thresholdError": 0.027284681130834976,
+     "meanSlope": 4.821661624122255,
+     "p95Slope": 9.467935094601177,
+     "rocks": {
+      "detected": 784,
+      "hazardDetected": 7,
+      "smallestDetectable": 0.020230479336734664,
+      "abundanceMeasured": 0.005335900783762829
+     },
+     "truth": {
+      "safeFraction": 0.9649901380670611,
+      "meanSlope": 4.773040793867038,
+      "p95Slope": 9.384271953576725,
+      "hazardRocks": 7,
+      "abundance": 0.005335900783762829,
+      "demRmse": 0.013499501642178018
+     }
+    },
+    "plan": {
+     "area": 80,
+     "altitude": 20,
+     "speed": 4,
+     "sideOverlap": 0.6,
+     "forwardOverlap": 0.75,
+     "swath": 27.723294117647065,
+     "footprintAlong": 20.555294117647062,
+     "spacing": 10,
+     "plannedSpacing": 11.089317647058827,
+     "photoSpacing": 5.1388235294117655,
+     "lines": 9,
+     "waypoints": [
+      {
+       "x": -40,
+       "z": -40,
+       "action": "pass",
+       "name": "L1a"
+      },
+      {
+       "x": -40,
+       "z": 40,
+       "action": "pass",
+       "name": "L1b"
+      },
+      {
+       "x": -30,
+       "z": 40,
+       "action": "pass",
+       "name": "L2a"
+      },
+      {
+       "x": -30,
+       "z": -40,
+       "action": "pass",
+       "name": "L2b"
+      },
+      {
+       "x": -20,
+       "z": -40,
+       "action": "pass",
+       "name": "L3a"
+      },
+      {
+       "x": -20,
+       "z": 40,
+       "action": "pass",
+       "name": "L3b"
+      },
+      {
+       "x": -10,
+       "z": 40,
+       "action": "pass",
+       "name": "L4a"
+      },
+      {
+       "x": -10,
+       "z": -40,
+       "action": "pass",
+       "name": "L4b"
+      },
+      {
+       "x": 0,
+       "z": -40,
+       "action": "pass",
+       "name": "L5a"
+      },
+      {
+       "x": 0,
+       "z": 40,
+       "action": "pass",
+       "name": "L5b"
+      },
+      {
+       "x": 10,
+       "z": 40,
+       "action": "pass",
+       "name": "L6a"
+      },
+      {
+       "x": 10,
+       "z": -40,
+       "action": "pass",
+       "name": "L6b"
+      },
+      {
+       "x": 20,
+       "z": -40,
+       "action": "pass",
+       "name": "L7a"
+      },
+      {
+       "x": 20,
+       "z": 40,
+       "action": "pass",
+       "name": "L7b"
+      },
+      {
+       "x": 30,
+       "z": 40,
+       "action": "pass",
+       "name": "L8a"
+      },
+      {
+       "x": 30,
+       "z": -40,
+       "action": "pass",
+       "name": "L8b"
+      },
+      {
+       "x": 40,
+       "z": -40,
+       "action": "pass",
+       "name": "L9a"
+      },
+      {
+       "x": 40,
+       "z": 40,
+       "action": "pass",
+       "name": "L9b"
+      }
+     ],
+     "distance": 913.1370849898476,
+     "lineLength": 720,
+     "gsd": 0.006588235294117648,
+     "exposure": 0.001,
+     "blurPx": 0.6071428571428571,
+     "expectedPhotos": 144,
+     "baseHeightRatio": 0.2569411764705883,
+     "warnings": []
+    },
+    "atmosphere": {
+     "overrides": {
+      "surfacePressure": 871.7597576392524,
+      "surfaceTemperature": 214.52489257476515
+     },
+     "density": 0.021254087343873275,
+     "temperature": 214.52489257476515,
+     "pressure": 871.7597576392524
+    },
+    "budget": {
+     "routeLength": 913.1370849898476,
+     "cruiseTime": 228.2842712474619,
+     "hoverTime": 37.333333333333336,
+     "spinupTime": 0,
+     "flightTime": 265.6176045807952,
+     "hoverPower": 450.36762412352005,
+     "cruisePower": 438.51991908337857,
+     "energyWh": 32.478034663719384,
+     "usableWh": 97.19997211110933,
+     "availableWh": 82.61997629444294,
+     "margin": 50.14194163072355,
+     "feasible": true,
+     "canHover": true,
+     "solar": {
+      "flights": 3,
+      "sols": 3,
+      "flyToday": true,
+      "harvestWh": 161.04876952563367,
+      "nightWh": 94.93999473037157,
+      "minSoC": 0.566191454278684,
+      "survived": true
+     }
+    },
+    "spec": {
+     "vehicle": "pf-r50-b2-standard",
+     "frame": "carbon",
+     "payload": 0,
+     "profile": "mars-brief",
+     "overrides": {
+      "surfacePressure": 871.7597576392524,
+      "surfaceTemperature": 214.52489257476515
+     },
+     "siteElevation": 0,
+     "date": 1794649044546.556,
+     "site": {
+      "lat": 42,
+      "lonEast": 192
+     },
+     "seed": 54109,
+     "wind": {
+      "level": "calm",
+      "direction": 225
+     },
+     "cruiseAltitude": 20,
+     "speed": 4,
+     "reserve": 0.15,
+     "returnHome": true,
+     "control": "autonomous",
+     "timeLimit": 528,
+     "opticalDepth": 0.5,
+     "solarSols": 3
+    },
+    "terrainLabel": {
+     "en": "Procedural terrain — illustrative, NOT NASA data",
+     "tr": "Prosedürel arazi — temsilî, NASA verisi DEĞİL"
+    },
+    "procedural": true
+   }
+  },
+  {
+   "id": "mawrth",
+   "label": {
+    "en": "Mawrth Vallis",
+    "tr": "Mawrth Vallis"
+   },
+   "summary": {
+    "en": "Thick, diverse clay-bearing layers; 2015 Exploration Zone proposal",
+    "tr": "Kalın ve çeşitli kil katmanları; 2015 Keşif Bölgesi önerisi"
+   },
+   "data": {
+    "latitude": {
+     "value": 22.6,
+     "unit": "°N",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Representative point near the candidate landing ellipses (team choice)",
+     "measuredByDrone": false
+    },
+    "longitude": {
+     "value": 343.5,
+     "unit": "°E",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Representative point (team choice)",
+     "measuredByDrone": false
+    },
+    "elevation": {
+     "value": -2500,
+     "unit": "m",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 400,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "Approximate; replace with a MOLA MEGDR sample (raster adapter)",
+     "measuredByDrone": false
+    },
+    "ice": {
+     "value": 0.15,
+     "unit": "index",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0.2,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "22° N: no shallow ice expected; abundant hydrated clays as a water source",
+     "measuredByDrone": false
+    },
+    "dust": {
+     "value": 0.5,
+     "unit": "τ",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 0.2,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "No site-specific dust climatology imported: global annual mean τ ≈ 0.5 assumed at every site, so this criterion does not separate the sites until data are imported",
+     "measuredByDrone": false
+    },
+    "science": {
+     "value": 8,
+     "unit": "1–9",
+     "kind": "assumption",
+     "source": null,
+     "resolution": null,
+     "date": null,
+     "uncertainty": 1,
+     "crs": null,
+     "transforms": [],
+     "note": null,
+     "rationale": "One of the thickest and most diverse clay sequences on Mars; proposed Exploration Zone (ez2015)",
+     "measuredByDrone": false
+    },
+    "solar": {
+     "value": 3142.258940622181,
+     "unit": "Wh/m²/sol",
+     "kind": "model",
+     "source": "mars24",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 471.3388410933271,
+     "crs": null,
+     "transforms": [
+      "Sun position over one Mars year (Mars24), latitude 22.60° (assumption)",
+      "beam exp(−τ/μ) + assumed diffuse term, τ = 0.50 (assumption)",
+      "mean over 67 sampled sols, 15-min steps"
+     ],
+     "note": "±15 %: diffuse-light shape and dust season not resolved",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "temperature": {
+     "value": 205.2317883654269,
+     "unit": "K",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 15,
+     "crs": null,
+     "transforms": [
+      "radiative balance T = ((1 − A)·Ī / (ε σ))^¼ with A = 0.25, ε = 0.95 (assumed)",
+      "Ī = 127.4 W/m² from the insolation model"
+     ],
+     "note": "Annual mean surface temperature; no atmosphere greenhouse, no thermal inertia (±15 K)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "pressure": {
+     "value": 796.6566544682095,
+     "unit": "Pa",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 119.49849817023141,
+     "crs": null,
+     "transforms": [
+      "p = 636 Pa · exp(−h / 11.1 km), h = -2500 m (assumption)"
+     ],
+     "note": "Annual mean; seasonal swing about ±25 % (Fact Sheet 4.0–8.7 mb)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "column": {
+     "value": 213.58087251158432,
+     "unit": "kg/m²",
+     "kind": "model",
+     "source": "factSheet",
+     "resolution": null,
+     "date": null,
+     "uncertainty": 32.03713087673765,
+     "crs": null,
+     "transforms": [
+      "column mass = p / g, g = 3.73 m/s²"
+     ],
+     "note": "Atmosphere above the site: more mass = more braking for landing and more shielding (indicator, not a dose)",
+     "rationale": null,
+     "measuredByDrone": false
+    },
+    "safeArea": {
+     "value": 43.98422090729783,
+     "unit": "%",
+     "kind": "simulation",
+     "source": "drone survey",
+     "resolution": "1 m grid · GSD 6.8 mm/px · 128 photos",
+     "date": null,
+     "uncertainty": 7.363329972422604,
+     "crs": null,
+     "transforms": [
+      "stereo heights from photo pairs, σZ = (H/B)·GSD·σpx = 13.7 mm",
+      "slope over 2 m ≤ 10° and no rock ≥ 0.5 m (rocks seen when ≥ 3 px)",
+      "uncertainty: sampling 3.2 % ⊕ threshold 6.6 %"
+     ],
+     "note": "Measured over the SYNTHETIC terrain of this site (assumed relief and rocks); load a DTM for real slopes",
+     "rationale": null,
+     "measuredByDrone": true
+    }
+   },
+   "terrain": {
+    "relief": 7.5,
+    "craterDensity": 50,
+    "rockAbundance": 0.07
+   },
+   "seed": 99807,
+   "survey": {
+    "site": "mawrth",
+    "result": {
+     "success": true,
+     "reason": "complete",
+     "flightTime": 474.2999999996508,
+     "energyWh": 65.54942961965496,
+     "distance": 1117.1769508075863,
+     "observations": 0,
+     "requiredObservations": 0,
+     "maxTilt": 18.575341472501343,
+     "hoverRateRms": null,
+     "tiltRms": 10.978125320495641,
+     "positionErrorRms": null,
+     "socEnd": 0.47676753294399243,
+     "mass": 2.983259076009783
+    },
+    "photos": [
+     {
+      "t": 28.145833333332057,
+      "x": -40.465675354003906,
+      "z": -40.469337463378906,
+      "agl": 20.069811368138502,
+      "tilt": 14.831028064144023,
+      "gsd": 0.006611231980092684,
+      "across": 27.820064172230015,
+      "along": 20.627043777889174,
+      "line": 0
+     },
+     {
+      "t": 31.883333333331844,
+      "x": -40.00850296020508,
+      "z": -35.350799560546875,
+      "agl": 22.57122149538731,
+      "tilt": 14.936737349173958,
+      "gsd": 0.00743522590436288,
+      "across": 31.287430605559,
+      "along": 23.197904821612184,
+      "line": 0
+     },
+     {
+      "t": 33.324999999999555,
+      "x": -39.714385986328125,
+      "z": -30.216657638549805,
+      "agl": 21.836082114241876,
+      "tilt": 14.807130577411245,
+      "gsd": 0.007193062343514972,
+      "across": 30.268406341511003,
+      "along": 22.442354511766712,
+      "line": 0
+     },
+     {
+      "t": 34.44166666666711,
+      "x": -39.52461242675781,
+      "z": -25.073719024658203,
+      "agl": 21.384114025828946,
+      "tilt": 6.035905518503415,
+      "gsd": 0.007044178737920124,
+      "across": 29.641904129167884,
+      "along": 21.97783766231079,
+      "line": 0
+     },
+     {
+      "t": 35.479166666667936,
+      "x": -39.4055061340332,
+      "z": -19.929195404052734,
+      "agl": 21.350824618468575,
+      "tilt": 0.7117251445087227,
+      "gsd": 0.007033212815495532,
+      "across": 29.5957595276052,
+      "along": 21.94362398434606,
+      "line": 0
+     },
+     {
+      "t": 36.54166666666878,
+      "x": -39.329376220703125,
+      "z": -14.7864351272583,
+      "agl": 20.442389821563733,
+      "tilt": 0.932485990367877,
+      "gsd": 0.006733963705926878,
+      "across": 28.3365192745403,
+      "along": 21.00996676249186,
+      "line": 0
+     },
+     {
+      "t": 37.650000000003,
+      "x": -39.28986358642578,
+      "z": -9.640615463256836,
+      "agl": 19.94954839046858,
+      "tilt": 0.4606281691744115,
+      "gsd": 0.00657161594038965,
+      "across": 27.653359877159648,
+      "along": 20.50344173401571,
+      "line": 0
+     },
+     {
+      "t": 38.80000000000391,
+      "x": -39.27927780151367,
+      "z": -4.485434532165527,
+      "agl": 19.458474679065045,
+      "tilt": 0.5729012643329591,
+      "gsd": 0.006409850482515546,
+      "across": 26.972650830425415,
+      "along": 19.998733505448502,
+      "line": 0
+     },
+     {
+      "t": 39.97083333333818,
+      "x": -39.28924560546875,
+      "z": 0.6621086001396179,
+      "agl": 19.723963771546096,
+      "tilt": 0.7813663219049989,
+      "gsd": 0.006497305712979891,
+      "across": 27.340662440219383,
+      "along": 20.271593824497263,
+      "line": 0
+     },
+     {
+      "t": 41.15833333333912,
+      "x": -39.32474899291992,
+      "z": 5.802268981933594,
+      "agl": 20.094306168158564,
+      "tilt": 0.4551915098774925,
+      "gsd": 0.0066193008553934105,
+      "across": 27.854017999495472,
+      "along": 20.65221866882744,
+      "line": 0
+     },
+     {
+      "t": 42.37083333334009,
+      "x": -39.38278579711914,
+      "z": 10.954569816589355,
+      "agl": 19.779486800815388,
+      "tilt": 0.8491326177216932,
+      "gsd": 0.006515595652033305,
+      "across": 27.41762650375615,
+      "along": 20.328658434343915,
+      "line": 0
+     },
+     {
+      "t": 43.60000000000773,
+      "x": -39.45929718017578,
+      "z": 16.10301971435547,
+      "agl": 19.96198605396175,
+      "tilt": 0.7412644921275298,
+      "gsd": 0.006575713053069753,
+      "across": 27.67060052731752,
+      "along": 20.516224725577633,
+      "line": 0
+     },
+     {
+      "t": 44.84583333334206,
+      "x": -39.55050277709961,
+      "z": 21.251737594604492,
+      "agl": 19.878877284396772,
+      "tilt": 0.9922472053938065,
+      "gsd": 0.0065483360466248195,
+      "across": 27.555398084197243,
+      "along": 20.43080846546944,
+      "line": 0
+     },
+     {
+      "t": 46.10416666667639,
+      "x": -39.654327392578125,
+      "z": 26.405818939208984,
+      "agl": 19.860849475169545,
+      "tilt": 0.09951190163107938,
+      "gsd": 0.0065423974741734975,
+      "across": 27.53040857132208,
+      "along": 20.412280119421315,
+      "line": 0
+     },
+     {
+      "t": 47.425000000010776,
+      "x": -39.770328521728516,
+      "z": 31.557937622070312,
+      "agl": 20.099066295488534,
+      "tilt": 7.112633757322403,
+      "gsd": 0.006620868897337401,
+      "across": 27.86061631999578,
+      "along": 20.65711095969269,
+      "line": 0
+     },
+     {
+      "t": 49.09166666667877,
+      "x": -39.89558792114258,
+      "z": 36.70060729980469,
+      "agl": 20.06237269868403,
+      "tilt": 11.106641422621253,
+      "gsd": 0.006608781594860623,
+      "across": 27.8097529511735,
+      "along": 20.619398575965143,
+      "line": 0
+     },
+     {
+      "t": 77.18750000001197,
+      "x": -29.165040969848633,
+      "z": 40.16337585449219,
+      "agl": 20.111963895278627,
+      "tilt": 13.661343791708678,
+      "gsd": 0.006625117518444725,
+      "across": 27.878494517615405,
+      "along": 20.670366657547543,
+      "line": 1
+     },
+     {
+      "t": 81.12500000000838,
+      "x": -28.898212432861328,
+      "z": 35.02956771850586,
+      "agl": 19.80355115377872,
+      "tilt": 14.815170226301168,
+      "gsd": 0.006523522733009462,
+      "across": 27.450983660503816,
+      "along": 20.353390926989523,
+      "line": 1
+     },
+     {
+      "t": 82.54583333334043,
+      "x": -29.03835105895996,
+      "z": 29.87982177734375,
+      "agl": 20.3181422576465,
+      "tilt": 13.909897861738656,
+      "gsd": 0.006693035096636495,
+      "across": 28.164291686646372,
+      "along": 20.882269501505863,
+      "line": 1
+     },
+     {
+      "t": 83.62916666667277,
+      "x": -29.189298629760742,
+      "z": 24.726367950439453,
+      "agl": 19.76271465291501,
+      "tilt": 3.220038339452405,
+      "gsd": 0.006510070709195534,
+      "across": 27.39437754429481,
+      "along": 20.311420612690068,
+      "line": 1
+     },
+     {
+      "t": 84.66666666667183,
+      "x": -29.330232620239258,
+      "z": 19.570999145507812,
+      "agl": 19.801032516624193,
+      "tilt": 1.021613929408468,
+      "gsd": 0.006522693064299734,
+      "across": 27.447492414573286,
+      "along": 20.350802360615173,
+      "line": 1
+     },
+     {
+      "t": 85.73750000000419,
+      "x": -29.453020095825195,
+      "z": 14.425119400024414,
+      "agl": 20.0052288236964,
+      "tilt": 1.1709661342066469,
+      "gsd": 0.006589957730158814,
+      "across": 27.730542128508294,
+      "along": 20.560668118095503,
+      "line": 1
+     },
+     {
+      "t": 86.85000000000318,
+      "x": -29.55674171447754,
+      "z": 9.285326957702637,
+      "agl": 19.941056013924847,
+      "tilt": 0.5667306458176287,
+      "gsd": 0.006568818451645832,
+      "across": 27.641588044525665,
+      "along": 20.494713569134998,
+      "line": 1
+     },
+     {
+      "t": 88.00000000000213,
+      "x": -29.64375114440918,
+      "z": 4.13748836517334,
+      "agl": 20.12097060428641,
+      "tilt": 0.2205715197680652,
+      "gsd": 0.006628084434353172,
+      "across": 27.890979299758143,
+      "along": 20.679623435181895,
+      "line": 1
+     },
+     {
+      "t": 89.17916666666773,
+      "x": -29.71695327758789,
+      "z": -1.0175868272781372,
+      "agl": 20.029711505713934,
+      "tilt": 0.4933028298139317,
+      "gsd": 0.006598022613646944,
+      "across": 27.76447915822634,
+      "along": 20.585830554578465,
+      "line": 1
+     },
+     {
+      "t": 90.37916666666663,
+      "x": -29.779211044311523,
+      "z": -6.1685967445373535,
+      "agl": 19.934831398646484,
+      "tilt": 0.7303058327100312,
+      "gsd": 0.006566767990142372,
+      "across": 27.632959702519102,
+      "along": 20.4883161292442,
+      "line": 1
+     },
+     {
+      "t": 91.5958333333322,
+      "x": -29.832382202148438,
+      "z": -11.314781188964844,
+      "agl": 19.997415318145457,
+      "tilt": 0.8673394436352626,
+      "gsd": 0.006587383869506739,
+      "across": 27.71971132288436,
+      "along": 20.552637672861028,
+      "line": 1
+     },
+     {
+      "t": 92.8291666666644,
+      "x": -29.87793731689453,
+      "z": -16.468994140625,
+      "agl": 19.84386095847395,
+      "tilt": 0.930047596246091,
+      "gsd": 0.006536801256909067,
+      "across": 27.506859689073355,
+      "along": 20.39481992155629,
+      "line": 1
+     },
+     {
+      "t": 94.0749999999966,
+      "x": -29.91707420349121,
+      "z": -21.62417984008789,
+      "agl": 20.27800091711731,
+      "tilt": 1.2613234492167167,
+      "gsd": 0.0066798120668151145,
+      "across": 28.108649177158004,
+      "along": 20.84101364846316,
+      "line": 1
+     },
+     {
+      "t": 95.32499999999547,
+      "x": -29.948625564575195,
+      "z": -26.769128799438477,
+      "agl": 20.347444971969498,
+      "tilt": 0.4043666709277983,
+      "gsd": 0.006702687755472307,
+      "across": 28.204910075027467,
+      "along": 20.912385797073597,
+      "line": 1
+     },
+     {
+      "t": 96.64999999999426,
+      "x": -29.9758243560791,
+      "z": -31.918739318847656,
+      "agl": 19.872615844978384,
+      "tilt": 8.188595577205446,
+      "gsd": 0.006546273454816409,
+      "across": 27.546718697867455,
+      "along": 20.4243731790272,
+      "line": 1
+     },
+     {
+      "t": 98.38333333332602,
+      "x": -29.997526168823242,
+      "z": -37.06032180786133,
+      "agl": 19.913080409218136,
+      "tilt": 10.236613408027667,
+      "gsd": 0.006559602958330681,
+      "across": 27.602809248655507,
+      "along": 20.465961229991727,
+      "line": 1
+     },
+     {
+      "t": 126.71249999996692,
+      "x": -19.097919464111328,
+      "z": -40.046051025390625,
+      "agl": 20.114232251090648,
+      "tilt": 13.736261773259814,
+      "gsd": 0.006625864741535744,
+      "across": 27.88163883238241,
+      "along": 20.672697993591523,
+      "line": 2
+     },
+     {
+      "t": 130.96666666662972,
+      "x": -19.00424575805664,
+      "z": -32.89472198486328,
+      "agl": 24.89720256466541,
+      "tilt": 14.999561388644448,
+      "gsd": 0.008201431433066253,
+      "across": 34.5116234703428,
+      "along": 25.588466071166714,
+      "line": 2
+     },
+     {
+      "t": 132.2833333332952,
+      "x": -19.121471405029297,
+      "z": -27.7514591217041,
+      "agl": 23.98855766389031,
+      "tilt": 13.960403329561998,
+      "gsd": 0.007902113112810928,
+      "across": 33.252091978708386,
+      "along": 24.654592911970095,
+      "line": 2
+     },
+     {
+      "t": 133.36249999996087,
+      "x": -19.238656997680664,
+      "z": -22.610017776489258,
+      "agl": 22.02709925222736,
+      "tilt": 3.690437484539994,
+      "gsd": 0.007255985636027837,
+      "across": 30.53318755640514,
+      "along": 22.638675184406853,
+      "line": 2
+     },
+     {
+      "t": 134.39999999995993,
+      "x": -19.34488868713379,
+      "z": -17.470386505126953,
+      "agl": 20.886364413062513,
+      "tilt": 1.1482720988892032,
+      "gsd": 0.006880214159597064,
+      "across": 28.951941183584445,
+      "along": 21.46626817794284,
+      "line": 2
+     },
+     {
+      "t": 135.47499999995895,
+      "x": -19.442989349365234,
+      "z": -12.323494911193848,
+      "agl": 20.20259706157066,
+      "tilt": 0.6618967383993558,
+      "gsd": 0.006654973149693865,
+      "across": 28.004127013911788,
+      "along": 20.76351622704486,
+      "line": 2
+     },
+     {
+      "t": 136.5916666666246,
+      "x": -19.53156089782715,
+      "z": -7.173402786254883,
+      "agl": 20.11826917892985,
+      "tilt": 0.3550952432826121,
+      "gsd": 0.006627194553059245,
+      "across": 27.887234679273305,
+      "along": 20.676847005544847,
+      "line": 2
+     },
+     {
+      "t": 137.74583333329022,
+      "x": -19.61082649230957,
+      "z": -2.021894693374634,
+      "agl": 19.813898478455883,
+      "tilt": 0.44439869129459314,
+      "gsd": 0.006526931263491351,
+      "across": 27.465326756771603,
+      "along": 20.364025542093014,
+      "line": 2
+     },
+     {
+      "t": 138.92083333328915,
+      "x": -19.681795120239258,
+      "z": 3.11985182762146,
+      "agl": 20.164754412432508,
+      "tilt": 0.5272389135426673,
+      "gsd": 0.006642507335860122,
+      "across": 27.95167086929939,
+      "along": 20.72462288788358,
+      "line": 2
+     },
+     {
+      "t": 140.1166666666214,
+      "x": -19.74351692199707,
+      "z": 8.259747505187988,
+      "agl": 20.16505878417288,
+      "tilt": 0.43802048197472354,
+      "gsd": 0.006642607599492244,
+      "across": 27.952092778663364,
+      "along": 20.724935710415803,
+      "line": 2
+     },
+     {
+      "t": 141.33749999995362,
+      "x": -19.798904418945312,
+      "z": 13.408463478088379,
+      "agl": 19.897724612949954,
+      "tilt": 0.9561231588311129,
+      "gsd": 0.006554544578383515,
+      "across": 27.581523585837832,
+      "along": 20.45017908455657,
+      "line": 2
+     },
+     {
+      "t": 142.57083333328583,
+      "x": -19.84876823425293,
+      "z": 18.551904678344727,
+      "agl": 20.077024077917436,
+      "tilt": 0.9690978578807847,
+      "gsd": 0.006613607931549273,
+      "across": 27.830062175959345,
+      "along": 20.634456746433735,
+      "line": 2
+     },
+     {
+      "t": 143.81666666661803,
+      "x": -19.893510818481445,
+      "z": 23.6998291015625,
+      "agl": 20.086031804135356,
+      "tilt": 1.0305797142543676,
+      "gsd": 0.006616575182538706,
+      "across": 27.842548368122877,
+      "along": 20.643714569520764,
+      "line": 2
+     },
+     {
+      "t": 145.07916666661689,
+      "x": -19.933982849121094,
+      "z": 28.845481872558594,
+      "agl": 19.74304913224972,
+      "tilt": 4.54519640068313,
+      "gsd": 0.00650359265532932,
+      "across": 27.36711789362578,
+      "along": 20.291209084627482,
+      "line": 2
+     },
+     {
+      "t": 146.51249999994891,
+      "x": -19.96988868713379,
+      "z": 33.98624038696289,
+      "agl": 20.207221919988747,
+      "tilt": 8.76618928977661,
+      "gsd": 0.006656496632466882,
+      "across": 28.01053782942064,
+      "along": 20.768269493296675,
+      "line": 2
+     },
+     {
+      "t": 148.69583333328026,
+      "x": -19.9990177154541,
+      "z": 39.125240325927734,
+      "agl": 19.941568520021466,
+      "tilt": 11.192951236261996,
+      "gsd": 0.006568987277183543,
+      "across": 27.64229846238835,
+      "along": 20.495240304812654,
+      "line": 2
+     },
+     {
+      "t": 175.42083333325596,
+      "x": -9.186925888061523,
+      "z": 40.14656066894531,
+      "agl": 19.996424247390397,
+      "tilt": 13.606729530933878,
+      "gsd": 0.006587057399140367,
+      "across": 27.718337535582666,
+      "along": 20.551619085317945,
+      "line": 3
+     },
+     {
+      "t": 179.2999999999191,
+      "x": -8.861738204956055,
+      "z": 35.01097106933594,
+      "agl": 20.561124648075143,
+      "tilt": 14.844960781459344,
+      "gsd": 0.006773076354660047,
+      "across": 28.501105300409485,
+      "along": 21.131998226539352,
+      "line": 3
+     },
+     {
+      "t": 180.66249999991786,
+      "x": -8.990495681762695,
+      "z": 29.859905242919922,
+      "agl": 20.08868645685196,
+      "tilt": 14.40204447788071,
+      "gsd": 0.0066174496563747645,
+      "across": 27.84622815402501,
+      "along": 20.646442927889264,
+      "line": 3
+     },
+     {
+      "t": 181.75416666658353,
+      "x": -9.147980690002441,
+      "z": 24.723140716552734,
+      "agl": 20.124724390753624,
+      "tilt": 4.741226046233678,
+      "gsd": 0.006629320975777665,
+      "across": 27.896182666072416,
+      "along": 20.683481444426317,
+      "line": 3
+     },
+     {
+      "t": 182.79166666658259,
+      "x": -9.300408363342285,
+      "z": 19.57712745666504,
+      "agl": 20.05051329868323,
+      "tilt": 0.8507870928435488,
+      "gsd": 0.0066048749689780065,
+      "across": 27.793313869459453,
+      "along": 20.60720990321138,
+      "line": 3
+     },
+     {
+      "t": 183.85833333324828,
+      "x": -9.435139656066895,
+      "z": 14.431807518005371,
+      "agl": 20.048219556645773,
+      "tilt": 1.6010497787330964,
+      "gsd": 0.006604119383365667,
+      "across": 27.79013436520273,
+      "along": 20.604852476100884,
+      "line": 3
+     },
+     {
+      "t": 184.97083333324727,
+      "x": -9.54677677154541,
+      "z": 9.28612995147705,
+      "agl": 20.56408743983232,
+      "tilt": 0.2664735934018339,
+      "gsd": 0.006774052333121236,
+      "across": 28.50521221777416,
+      "along": 21.13504327933826,
+      "line": 3
+     },
+     {
+      "t": 186.12083333324622,
+      "x": -9.638648986816406,
+      "z": 4.141726016998291,
+      "agl": 19.68507185135178,
+      "tilt": 0.19129907629288412,
+      "gsd": 0.00648449425691588,
+      "across": 27.286751833102027,
+      "along": 20.23162208157755,
+      "line": 3
+     },
+     {
+      "t": 187.29999999991182,
+      "x": -9.717618942260742,
+      "z": -1.0085099935531616,
+      "agl": 20.205646542935,
+      "tilt": 0.5867287653499413,
+      "gsd": 0.006655977684731531,
+      "across": 28.00835409735028,
+      "along": 20.766650376362374,
+      "line": 3
+     },
+     {
+      "t": 188.49999999991073,
+      "x": -9.784863471984863,
+      "z": -6.156682014465332,
+      "agl": 19.937716484897006,
+      "tilt": 0.7801502082536187,
+      "gsd": 0.006567718371495486,
+      "across": 27.636958907253003,
+      "along": 20.491281319065916,
+      "line": 3
+     },
+     {
+      "t": 189.7166666665763,
+      "x": -9.841270446777344,
+      "z": -11.304786682128906,
+      "agl": 20.099365298019457,
+      "tilt": 0.9602889033045277,
+      "gsd": 0.006620967392288762,
+      "across": 27.861030786751115,
+      "along": 20.657418263940944,
+      "line": 3
+     },
+     {
+      "t": 190.94583333324184,
+      "x": -9.887618064880371,
+      "z": -16.449905395507812,
+      "agl": 20.11639456034184,
+      "tilt": 0.9720024535082807,
+      "gsd": 0.006626577031642018,
+      "across": 27.884636149149614,
+      "along": 20.674920338723098,
+      "line": 3
+     },
+     {
+      "t": 192.18749999990737,
+      "x": -9.925196647644043,
+      "z": -21.599233627319336,
+      "agl": 20.007911270839017,
+      "tilt": 0.858862498833614,
+      "gsd": 0.006590841359805795,
+      "across": 27.734260442062784,
+      "along": 20.56342504259408,
+      "line": 3
+     },
+     {
+      "t": 193.4416666665729,
+      "x": -9.957062721252441,
+      "z": -26.744041442871094,
+      "agl": 19.87488694365771,
+      "tilt": 0.5653463261269904,
+      "gsd": 0.006547021581440188,
+      "across": 27.549866814700312,
+      "along": 20.426707334093386,
+      "line": 3
+     },
+     {
+      "t": 194.77083333323836,
+      "x": -9.982965469360352,
+      "z": -31.887195587158203,
+      "agl": 20.031659516186313,
+      "tilt": 8.65382547229459,
+      "gsd": 0.006598664311214316,
+      "across": 27.76717942158984,
+      "along": 20.587832650988666,
+      "line": 3
+     },
+     {
+      "t": 196.50833333323678,
+      "x": -10.000784873962402,
+      "z": -37.034236907958984,
+      "agl": 19.737714705466328,
+      "tilt": 10.197600204980825,
+      "gsd": 0.006501835432388909,
+      "across": 27.359723499492528,
+      "along": 20.285726549053397,
+      "line": 3
+     },
+     {
+      "t": 224.54166666654461,
+      "x": 0.8412523865699768,
+      "z": -40.16646957397461,
+      "agl": 20.03386825553274,
+      "tilt": 13.665961306005672,
+      "gsd": 0.006599391895940198,
+      "across": 27.770241098116355,
+      "along": 20.59010271533342,
+      "line": 4
+     },
+     {
+      "t": 228.31666666654118,
+      "x": 0.9439866542816162,
+      "z": -35.01791000366211,
+      "agl": 23.088219048538424,
+      "tilt": 14.902640195575113,
+      "gsd": 0.0076055309806950105,
+      "across": 32.004074366764605,
+      "along": 23.729256659768435,
+      "line": 4
+     },
+     {
+      "t": 229.7833333332065,
+      "x": 0.8411480188369751,
+      "z": -29.866689682006836,
+      "agl": 23.25519635463503,
+      "tilt": 14.816705409972897,
+      "gsd": 0.007660535269762129,
+      "across": 32.235532415159035,
+      "along": 23.900870041657843,
+      "line": 4
+     },
+     {
+      "t": 230.9083333332055,
+      "x": 0.729794442653656,
+      "z": -24.725400924682617,
+      "agl": 24.020323796847222,
+      "tilt": 6.4636517741809785,
+      "gsd": 0.007912577250726145,
+      "across": 33.29612507105562,
+      "along": 24.687241022265574,
+      "line": 4
+     },
+     {
+      "t": 231.94583333320455,
+      "x": 0.6269793510437012,
+      "z": -19.583110809326172,
+      "agl": 24.062381146839762,
+      "tilt": 0.3019253129377485,
+      "gsd": 0.00792643143660604,
+      "across": 33.35442348523822,
+      "along": 24.730466082210846,
+      "line": 4
+     },
+     {
+      "t": 233.00833333320358,
+      "x": 0.5327706933021545,
+      "z": -14.429853439331055,
+      "agl": 22.67156792545723,
+      "tilt": 0.9263074839704792,
+      "gsd": 0.007468281198974146,
+      "across": 31.42652728528321,
+      "along": 23.30103734079934,
+      "line": 4
+     },
+     {
+      "t": 234.11249999986924,
+      "x": 0.44773349165916443,
+      "z": -9.277922630310059,
+      "agl": 21.313077474818428,
+      "tilt": 0.5395415506988571,
+      "gsd": 0.00702077846229313,
+      "across": 29.54343576932949,
+      "along": 21.90482880235457,
+      "line": 4
+     },
+     {
+      "t": 235.25416666653487,
+      "x": 0.37291184067726135,
+      "z": -4.134245872497559,
+      "agl": 20.190433832401798,
+      "tilt": 0.09550177438048775,
+      "gsd": 0.006650966438908828,
+      "across": 27.98726677492835,
+      "along": 20.751015289395546,
+      "line": 4
+     },
+     {
+      "t": 236.4291666665338,
+      "x": 0.3063696026802063,
+      "z": 1.0178947448730469,
+      "agl": 19.871829406609287,
+      "tilt": 0.7172041768868928,
+      "gsd": 0.006546014392765412,
+      "across": 27.54562856475686,
+      "along": 20.42356490542809,
+      "line": 4
+     },
+     {
+      "t": 237.62083333319939,
+      "x": 0.2477039396762848,
+      "z": 6.15859842300415,
+      "agl": 20.1785768772589,
+      "tilt": 0.5867530417455774,
+      "gsd": 0.006647060618391168,
+      "across": 27.97083108219004,
+      "along": 20.73882912938045,
+      "line": 4
+     },
+     {
+      "t": 238.83333333319828,
+      "x": 0.19560879468917847,
+      "z": 11.308976173400879,
+      "agl": 19.940704464965457,
+      "tilt": 0.8677101639139672,
+      "gsd": 0.00656870264728274,
+      "across": 27.64110073976577,
+      "along": 20.49435225952215,
+      "line": 4
+     },
+     {
+      "t": 240.06249999986383,
+      "x": 0.14945679903030396,
+      "z": 16.461658477783203,
+      "agl": 20.295034418673623,
+      "tilt": 0.7485237343438623,
+      "gsd": 0.0066854231026219,
+      "across": 28.132260415832956,
+      "along": 20.85852008018033,
+      "line": 4
+     },
+     {
+      "t": 241.30833333319603,
+      "x": 0.10819247364997864,
+      "z": 21.616188049316406,
+      "agl": 19.948665874272592,
+      "tilt": 1.116991437314457,
+      "gsd": 0.006571325229172149,
+      "across": 27.652136564356404,
+      "along": 20.502534715017106,
+      "line": 4
+     },
+     {
+      "t": 242.56249999986156,
+      "x": 0.07106579840183258,
+      "z": 26.76738739013672,
+      "agl": 19.9140757682649,
+      "tilt": 0.43080486630610565,
+      "gsd": 0.006559930841310792,
+      "across": 27.60418898023581,
+      "along": 20.46698422488967,
+      "line": 4
+     },
+     {
+      "t": 243.88749999986035,
+      "x": 0.038003116846084595,
+      "z": 31.90768814086914,
+      "agl": 20.69256468966374,
+      "tilt": 7.931863598855785,
+      "gsd": 0.006816374250712762,
+      "across": 28.683302846999304,
+      "along": 21.26708766222382,
+      "line": 4
+     },
+     {
+      "t": 245.61249999985878,
+      "x": 0.00953336339443922,
+      "z": 37.047149658203125,
+      "agl": 20.384859878319322,
+      "tilt": 10.53156670751028,
+      "gsd": 0.006715012665799307,
+      "across": 28.256773297683484,
+      "along": 20.95083951729384,
+      "line": 4
+     },
+     {
+      "t": 272.4291666665011,
+      "x": 10.706585884094238,
+      "z": 40.18475341796875,
+      "agl": 19.86165022608755,
+      "tilt": 13.306415402366847,
+      "gsd": 0.006542661250946488,
+      "across": 27.531518543982823,
+      "along": 20.413103102953045,
+      "line": 5
+     },
+     {
+      "t": 276.38333333316416,
+      "x": 11.016376495361328,
+      "z": 35.049835205078125,
+      "agl": 19.734884190513576,
+      "tilt": 14.850971704541989,
+      "gsd": 0.006500903027463297,
+      "across": 27.355799939565554,
+      "along": 20.282817445685485,
+      "line": 5
+     },
+     {
+      "t": 277.7791666664962,
+      "x": 10.887860298156738,
+      "z": 29.90753173828125,
+      "agl": 19.904876235762863,
+      "tilt": 14.568358255908512,
+      "gsd": 0.006556900407074826,
+      "across": 27.59143691297087,
+      "along": 20.457529270073458,
+      "line": 5
+     },
+     {
+      "t": 278.8791666664952,
+      "x": 10.74177074432373,
+      "z": 24.76683235168457,
+      "agl": 19.859104324491046,
+      "tilt": 5.2046673194558695,
+      "gsd": 0.006541822601008816,
+      "across": 27.5279895050451,
+      "along": 20.410486515147507,
+      "line": 5
+     },
+     {
+      "t": 279.9249999998276,
+      "x": 10.60403823852539,
+      "z": 19.611751556396484,
+      "agl": 20.124313075629043,
+      "tilt": 0.34704300052916415,
+      "gsd": 0.006629185483736626,
+      "across": 27.895612515563727,
+      "along": 20.683058709258276,
+      "line": 5
+     },
+     {
+      "t": 280.9916666664933,
+      "x": 10.485346794128418,
+      "z": 14.469802856445312,
+      "agl": 20.170118103725425,
+      "tilt": 0.827300662978135,
+      "gsd": 0.006644274198874259,
+      "across": 27.95910582886288,
+      "along": 20.730135500487687,
+      "line": 5
+     },
+     {
+      "t": 282.0999999998256,
+      "x": 10.385862350463867,
+      "z": 9.32119083404541,
+      "agl": 20.112135232811593,
+      "tilt": 0.3752614507369199,
+      "gsd": 0.006625173959043819,
+      "across": 27.878732019656393,
+      "along": 20.67054275221672,
+      "line": 5
+     },
+     {
+      "t": 283.2458333331579,
+      "x": 10.302565574645996,
+      "z": 4.17521333694458,
+      "agl": 20.017510322809866,
+      "tilt": 0.1665111403713929,
+      "gsd": 0.006594003400455015,
+      "across": 27.747566309114706,
+      "along": 20.57329060941965,
+      "line": 5
+     },
+     {
+      "t": 284.42083333315685,
+      "x": 10.231905937194824,
+      "z": -0.9709694981575012,
+      "agl": 19.906169282145164,
+      "tilt": 0.4154088027287488,
+      "gsd": 0.006557326351765467,
+      "across": 27.593229288229086,
+      "along": 20.458858217508258,
+      "line": 5
+     },
+     {
+      "t": 285.6166666664891,
+      "x": 10.173032760620117,
+      "z": -6.111236095428467,
+      "agl": 20.120256288929742,
+      "tilt": 0.8003790099178669,
+      "gsd": 0.006627849130470975,
+      "across": 27.889989141021864,
+      "along": 20.678889287069442,
+      "line": 5
+     },
+     {
+      "t": 286.829166666488,
+      "x": 10.126296043395996,
+      "z": -11.251105308532715,
+      "agl": 20.222783706599206,
+      "tilt": 0.7999568042498568,
+      "gsd": 0.006661622868056209,
+      "across": 28.032109028780532,
+      "along": 20.784263348335376,
+      "line": 5
+     },
+     {
+      "t": 288.05833333315354,
+      "x": 10.087532043457031,
+      "z": -16.39520263671875,
+      "agl": 19.84860912538137,
+      "tilt": 0.8887910857643271,
+      "gsd": 0.006538365358949158,
+      "across": 27.513441430458055,
+      "along": 20.399699919921375,
+      "line": 5
+     },
+     {
+      "t": 289.30416666648574,
+      "x": 10.055132865905762,
+      "z": -21.551076889038086,
+      "agl": 19.97795148652008,
+      "tilt": 1.1480050226271692,
+      "gsd": 0.006580972254383087,
+      "across": 27.692731246444026,
+      "along": 20.53263343367523,
+      "line": 5
+     },
+     {
+      "t": 290.55833333315127,
+      "x": 10.029480934143066,
+      "z": -26.703821182250977,
+      "agl": 20.443933622721225,
+      "tilt": 0.33973249626394886,
+      "gsd": 0.006734472252190523,
+      "across": 28.33865923721772,
+      "along": 21.011553426834432,
+      "line": 5
+     },
+     {
+      "t": 291.88333333315006,
+      "x": 10.009949684143066,
+      "z": -31.854694366455078,
+      "agl": 20.04045635188931,
+      "tilt": 7.764952412966114,
+      "gsd": 0.006601562092387068,
+      "across": 27.779373284764784,
+      "along": 20.596873728247655,
+      "line": 5
+     },
+     {
+      "t": 293.59166666648184,
+      "x": 9.996865272521973,
+      "z": -36.99928283691406,
+      "agl": 20.00990008268776,
+      "tilt": 11.078178546465386,
+      "gsd": 0.006591496497826557,
+      "across": 27.737017262854156,
+      "along": 20.56546907321886,
+      "line": 5
+     },
+     {
+      "t": 321.5666666664564,
+      "x": 20.847091674804688,
+      "z": -40.13260269165039,
+      "agl": 19.972687097126236,
+      "tilt": 13.665120390567287,
+      "gsd": 0.006579238102582761,
+      "across": 27.68543393566826,
+      "along": 20.527222880058215,
+      "line": 6
+     },
+     {
+      "t": 325.1499999997865,
+      "x": 20.96088981628418,
+      "z": -34.99409484863281,
+      "agl": 24.60929580857724,
+      "tilt": 14.906871262596528,
+      "gsd": 0.008106591560472503,
+      "across": 34.112537286468296,
+      "along": 25.292565668674214,
+      "line": 6
+     },
+     {
+      "t": 334.3166666664448,
+      "x": 20.260801315307617,
+      "z": 5.974747180938721,
+      "agl": 25.997462842912263,
+      "tilt": 0.6897958837354223,
+      "gsd": 0.008563870112959336,
+      "across": 36.03676543533288,
+      "along": 26.719274752433126,
+      "line": 6
+     },
+     {
+      "t": 335.5291666664437,
+      "x": 20.2076416015625,
+      "z": 11.120144844055176,
+      "agl": 24.501931768739176,
+      "tilt": 0.8435353028964276,
+      "gsd": 0.008071224582643494,
+      "across": 33.963713043763825,
+      "along": 25.182220697847704,
+      "line": 6
+     },
+     {
+      "t": 336.75833333310925,
+      "x": 20.15998077392578,
+      "z": 16.273475646972656,
+      "agl": 23.11795815570931,
+      "tilt": 0.957831221766977,
+      "gsd": 0.00761532739246895,
+      "across": 32.045297667509345,
+      "along": 23.759821464503126,
+      "line": 6
+     },
+     {
+      "t": 337.9999999997748,
+      "x": 20.11691665649414,
+      "z": 21.428173065185547,
+      "agl": 21.90623750191256,
+      "tilt": 1.0550802982886447,
+      "gsd": 0.0072161723535711965,
+      "across": 30.3656532638276,
+      "along": 22.514457743142138,
+      "line": 6
+     },
+     {
+      "t": 339.24999999977365,
+      "x": 20.078102111816406,
+      "z": 26.5747127532959,
+      "agl": 21.628647433624277,
+      "tilt": 0.3386780376228586,
+      "gsd": 0.007124730919311527,
+      "across": 29.98086770846291,
+      "along": 22.229160468251965,
+      "line": 6
+     },
+     {
+      "t": 340.5708333331058,
+      "x": 20.042909622192383,
+      "z": 31.720966339111328,
+      "agl": 21.08908383558234,
+      "tilt": 7.61429002406808,
+      "gsd": 0.006946992322309478,
+      "across": 29.232943692278283,
+      "along": 21.67461604560557,
+      "line": 6
+     },
+     {
+      "t": 342.2666666664376,
+      "x": 20.011842727661133,
+      "z": 36.86314010620117,
+      "agl": 20.060353759941787,
+      "tilt": 10.730910313159814,
+      "gsd": 0.006608116532686707,
+      "across": 27.806954369545664,
+      "along": 20.61732358198253,
+      "line": 6
+     },
+     {
+      "t": 370.1916666664122,
+      "x": 30.812116622924805,
+      "z": 40.197879791259766,
+      "agl": 19.665626182480846,
+      "tilt": 13.63435580885006,
+      "gsd": 0.0064780886248172204,
+      "across": 27.259796933230867,
+      "along": 20.21163650942973,
+      "line": 7
+     },
+     {
+      "t": 374.12499999974193,
+      "x": 31.122161865234375,
+      "z": 35.060577392578125,
+      "agl": 19.806680158802575,
+      "tilt": 14.840885775874716,
+      "gsd": 0.006524553464076143,
+      "across": 27.45532097683241,
+      "along": 20.35660680791757,
+      "line": 7
+     },
+     {
+      "t": 375.52499999974066,
+      "x": 30.99041748046875,
+      "z": 29.92125129699707,
+      "agl": 19.75479481591579,
+      "tilt": 14.840856905975345,
+      "gsd": 0.006507461821713438,
+      "across": 27.383399345770147,
+      "along": 20.303280883745927,
+      "line": 7
+     },
+     {
+      "t": 376.65833333307296,
+      "x": 30.836315155029297,
+      "z": 24.77220916748047,
+      "agl": 20.37645347647435,
+      "tilt": 8.247331030875994,
+      "gsd": 0.0067122434981327275,
+      "across": 28.24512064014252,
+      "along": 20.942199714174112,
+      "line": 7
+     },
+     {
+      "t": 377.695833333072,
+      "x": 30.687978744506836,
+      "z": 19.633209228515625,
+      "agl": 21.078773932207497,
+      "tilt": 0.24651387461858026,
+      "gsd": 0.0069435961188448235,
+      "across": 29.21865246809902,
+      "along": 21.66401989079585,
+      "line": 7
+     },
+     {
+      "t": 378.7499999997377,
+      "x": 30.556232452392578,
+      "z": 14.494678497314453,
+      "agl": 20.36969317469365,
+      "tilt": 1.243845844009077,
+      "gsd": 0.006710016575193204,
+      "across": 28.235749748413003,
+      "along": 20.935251714602796,
+      "line": 7
+     },
+     {
+      "t": 379.8499999997367,
+      "x": 30.444229125976562,
+      "z": 9.351116180419922,
+      "agl": 20.128483639374988,
+      "tilt": 0.6343917212259444,
+      "gsd": 0.006630559316499997,
+      "across": 27.901393603831988,
+      "along": 20.687345067479992,
+      "line": 7
+     },
+     {
+      "t": 380.99166666640235,
+      "x": 30.350971221923828,
+      "z": 4.208437442779541,
+      "agl": 20.051689793907396,
+      "tilt": 0.17172416680769104,
+      "gsd": 0.006605262520345967,
+      "across": 27.794944685615828,
+      "along": 20.608419063479417,
+      "line": 7
+     },
+     {
+      "t": 382.1666666664013,
+      "x": 30.272724151611328,
+      "z": -0.9400913119316101,
+      "agl": 19.915174636640923,
+      "tilt": 0.4787073506447373,
+      "gsd": 0.0065602928214817165,
+      "across": 27.605712192795064,
+      "along": 20.468113603022957,
+      "line": 7
+     },
+     {
+      "t": 383.36249999973353,
+      "x": 30.206838607788086,
+      "z": -6.0795979499816895,
+      "agl": 20.07548383189638,
+      "tilt": 0.7392151424364029,
+      "gsd": 0.006613100556389397,
+      "across": 27.827927141286583,
+      "along": 20.63287373593492,
+      "line": 7
+     },
+     {
+      "t": 384.5791666663991,
+      "x": 30.151737213134766,
+      "z": -11.234901428222656,
+      "agl": 20.40630523742339,
+      "tilt": 0.9066928548443065,
+      "gsd": 0.006722077019386529,
+      "across": 28.286500097578514,
+      "along": 20.972880300485972,
+      "line": 7
+     },
+     {
+      "t": 385.80833333306464,
+      "x": 30.10637855529785,
+      "z": -16.385618209838867,
+      "agl": 20.444059244767395,
+      "tilt": 1.0043965140902846,
+      "gsd": 0.0067345136335704376,
+      "across": 28.3388333700644,
+      "along": 21.011682536739766,
+      "line": 7
+     },
+     {
+      "t": 387.0458333330635,
+      "x": 30.069108963012695,
+      "z": -21.524511337280273,
+      "agl": 20.613792220139015,
+      "tilt": 1.0544592692195058,
+      "gsd": 0.006790425672516382,
+      "across": 28.574111229948937,
+      "along": 21.186128098251114,
+      "line": 7
+     },
+     {
+      "t": 388.2958333330624,
+      "x": 30.039140701293945,
+      "z": -26.672216415405273,
+      "agl": 20.632792134913185,
+      "tilt": 0.5912166841603781,
+      "gsd": 0.006796684467971403,
+      "across": 28.600448241223663,
+      "along": 21.20565554007078,
+      "line": 7
+     },
+     {
+      "t": 389.62083333306117,
+      "x": 30.01542091369629,
+      "z": -31.81976318359375,
+      "agl": 20.066779550759236,
+      "tilt": 7.50114227242059,
+      "gsd": 0.006610233263779514,
+      "across": 27.815861573984197,
+      "along": 20.623927782992084,
+      "line": 7
+     },
+     {
+      "t": 391.3208333330596,
+      "x": 29.99810028076172,
+      "z": -36.96572494506836,
+      "agl": 19.895936238388533,
+      "tilt": 11.46397575698805,
+      "gsd": 0.006553955466763283,
+      "across": 27.57904460413989,
+      "along": 20.44834105630144,
+      "line": 7
+     },
+     {
+      "t": 419.4749999997007,
+      "x": 40.87333679199219,
+      "z": -40.09941864013672,
+      "agl": 19.818792764636324,
+      "tilt": 13.698489308951014,
+      "gsd": 0.006528543498939025,
+      "across": 27.47211104353542,
+      "along": 20.36905571668976,
+      "line": 8
+     },
+     {
+      "t": 423.04999999969743,
+      "x": 41.00748062133789,
+      "z": -34.95106506347656,
+      "agl": 24.895588409554037,
+      "tilt": 14.891780206942395,
+      "gsd": 0.008200899711382508,
+      "across": 34.509385985497595,
+      "along": 25.586807099513425,
+      "line": 8
+     },
+     {
+      "t": 435.17916666635307,
+      "x": 40.1489143371582,
+      "z": 18.577211380004883,
+      "agl": 25.99612279760535,
+      "tilt": 1.0136312470839122,
+      "gsd": 0.008563428686269999,
+      "across": 36.034907911824156,
+      "along": 26.717897501162398,
+      "line": 8
+     },
+     {
+      "t": 436.42499999968527,
+      "x": 40.10329055786133,
+      "z": 23.724340438842773,
+      "agl": 24.055800944340763,
+      "tilt": 1.100598334066218,
+      "gsd": 0.007924263840488723,
+      "across": 33.34530224077655,
+      "along": 24.72370318232482,
+      "line": 8
+     },
+     {
+      "t": 437.6874999996841,
+      "x": 40.06629943847656,
+      "z": 28.86511993408203,
+      "agl": 21.69751107404995,
+      "tilt": 3.9943493213329972,
+      "gsd": 0.00714741541262822,
+      "across": 30.076324056339548,
+      "along": 22.299936087400045,
+      "line": 8
+     },
+     {
+      "t": 439.1166666663495,
+      "x": 40.03068161010742,
+      "z": 34.00782775878906,
+      "agl": 20.234602978511862,
+      "tilt": 9.445494947583875,
+      "gsd": 0.006665516275274497,
+      "across": 28.048492486355084,
+      "along": 20.79641077885643,
+      "line": 8
+     },
+     {
+      "t": 441.29999999968084,
+      "x": 40.00129699707031,
+      "z": 39.150840759277344,
+      "agl": 19.95513428253466,
+      "tilt": 11.55908882002527,
+      "gsd": 0.006573455998952596,
+      "across": 27.661102843592523,
+      "along": 20.5091827167321,
+      "line": 8
+     }
+    ],
+    "rejected": {
+     "tilt": 295,
+     "height": 4317
+    },
+    "trackColumns": [
+     "t",
+     "x",
+     "y",
+     "z",
+     "roll",
+     "pitch",
+     "yaw",
+     "rpm",
+     "soc",
+     "power",
+     "agl"
+    ],
+    "analysis": {
+     "photos": 128,
+     "coverage": 0.950625,
+     "stereoCells": 6084,
+     "cells": 6400,
+     "flightHeight": 20.649230923745552,
+     "gsd": 0.0068020995984103,
+     "base": 5.1388235294117655,
+     "sigmaZ": 0.013666369799428514,
+     "sigmaSlope": 0.553665277576072,
+     "params": {
+      "cell": 1,
+      "slopeLimit": 10,
+      "hazardRock": 0.5,
+      "detectPixels": 3,
+      "correlationLength": 5
+     },
+     "safeFraction": 0.43984220907297833,
+     "safeUncertainty": 0.07363329972422604,
+     "samplingError": 0.03181845177308724,
+     "thresholdError": 0.06640368178829717,
+     "meanSlope": 11.373989375169819,
+     "p95Slope": 21.77797274423897,
+     "rocks": {
+      "detected": 1408,
+      "hazardDetected": 59,
+      "smallestDetectable": 0.020406298795230902,
+      "abundanceMeasured": 0.013765002598466672
+     },
+     "truth": {
+      "safeFraction": 0.4418145956607495,
+      "meanSlope": 11.350483637433175,
+      "p95Slope": 21.858300522314263,
+      "hazardRocks": 59,
+      "abundance": 0.013765002598466672,
+      "demRmse": 0.013707201420888116
+     }
+    },
+    "plan": {
+     "area": 80,
+     "altitude": 20,
+     "speed": 4,
+     "sideOverlap": 0.6,
+     "forwardOverlap": 0.75,
+     "swath": 27.723294117647065,
+     "footprintAlong": 20.555294117647062,
+     "spacing": 10,
+     "plannedSpacing": 11.089317647058827,
+     "photoSpacing": 5.1388235294117655,
+     "lines": 9,
+     "waypoints": [
+      {
+       "x": -40,
+       "z": -40,
+       "action": "pass",
+       "name": "L1a"
+      },
+      {
+       "x": -40,
+       "z": 40,
+       "action": "pass",
+       "name": "L1b"
+      },
+      {
+       "x": -30,
+       "z": 40,
+       "action": "pass",
+       "name": "L2a"
+      },
+      {
+       "x": -30,
+       "z": -40,
+       "action": "pass",
+       "name": "L2b"
+      },
+      {
+       "x": -20,
+       "z": -40,
+       "action": "pass",
+       "name": "L3a"
+      },
+      {
+       "x": -20,
+       "z": 40,
+       "action": "pass",
+       "name": "L3b"
+      },
+      {
+       "x": -10,
+       "z": 40,
+       "action": "pass",
+       "name": "L4a"
+      },
+      {
+       "x": -10,
+       "z": -40,
+       "action": "pass",
+       "name": "L4b"
+      },
+      {
+       "x": 0,
+       "z": -40,
+       "action": "pass",
+       "name": "L5a"
+      },
+      {
+       "x": 0,
+       "z": 40,
+       "action": "pass",
+       "name": "L5b"
+      },
+      {
+       "x": 10,
+       "z": 40,
+       "action": "pass",
+       "name": "L6a"
+      },
+      {
+       "x": 10,
+       "z": -40,
+       "action": "pass",
+       "name": "L6b"
+      },
+      {
+       "x": 20,
+       "z": -40,
+       "action": "pass",
+       "name": "L7a"
+      },
+      {
+       "x": 20,
+       "z": 40,
+       "action": "pass",
+       "name": "L7b"
+      },
+      {
+       "x": 30,
+       "z": 40,
+       "action": "pass",
+       "name": "L8a"
+      },
+      {
+       "x": 30,
+       "z": -40,
+       "action": "pass",
+       "name": "L8b"
+      },
+      {
+       "x": 40,
+       "z": -40,
+       "action": "pass",
+       "name": "L9a"
+      },
+      {
+       "x": 40,
+       "z": 40,
+       "action": "pass",
+       "name": "L9b"
+      }
+     ],
+     "distance": 913.1370849898476,
+     "lineLength": 720,
+     "gsd": 0.006588235294117648,
+     "exposure": 0.001,
+     "blurPx": 0.6071428571428571,
+     "expectedPhotos": 144,
+     "baseHeightRatio": 0.2569411764705883,
+     "warnings": []
+    },
+    "atmosphere": {
+     "overrides": {
+      "surfacePressure": 796.6566544682095,
+      "surfaceTemperature": 225.2317883654269
+     },
+     "density": 0.0184997065696202,
+     "temperature": 225.2317883654269,
+     "pressure": 796.6566544682095
+    },
+    "budget": {
+     "routeLength": 913.1370849898476,
+     "cruiseTime": 228.2842712474619,
+     "hoverTime": 37.333333333333336,
+     "spinupTime": 0,
+     "flightTime": 265.6176045807952,
+     "hoverPower": 496.03484464890767,
+     "cruisePower": 484.56330090459033,
+     "energyWh": 35.8713372834708,
+     "usableWh": 97.19997211110933,
+     "availableWh": 82.61997629444294,
+     "margin": 46.748639010972134,
+     "feasible": true,
+     "canHover": true,
+     "solar": {
+      "flights": 3,
+      "sols": 3,
+      "flyToday": true,
+      "harvestWh": 183.59930188426105,
+      "nightWh": 94.93999672033094,
+      "minSoC": 0.5548401503082865,
+      "survived": true
+     }
+    },
+    "spec": {
+     "vehicle": "pf-r50-b2-standard",
+     "frame": "carbon",
+     "payload": 0,
+     "profile": "mars-brief",
+     "overrides": {
+      "surfacePressure": 796.6566544682095,
+      "surfaceTemperature": 225.2317883654269
+     },
+     "siteElevation": 0,
+     "date": 1794700447079.7273,
+     "site": {
+      "lat": 22.6,
+      "lonEast": 343.5
+     },
+     "seed": 99807,
+     "wind": {
+      "level": "calm",
+      "direction": 225
+     },
+     "cruiseAltitude": 20,
+     "speed": 4,
+     "reserve": 0.15,
+     "returnHome": true,
+     "control": "autonomous",
+     "timeLimit": 528,
+     "opticalDepth": 0.5,
+     "solarSols": 3
+    },
+    "terrainLabel": {
+     "en": "Procedural terrain — illustrative, NOT NASA data",
+     "tr": "Prosedürel arazi — temsilî, NASA verisi DEĞİL"
+    },
+    "procedural": true
+   }
+  }
+ ],
+ "decision": {
+  "weights": [
+   0.22000000000000003,
+   0.20000000000000004,
+   0.14000000000000004,
+   0.08000000000000002,
+   0.08000000000000002,
+   0.18000000000000002,
+   0.10000000000000002
+  ],
+  "dirs": [
+   "benefit",
+   "benefit",
+   "benefit",
+   "benefit",
+   "cost",
+   "benefit",
+   "benefit"
+  ],
+  "screening": [
+   {
+    "site": "jezero",
+    "pass": true,
+    "checks": [
+     {
+      "rule": "latitude",
+      "pass": true,
+      "value": 18.4447,
+      "threshold": 50
+     },
+     {
+      "rule": "elevation",
+      "pass": true,
+      "value": -2600,
+      "threshold": -1000
+     },
+     {
+      "rule": "surveyed",
+      "pass": true,
+      "value": 95.0625,
+      "threshold": 60
+     },
+     {
+      "rule": "safeArea",
+      "pass": true,
+      "value": 75.37804076265616,
+      "threshold": 50
+     }
+    ]
+   },
+   {
+    "site": "arcadia",
+    "pass": true,
+    "checks": [
+     {
+      "rule": "latitude",
+      "pass": true,
+      "value": 42,
+      "threshold": 50
+     },
+     {
+      "rule": "elevation",
+      "pass": true,
+      "value": -3500,
+      "threshold": -1000
+     },
+     {
+      "rule": "surveyed",
+      "pass": true,
+      "value": 95.0625,
+      "threshold": 60
+     },
+     {
+      "rule": "safeArea",
+      "pass": true,
+      "value": 96.33464825772519,
+      "threshold": 50
+     }
+    ]
+   },
+   {
+    "site": "mawrth",
+    "pass": false,
+    "checks": [
+     {
+      "rule": "latitude",
+      "pass": true,
+      "value": 22.6,
+      "threshold": 50
+     },
+     {
+      "rule": "elevation",
+      "pass": true,
+      "value": -2500,
+      "threshold": -1000
+     },
+     {
+      "rule": "surveyed",
+      "pass": true,
+      "value": 95.0625,
+      "threshold": 60
+     },
+     {
+      "rule": "safeArea",
+      "pass": false,
+      "value": 43.98422090729783,
+      "threshold": 50
+     }
+    ]
+   }
+  ],
+  "passing": [
+   "jezero",
+   "arcadia"
+  ],
+  "quality": [
+   {
+    "criterion": "water",
+    "kinds": [
+     "assumption"
+    ],
+    "mixed": false,
+    "missing": 0,
+    "ok": true,
+    "separates": true
+   },
+   {
+    "criterion": "safety",
+    "kinds": [
+     "simulation"
+    ],
+    "mixed": false,
+    "missing": 0,
+    "ok": true,
+    "separates": true
+   },
+   {
+    "criterion": "solar",
+    "kinds": [
+     "model"
+    ],
+    "mixed": false,
+    "missing": 0,
+    "ok": true,
+    "separates": true
+   },
+   {
+    "criterion": "temperature",
+    "kinds": [
+     "model"
+    ],
+    "mixed": false,
+    "missing": 0,
+    "ok": true,
+    "separates": true
+   },
+   {
+    "criterion": "dust",
+    "kinds": [
+     "assumption"
+    ],
+    "mixed": false,
+    "missing": 0,
+    "ok": true,
+    "separates": false
+   },
+   {
+    "criterion": "science",
+    "kinds": [
+     "assumption"
+    ],
+    "mixed": false,
+    "missing": 0,
+    "ok": true,
+    "separates": true
+   },
+   {
+    "criterion": "access",
+    "kinds": [
+     "model"
+    ],
+    "mixed": false,
+    "missing": 0,
+    "ok": true,
+    "separates": true
+   }
+  ],
+  "safety": {
+   "maxLatitude": 50,
+   "maxElevation": -1000,
+   "minCoverage": 60,
+   "minSafeArea": 50
+  },
+  "matrix": {
+   "sites": [
+    "jezero",
+    "arcadia"
+   ],
+   "X": [
+    [
+     0.1,
+     75.37804076265616,
+     3231.503526623831,
+     206.6737385020924,
+     0.5,
+     9,
+     803.866167969819
+    ],
+    [
+     0.85,
+     96.33464825772519,
+     2536.0872402353066,
+     194.52489257476515,
+     0.5,
+     6,
+     871.7597576392524
+    ]
+   ],
+   "U": [
+    [
+     0.2,
+     7.389471400658097,
+     484.72552899357464,
+     15,
+     0.2,
+     1,
+     120.57992519547284
+    ],
+    [
+     0.15,
+     2.9825285667611596,
+     380.413086035296,
+     15,
+     0.2,
+     1,
+     130.76396364588786
+    ]
+   ]
+  },
+  "topsis": {
+   "norms": [
+    0.8558621384311844,
+    122.3201270607429,
+    4107.840495037093,
+    283.8203093819313,
+    0.7071067811865476,
+    10.816653826391969,
+    1185.818658583904
+   ],
+   "R": [
+    [
+     0.11684124756739722,
+     0.6162357951543347,
+     0.7866672356261124,
+     0.7281851638882392,
+     0.7071067811865475,
+     0.8320502943378436,
+     0.6778997464332279
+    ],
+    [
+     0.9931506043228763,
+     0.7875617085476572,
+     0.6173772431766258,
+     0.6853804542683269,
+     0.7071067811865475,
+     0.554700196225229,
+     0.7351543605160519
+    ]
+   ],
+   "V": [
+    [
+     0.025705074464827393,
+     0.12324715903086696,
+     0.11013341298765576,
+     0.058254813111059144,
+     0.05656854249492381,
+     0.14976905298081186,
+     0.0677899746433228
+    ],
+    [
+     0.21849313295103281,
+     0.15751234170953146,
+     0.08643281404472763,
+     0.054830436341466164,
+     0.05656854249492381,
+     0.09984603532054123,
+     0.0735154360516052
+    ]
+   ],
+   "ideal": [
+    0.21849313295103281,
+    0.15751234170953146,
+    0.11013341298765576,
+    0.058254813111059144,
+    0.05656854249492381,
+    0.14976905298081186,
+    0.0735154360516052
+   ],
+   "anti": [
+    0.025705074464827393,
+    0.12324715903086696,
+    0.08643281404472763,
+    0.054830436341466164,
+    0.05656854249492381,
+    0.09984603532054123,
+    0.0677899746433228
+   ],
+   "Dplus": [
+    0.19589313195520802,
+    0.05536923729672775
+   ],
+   "Dminus": [
+    0.05536923729672775,
+    0.19589313195520802
+   ],
+   "C": [
+    0.22036422509894474,
+    0.7796357749010552
+   ],
+   "order": [
+    1,
+    0
+   ],
+   "rank": [
+    2,
+    1
+   ],
+   "winner": 1
+  },
+  "ranking": [
+   {
+    "site": "arcadia",
+    "label": {
+     "en": "Arcadia Planitia",
+     "tr": "Arcadia Planitia"
+    },
+    "C": 0.7796357749010552,
+    "Dplus": 0.05536923729672775,
+    "Dminus": 0.19589313195520802,
+    "rank": 1
+   },
+   {
+    "site": "jezero",
+    "label": {
+     "en": "Jezero Crater",
+     "tr": "Jezero Krateri"
+    },
+    "C": 0.22036422509894474,
+    "Dplus": 0.19589313195520802,
+    "Dminus": 0.05536923729672775,
+    "rank": 2
+   }
+  ],
+  "recommended": "arcadia",
+  "explanation": [
+   {
+    "criterion": 0,
+    "advantage": 0.19278805848620542,
+    "id": "water"
+   },
+   {
+    "criterion": 5,
+    "advantage": -0.04992301766027063,
+    "id": "science"
+   },
+   {
+    "criterion": 1,
+    "advantage": 0.034265182678664505,
+    "id": "safety"
+   },
+   {
+    "criterion": 2,
+    "advantage": -0.023700598942928128,
+    "id": "solar"
+   },
+   {
+    "criterion": 6,
+    "advantage": 0.005725461408282395,
+    "id": "access"
+   },
+   {
+    "criterion": 3,
+    "advantage": -0.0034243767695929794,
+    "id": "temperature"
+   },
+   {
+    "criterion": 4,
+    "advantage": 0,
+    "id": "dust"
+   }
+  ],
+  "sensitivity": [
+   {
+    "criterion": "water",
+    "interval": [
+     0.06,
+     1
+    ],
+    "current": 0.22000000000000003,
+    "switchesTo": [
+     0
+    ]
+   },
+   {
+    "criterion": "safety",
+    "interval": [
+     0,
+     1
+    ],
+    "current": 0.20000000000000004,
+    "switchesTo": []
+   },
+   {
+    "criterion": "solar",
+    "interval": [
+     0,
+     0.56
+    ],
+    "current": 0.14000000000000004,
+    "switchesTo": [
+     0
+    ]
+   },
+   {
+    "criterion": "temperature",
+    "interval": [
+     0,
+     0.82
+    ],
+    "current": 0.08000000000000002,
+    "switchesTo": [
+     0
+    ]
+   },
+   {
+    "criterion": "dust",
+    "interval": [
+     0,
+     0.99
+    ],
+    "current": 0.08000000000000002,
+    "switchesTo": [
+     0
+    ]
+   },
+   {
+    "criterion": "science",
+    "interval": [
+     0,
+     0.46
+    ],
+    "current": 0.18000000000000002,
+    "switchesTo": [
+     0
+    ]
+   },
+   {
+    "criterion": "access",
+    "interval": [
+     0,
+     1
+    ],
+    "current": 0.10000000000000002,
+    "switchesTo": []
+   }
+  ],
+  "mc": {
+   "weights": {
+    "shares": [
+     0.2555,
+     0.7445
+    ],
+    "n": 2000,
+    "seed": 2026,
+    "mode": "weights"
+   },
+   "data": {
+    "shares": [
+     0.013,
+     0.987
+    ],
+    "n": 2000,
+    "seed": 2027,
+    "mode": "data"
+   },
+   "both": {
+    "shares": [
+     0.305,
+     0.695
+    ],
+    "n": 2000,
+    "seed": 2028,
+    "mode": "both"
+   }
+  }
+ },
+ "generator": "OsirisZk Mars Base Pathfinder"
+}
